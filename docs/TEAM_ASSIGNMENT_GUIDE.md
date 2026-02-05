@@ -1,322 +1,475 @@
 # 👥 Guía de Asignación de Tareas - Sprint 62% → 100%
 
-**Objetivo:** Distribuir trabajo para alcanzar 100% cumplimiento en 2.5-3 días  
-**Equipo:** 3-4 desarrolladores  
-**Tiempo Total:** 14-16 horas  
+**Objetivo:** Alcanzar 100% cumplimiento con equipo de 5 full stack developers en paralelo  
+**Equipo:** 5 desarrolladores full stack independientes  
+**Tiempo Total:** 14-16 horas (distribuidas en 1-2 días paralelos)  
+**Dependencias:** ❌ NINGUNA (trabajo totalmente parallelizable)
 
 ---
 
-## 🎯 EQUIPO RECOMENDADO
+## 🎯 ESTRUCTURA DEL EQUIPO
 
-### Dev 1: **Backend Specialist** (Lead)
-**Especialidad:** Lógica de negocios, APIs, validaciones  
-**Horas disponibles:** 8h (full day)
+Cada developer es **100% autónomo** en su sprint. **Cero dependencias entre equipos.**
 
-```
-├── Sprint 1 [DEV-1.1] Backend: createMatch() - 45 min
-├── Sprint 2 [DEV-2.1] State Machine - 1 h
-├── Sprint 3 [DEV-3.1] Reservation Logic - 1 h
-└── Sprint 5 [DEV-5.1] Error Handling Review - 30 min
-```
+### Dev 1: **Sprint 1 - Create Matches** (3-4h)
+| Item | Descripción |
+|------|------------|
+| **Feature** | Crear nuevos matches entre companies y candidates |
+| **Rango** | 0% → 13% cumplimiento |
+| **Modulo Backend** | `src/utils/match-logic.js` - createMatch(), validation |
+| **Módulo DB** | `src/data/db.json` - matches[] data structure |
+| **Módulo Frontend** | `src/pages/dashboard/dashboard.js` - Modal UI + event listeners |
+| **Archivos a cambiar** | 3 files (backend + frontend + DB) |
+| **No espera a** | ✅ NADIE |
+| **Timeline Estimado** | 3-4 horas (puede empezar inmediatamente) |
 
-**Dependencia para equipo:** ⏭️ Todos esperan que termines Tasks 1.1, 2.1, 3.1 antes de continuar
+**Tareas Específicas:**
+- [ ] Backend: `createMatch()` function con validación
+- [ ] Backend: PATCH/POST endpoints para matches
+- [ ] Frontend: Dashboard modal (candidate + job dropdowns)
+- [ ] Frontend: Fix hardcoded `companyId=1` en jobs.js, interviews.js
+- [ ] DB: Verificar estructura matches[]
+- [ ] Testing: Manual test de flujo completo
 
----
-
-### Dev 2: **Frontend Lead** (Senior)
-**Especialidad:** UI/UX, Event Listeners, State Management  
-**Horas disponibles:** 10h (1.5 days)
-
-```
-├── Sprint 1 [DEV-1.2] Dashboard Modal - 1.5 h
-├── Sprint 1 [DEV-1.3] Fix hardcoded companyId - 30 min
-├── Sprint 3 [DEV-3.2] Reserve Button + Modal - 2 h
-├── Sprint 3 [DEV-3.3] Release Button + Visual - 1.5 h
-└── Sprint 5 [DEV-5.1] Error Handling Implementation - 1 h
-```
-
-**Bloqueador:** Espera Task 1.1 (backend) para empezar 1.2 ✋
+**Ramas Git:** `feature/sprint-1-create-matches` → `refactor`
 
 ---
 
-### Dev 3: **Frontend/QA** (Mid-Level)
-**Especialidad:** UI Components, Testing, Polish  
-**Horas disponibles:** 8h (1 day)
+### Dev 2: **Sprint 2 - Match States** (2-3h)
+| Item | Descripción |
+|------|------------|
+| **Feature** | Sistema de estados para tracking del matching process |
+| **Rango** | 40% → 70% cumplimiento |
+| **Módulo Backend** | `src/utils/match-logic.js` - State machine + validation |
+| **Módulo DB** | `src/data/db.json` - matches[] con todos los estados |
+| **Módulo Frontend** | `src/pages/matches/` + `src/pages/dashboard/` - State buttons UI |
+| **Archivos a cambiar** | 3 files (backend + frontend + DB) |
+| **No espera a** | ✅ NADIE |
+| **Timeline Estimado** | 2-3 horas |
 
+**Tareas Específicas:**
+- [ ] Backend: `validateStateTransition()` - validar transiciones
+- [ ] Backend: `updateMatchState()` - PATCH endpoint
+- [ ] DB: Actualizar matches[] con todos los estados (pending, contacted, interview, hired, discarded)
+- [ ] Frontend: Botones de cambio de estado según estado actual
+- [ ] Frontend: Visual feedback (colores, badges, disabled buttons)
+- [ ] Testing: Validar todas las transiciones posibles
+
+**Ramas Git:** `feature/sprint-2-match-states` → `refactor`
+
+**Estados válidos:**
 ```
-├── Sprint 2 [DEV-2.2] DB: Add States - 15 min
-├── Sprint 2 [DEV-2.3] State Change Buttons - 1.5 h
-├── Sprint 4 [DEV-4.1] Hide Contact Info - 1.5 h
-├── Sprint 4 [DEV-4.2] WhatsApp Redirect [OPTIONAL] - 1 h
-├── Sprint 5 [DEV-5.2] Edge Cases Testing - 1 h
-└── Sprint 5 [DEV-5.3] Integration Testing - 30 min
-```
-
-**Bloqueador:** Espera Task 2.1 (state machine) para empezar 2.3 ✋
-
----
-
-### Dev 4: **Tech Lead / QA** (Part-time, 4h)
-**Especialidad:** Code Review, Testing, Documentation  
-**Horas disponibles:** 4h (half day)
-
-```
-├── Sprint 1 [DIA 1] Code Review Dev 1-2 - 30 min
-├── Sprint 2 [DIA 1] Code Review Dev 3 - 30 min
-├── Sprint 3 [DIA 2] Integration Testing - 1.5 h
-├── Sprint 5 [DIA 3] Update Documentation - 1 h
-└── [SEMPRE] Code guidance para todo el equipo - async
+pending → contacted, discarded
+contacted → interview, discarded
+interview → hired, discarded
+hired → (final state)
+discarded → (final state)
 ```
 
 ---
 
-## 📅 TIMELINE DETALLADO
+### Dev 3: **Sprint 3 - Reservations** (4-5h)
+| Item | Descripción |
+|------|------------|
+| **Feature** | Sistema de bloqueo de candidates para evitar duplicados |
+| **Rango** | 30% → 100% cumplimiento |
+| **Módulo Backend** | `src/utils/reservation-logic.js` (new) - Validation + CRUD |
+| **Módulo DB** | `src/data/db.json` - reservations[] complete |
+| **Módulo Frontend** | `src/pages/candidates/` - Reserve/Release buttons + modal |
+| **Archivos a cambiar** | 4 files (new backend + frontend + DB) |
+| **No espera a** | ✅ NADIE |
+| **Timeline Estimado** | 4-5 horas |
 
-### **DÍA 1: MORNING (3-4 horas)**
+**Tareas Específicas:**
+- [ ] Backend: `validateReservationConflict()` - detectar duplicados
+- [ ] Backend: `createReservation()` - crear reserva con validación
+- [ ] Backend: `releaseReservation()` - liberar reserva (isActive=false)
+- [ ] DB: Enriquecer reservations[] schema
+- [ ] Frontend: "Reserve" button en candidate card
+- [ ] Frontend: Job selection modal
+- [ ] Frontend: "Release" button para mis reservas
+- [ ] Frontend: Visual states (badge, color borders, disabled buttons)
+- [ ] Testing: Conflicto detection, release flow, visual states
 
-| Tiempo | Dev 1 | Dev 2 | Dev 3 | Dev 4 |
-|--------|-------|-------|-------|-------|
-| 9:00-9:45 | **Sprint 1 [1.1]** Backend | Waiting (bloqueador) | Setup | Standup |
-| 9:45-11:15 | ✅ Sprint 1 [1.1] LISTO | **Sprint 1 [1.2]** Dashboard | **Sprint 2 [2.2]** DB | Review +testing prep |
-| 11:15-12:00 | **Sprint 2 [2.1]** State | Sprint 1 [1.3] hardcoded | DB ready ✅ | Code review 1-2 |
+**Ramas Git:** `feature/sprint-3-reservations` → `refactor`
 
-**Status End Morning:** Tasks 1.1, 1.2, 1.3, 2.1, 2.2 = ✅ DONE
-
----
-
-### **DÍA 1: AFTERNOON (3-4 horas)**
-
-| Tiempo | Dev 1 | Dev 2 | Dev 3 | Dev 4 |
-|--------|-------|-------|-------|-------|
-| 13:00-14:45 | ✅ Done (support) | **Sprint 3 [3.2]** Modal | **Sprint 2 [2.3]** Buttons | Code review |
-| 14:45-15:30 | Setup Sprint 3 [3.1] | Sprint 3 [3.2] continue | Testing buttons | Testing prep |
-| 15:30-16:30 | **Sprint 3 [3.1]** Validation | Testing 3.2 | **Sprint 4 [4.1]** Privacy | Standup |
-
-**Status End Afternoon:** Tasks 2.3, 3.2 progressing = ⏳ 80% DONE
-
----
-
-### **DÍA 2: MORNING (3-4 horas)**
-
-| Tiempo | Dev 1 | Dev 2 | Dev 3 | Dev 4 |
-|--------|-------|-------|-------|-------|
-| 9:00-10:30 | ✅ Sprint 3 [3.1] READY | **Sprint 3 [3.3]** Release | **Sprint 4 [4.2]** Optional | QA Setup |
-| 10:30-11:30 | Support Dev 2-3 | Sprint 3 [3.3] continue | Complete 4.2 or 5.2 | **Integration Test** |
-| 11:30-12:00 | Standup | Testing 3.3 | Testing 4.x | Testing |
-
-**Status End Morning:** Tasks 3.1, 3.2, 3.3, 4.1 = ✅ NEARLY DONE
+**Validaciones:**
+- ✅ Bloquear duplicados para mismo job
+- ✅ Permitir múltiples reservas de mismo candidate (jobs diferentes)
+- ✅ Solo owner puede liberar su reserva
+- ✅ Rechazar si candidate.openToWork = false
 
 ---
 
-### **DÍA 2: AFTERNOON (2-3 horas)**
+### Dev 4: **Sprint 4 - Contact Privacy** (2-3h)
+| Item | Descripción |
+|------|------------|
+| **Feature** | Privacidad de contacto hasta alcanzar estado "contacted" |
+| **Rango** | 0% → 10% cumplimiento |
+| **Módulo Frontend** | `src/pages/candidates/` - Conditional rendering |
+| **Archivos a cambiar** | 2 files (frontend only) |
+| **No espera a** | ✅ NADIE |
+| **Timeline Estimado** | 2-3 horas |
 
-| Tiempo | Dev 1 | Dev 2 | Dev 3 | Dev 4 |
-|--------|-------|-------|-------|-------|
-| 13:00-14:00 | Error handling review | **Sprint 5 [5.1]** Errors | **Sprint 5 [5.2]** Cases | **Full Integration** |
-| 14:00-15:00 | Final QA | Finish 5.1 | 5.2 Testing | Testing results |
-| 15:00-16:00 | Bug fixes | Testing | Final polish | Documentation |
+**Tareas Específicas:**
+- [ ] Frontend: Validar match.status antes de mostrar contacto
+- [ ] Frontend: Ocultar phone, email si status ≠ "contacted"
+- [ ] Frontend: Mostrar mensaje claro: "Available after match is contacted"
+- [ ] Frontend: [OPTIONAL] WhatsApp button cuando contacto está oculto
+- [ ] Testing: Validar privacidad en todos los estados
 
-**Status End Day 2:** All sprints = ✅ FUNCTIONAL
+**Ramas Git:** `feature/sprint-4-contact-privacy` → `refactor`
+
+**Lógica:**
+```
+if (match && match.status === 'contacted') {
+  mostrar contact info: phone, email, linkedin
+} else {
+  ocultar contact info
+  mostrar: "Contact available after Contacted status"
+}
+```
 
 ---
 
-### **DÍA 3: POLISH (2-3 horas)**
+### Dev 5: **Sprint 5 - Polish & Integration Testing** (2-3h)
+| Item | Descripción |
+|------|------------|
+| **Feature** | Error handling, edge cases, documentation, final testing |
+| **Rango** | 90% → 100% cumplimiento |
+| **Módulo QA** | Todos los modules (integration testing) |
+| **Módulo Docs** | Update CUMPLIMIENTO_CRUDZASO.md, README |
+| **Archivos a cambiar** | All (QA + docs) |
+| **No espera a** | ✅ PUEDE EMPEZAR CUANDO (mejor después que otros completen) |
+| **Timeline Estimado** | 2-3 horas |
 
-| Tiempo | Dev 1-4 |
-|--------|---------|
-| 9:00-10:00 | **Full integration test** (Dev 4 lead, others observe) |
-| 10:00-11:00 | Bug fixes from testing |
-| 11:00-12:00 | **Update documentation** (Dev 4 + Dev 2) |
-| 12:00-13:00 | **Final commit & merge to develop** |
+**Tareas Específicas:**
+- [ ] QA: Error handling robusto en todas las operaciones
+- [ ] QA: Edge cases (network timeout, missing data, invalid transitions)
+- [ ] QA: Permission checks (candidate vs company)
+- [ ] QA: Full integration test (end-to-end workflow)
+- [ ] QA: Bug fixes encontrados en testing
+- [ ] Docs: Update CUMPLIMIENTO_CRUDZASO.md → 100%
+- [ ] Docs: Update README.md con business rules
+- [ ] Docs: Update CAMBIOS_REALIZADOS.md con session 3
+- [ ] Final: Merge all to develop branch
 
-**Result:** ✅ 100% CUMPLIMIENTO ALCANZADO
+**Ramas Git:** `feature/sprint-5-polish` → `refactor` → `develop` (final merge)
+
+---
+
+## 📅 TIMELINE - TRABAJO PARALELO
+
+### Starting Point
+```
+Todos comienzan Day 1 a las 9:00 AM
+Cada dev en su sprint asignado
+Cero dependencias entre modulos
+```
+
+### Day 1: Full Development (9 AM - 5 PM)
+```
+Dev 1: Trabajando en Sprint 1 (Create Matches)
+Dev 2: Trabajando en Sprint 2 (Match States)
+Dev 3: Trabajando en Sprint 3 (Reservations) ← MOST COMPLEX
+Dev 4: Trabajando en Sprint 4 (Contact Privacy)
+Dev 5: Code review + preliminary testing
+```
+
+### Day 2: Finalization (9 AM - 5 PM)
+```
+Dev 1: Finalizar Sprint 1 + QA local
+Dev 2: Finalizar Sprint 2 + QA local
+Dev 3: Finalizar Sprint 3 + QA local (30% más tiempo)
+Dev 4: Finalizar Sprint 4 + QA local
+Dev 5: Merge schedule + Integration Testing
+```
+
+### Day 3 (Optional): Integration & Polish
+```
+Dev 5: Full integration test run
+Todos: Bug fixes identificados
+Dev 5 + Lead: Merge to develop
+```
 
 ---
 
 ## 💬 REGLAS DE COMUNICACIÓN
 
-### Daily Standup (Mañana + Tarde)
+### ✅ SIN DEPENDENCIAS = COMUNICACIÓN MINIMAL
+
+**Daily Standup (Optional, 5 min)**
 ```
-🙋 Qué hiciste ayer?
-🚀 Qué harás hoy?
-🚧 Qué te bloquea?
+Formato:
+🎯 Mi sprint actual
+✅ Status: On track / Need help
+🚫 Algún bloqueador? (probablemente NO!)
 ```
 
-**Canal:** WhatsApp group / Discord  
-**Tiempo:** 5 min max
+**Canales:**
+- **Sync Issues:** Discord #dev-sprint-1, #dev-sprint-2, etc.
+- **Critical Bugs:** @mention en Discord
+- **Pull Requests:** GitHub PR comments
 
-### Async Updates
-- **Dev 1 → All:** "Sprint 3.1 done, you can pull and start 3.2 / 3.3"
-- **Dev 2 → Dev 1:** "Sprint 3 blocked waiting for 3.1, ETA?"
-- **Dev 4 → All:** "Integration test found issue X, creating hot fix"
+### Code Review Process
+1. **Cuando terminas tu sprint:** Push a tu rama `feature/sprint-X-*`
+2. **Crea PR:** Hacia rama `refactor`
+3. **Reviewer:** Dev 5 (QA Lead) revisa
+4. **Si todo ok:** Merge a `refactor`
+5. **Merge a develop:** Dev 5 coordina merge final cuando todos 4 sprints completos
 
-### Code Review
-- **Dev 4** es revisor principal
-- PR tamaño < 500 lines → merge después de 1 approval
-- PR tamaño > 500 lines → 2 approvals
+### What if You're Blocked?
+- ❌ Casi imposible (trabajo paralelo!)
+- ⚠️ Si encuentras bug en db.json: Documenta en Discord
+- ⚠️ Si necesitas cambio en arquitectura: Tag Dev 5
 
 ---
 
 ## 🔗 GIT WORKFLOW
 
-### Branches
+### Branch Strategy
 ```
-develop (main branch)
-├── refactor (current: incomplete sprints)
-    ├── feature/sprint-1-matches (Dev 1-2)
-    ├── feature/sprint-2-states (Dev 3)
-    ├── feature/sprint-3-reservations (Dev 2)
-    ├── feature/sprint-4-privacy (Dev 3)
-    └── feature/sprint-5-polish (Dev 1-4)
+develop (production)
+├── refactor (integration branch)
+    ├── feature/sprint-1-create-matches (Dev 1)
+    ├── feature/sprint-2-match-states (Dev 2)
+    ├── feature/sprint-3-reservations (Dev 3)
+    ├── feature/sprint-4-contact-privacy (Dev 4)
+    └── feature/sprint-5-polish (Dev 5)
 ```
 
-### Commits por Sprint
+### Commit Examples
 ```bash
-# Dev 1: Sprint 1 Backend
-git commit -m "feat(sprint-1): createMatch() validation and POST endpoint"
+# Dev 1
+git commit -m "feat(sprint-1): createMatch() backend + dashboard modal"
 
-# Dev 2: Sprint 1 UI
-git commit -m "feat(sprint-1): dashboard modal for creating matches"
+# Dev 2
+git commit -m "feat(sprint-2): state machine + match state buttons"
 
-# Dev 3: Sprint 2 UI
-git commit -m "feat(sprint-2): state change buttons for matches"
+# Dev 3
+git commit -m "feat(sprint-3): reservation logic + reserve/release ui"
 
-# Dev 1: Sprint 3 Backend
-git commit -m "feat(sprint-3): reservation validation and creation logic"
+# Dev 4
+git commit -m "feat(sprint-4): hide contact info until contacted status"
 
-# All: Final Polish
-git commit -m "feat(sprint-5): error handling, testing, documentation"
+# Dev 5
+git commit -m "feat(sprint-5): error handling, integration testing, docs update"
 ```
 
-### Merge Strategy
+### Pushing & PR Creation
+```bash
+# Cada dev en su rama
+git checkout -b feature/sprint-X-description
+# ... work ...
+git add .
+git commit -m "feat(sprint-X): ..."
+git push -u origin feature/sprint-X-description
+
+# En GitHub: Create PR
+# Title: feat(sprint-X): [description]
+# Description: Feature overview + testing status
+# Assign reviewer: @Dev5 (QA Lead)
 ```
-Day 1 EOD:  feature/sprint-1-* → refactor
-Day 2 EOD:  feature/sprint-2-*, feature/sprint-3-* → refactor
-Day 3 EOD:  refactor → develop (final PR merge)
+
+### Merging Schedule
+```
+Day 1 EOD:  Dev 1 & 2 PRs ready for review
+Day 2 EOD:  All 4 feature PRs merged to refactor
+Day 3 AM:   Dev 5 full integration test
+Day 3 NOON: Final: refactor → develop (PR merge)
 ```
 
 ---
 
-## ✅ SPRINT CHECKLIST
+## ✅ SPRINT COMPLETION CHECKLIST
 
-### Sprint 1: Create Matches
-- [ ] Dev 1: createMatch() function with validation
-- [ ] Dev 2: Dashboard modal rendering
-- [ ] Dev 2: Fix hardcoded companyId in jobs.js, interviews.js
-- [ ] Dev 4: Code review all 3 tasks
-- [ ] All: Manual test with sample jobs
+### Dev 1: Sprint 1 Checklist
+- [ ] `createMatch()` implemented with full validation
+- [ ] Dashboard modal displays + works correctly
+- [ ] Hardcoded companyId fixed in jobs.js + interviews.js
+- [ ] manual testing: Create match successfully
+- [ ] Manual testing: Error handling (conflicts, invalid data)
+- [ ] No console errors
+- [ ] Code committed and pushed
+- [ ] PR created toward `refactor`
 
-### Sprint 2: Match States
-- [ ] Dev 1: State machine transitions defined
-- [ ] Dev 3: Update db.json with all states
-- [ ] Dev 3: State change buttons UI
-- [ ] Dev 4: Code review
-- [ ] All: Test all state transitions (pending→contacted→interview→hired)
+### Dev 2: Sprint 2 Checklist
+- [ ] State machine transitions defined and validated
+- [ ] db.json updated with all 5 states
+- [ ] State change buttons visible and functional
+- [ ] Visual feedback working (colors, badges, disabled buttons)
+- [ ] Manual testing: All valid transitions work
+- [ ] Manual testing: Invalid transitions rejected with error
+- [ ] No console errors
+- [ ] Code committed and pushed
+- [ ] PR created toward `refactor`
 
-### Sprint 3: Reservations
-- [ ] Dev 1: validateReservationConflict(), createReservation(), releaseReservation()
-- [ ] Dev 2: Reserve button + job selection modal
-- [ ] Dev 2: Release button + visual blocked state
-- [ ] Dev 4: Integration test the full flow
-- [ ] All: Conflict scenario testing
+### Dev 3: Sprint 3 Checklist
+- [ ] `validateReservationConflict()` implemented
+- [ ] `createReservation()` endpoint working
+- [ ] `releaseReservation()` endpoint working
+- [ ] Reserve button visible + modal functional
+- [ ] Release button visible + working
+- [ ] Visual blocking states (badges, colors)
+- [ ] Manual testing: Create reservation successfully
+- [ ] Manual testing: Conflict detection working
+- [ ] Manual testing: Release flow works
+- [ ] No console errors
+- [ ] Code committed and pushed
+- [ ] PR created toward `refactor`
 
-### Sprint 4: Contact Privacy
-- [ ] Dev 3: Hide contact info until status="contacted"
-- [ ] Dev 3: [OPTIONAL] WhatsApp redirect button
-- [ ] Dev 4: Code review
-- [ ] All: Test privacy enforcement
+### Dev 4: Sprint 4 Checklist
+- [ ] Contact info hidden when status ≠ "contacted"
+- [ ] Contact info visible when status = "contacted"
+- [ ] User-friendly message shown when hidden
+- [ ] Manual testing: Privacy enforcement working
+- [ ] [Optional] WhatsApp button functional
+- [ ] No console errors
+- [ ] Code committed and pushed
+- [ ] PR created toward `refactor`
 
-### Sprint 5: Polish
-- [ ] Dev 1: Review error handling in all functions
-- [ ] Dev 3: Edge cases validation (missing records, invalid states)
-- [ ] Dev 4: Full integration test + bug fixes
-- [ ] Dev 4: Update CUMPLIMIENTO_CRUDZASO.md to 100%
-- [ ] All: Final commit and merge
+### Dev 5: Sprint 5 Checklist
+- [ ] All 4 feature PRs reviewed + approved
+- [ ] All 4 PRs merged to `refactor` branch
+- [ ] Full integration test executed (see [TESTING_CHECKLIST.md](TESTING_CHECKLIST.md))
+- [ ] Bug fixes applied for integration test issues
+- [ ] CUMPLIMIENTO_CRUDZASO.md updated → 100%
+- [ ] README.md updated with business rules
+- [ ] CAMBIOS_REALIZADOS.md updated
+- [ ] Final PR: refactor → develop
+- [ ] Final merge completed
+- [ ] ✅ 100% CUMPLIMIENTO REACHED
 
 ---
 
-## 🎓 RECURSOS PARA DEVELOPERS
+## 🎓 RECURSOS PARA CADA DEVELOPER
 
-### Para Dev 1 (Backend)
-```
-Para empezar Sprint 1:
-  - Lee: src/utils/match-logic.js (actual structure)
-  - Lee: src/data/db.json (schema completo)
-  - Copy-paste: createMatch() function en docs/CUMPLIMIENTO_CRUDZASO.md
+### Dev 1: Create Matches
+**Start Points:**
+- [x] Revisa: `src/utils/match-logic.js` (template)
+- [x] Revisa: `src/data/db.json` (schema)
+- [x] Revisa: `CUMPLIMIENTO_CRUDZASO.md` section "SPRINT 1"
+- [x] Revisa: `IMPLEMENTACION_OPEN_TO_WORK.md` (similar feature pattern)
 
-Para Sprint 2-3:
-  - Entender state transitions (validate rules)
-  - API design para reservation endpoints
-```
+**Critical Files:**
+- `src/utils/match-logic.js` - tu backend module
+- `src/pages/dashboard/dashboard.js` - tu frontend module
+- `src/data/db.json` - verify matches[] structure
 
-### Para Dev 2 (Frontend)
-```
-Para empezar Sprint 1:
-  - Lee: src/pages/dashboard/dashboard.js (actual code)
-  - Lee: docs/IMPLEMENTACION_OPEN_TO_WORK.md (similar feature)
-  - Copy-paste: HTML modal structure en CUMPLIMIENTO_CRUDZASO.md
+---
 
-Para Sprint 3:
-  - Similar a Open to Work feature ya implementada
-  - Look at candidate.js para ver toggle pattern
-```
+### Dev 2: Match States
+**Start Points:**
+- [x] Revisa: `src/utils/match-logic.js` (add state functions)
+- [x] Revisa: `src/pages/matches/` (button placement)
+- [x] Revisa: `CUMPLIMIENTO_CRUDZASO.md` section "SPRINT 2"
+- [x] Review state diagram in document
 
-### Para Dev 3 (Testing/QA)
-```
-Para empezar Sprint 2:
-  - Lee: src/data/db.json (actual structure)
-  - Entender: match states workflow
-  - Test cases en CUMPLIMIENTO_CRUDZASO.md
-```
+**Critical Files:**
+- `src/utils/match-logic.js` - state validation functions
+- `src/pages/matches/index.html` + `src/pages/dashboard/dashboard.js` - buttons
+- `src/data/db.json` - ensure all states present
 
-### Para Dev 4 (Tech Lead)
-```
-TODO:
-  - Be the async help for all devs
-  - Run integration tests día 2-3
-  - Keep eye on architecture consistency
-  - Update docs final
-```
+---
+
+### Dev 3: Reservations
+**Start Points:**
+- [x] Revisa: Create new `src/utils/reservation-logic.js`
+- [x] Revisa: `src/pages/candidates/candidates.js` (button placement)
+- [x] Revisa: `CUMPLIMIENTO_CRUDZASO.md` section "SPRINT 3"
+- [x] Revisa: `IMPLEMENTACION_OPEN_TO_WORK.md` (toggle pattern example)
+
+**Critical Files:**
+- `src/utils/reservation-logic.js` - NEW file, your module
+- `src/pages/candidates/candidates.js` - Reserve button + modal
+- `src/data/db.json` - reservations[] structure
+
+---
+
+### Dev 4: Contact Privacy
+**Start Points:**
+- [x] Revisa: `src/pages/candidates/candidate.js` (conditional rendering)
+- [x] Revisa: `CUMPLIMIENTO_CRUDZASO.md` section "SPRINT 4"
+- [x] Revisa: How Contact info currently renders
+
+**Critical Files:**
+- `src/pages/candidates/candidate.js` - renderization logic
+- `src/pages/candidates/index.html` - contact info HTML
+
+---
+
+### Dev 5: Integration & Docs
+**Start Points:**
+- [x] Revisa: Todos los checklists de testing en `TESTING_CHECKLIST.md`
+- [x] Revisa: Flujo end-to-end en documento
+- [x] Prepara merge strategy y documentación final
+
+**Critical Files:**
+- `docs/CUMPLIMIENTO_CRUDZASO.md` - update to 100%
+- `docs/CAMBIOS_REALIZADOS.md` - log session 3 changes
+- `README.md` - add business rules
+- GitHub: Monitor all 4 PRs
 
 ---
 
 ## 🏁 SUCCESS CRITERIA
 
-### Cada Sprint es exitoso si:
-- ✅ Todos los checks del Sprint checklist están completos
-- ✅ Code review aprobado por Dev 4
-- ✅ Tests manuales pasaron
-- ✅ Merged a rama principal sin conflictos
-- ✅ Cumplimiento % aumentó según lo planeado
+### Each Dev's Sprint is Successful if:
+- ✅ Code written completely (backend + frontend)
+- ✅ Tested manually with sample data
+- ✅ No console errors or warnings
+- ✅ PR created with clear description
+- ✅ PR approved by Dev 5 (QA Lead)
+- ✅ Merged to `refactor` without conflicts
+- ✅ Expected % cumplimiento increase achieved
 
-### Proyecto alcanza 100% si:
-- ✅ Todos 5 sprints completados
-- ✅ CUMPLIMIENTO_CRUDZASO.md dice 100%
-- ✅ Todos commits pusheados a develop
-- ✅ README.md actualizado con business rules
-- ✅ Full integration test pasó sin breaking changes
-
----
-
-## 📞 PREGUNTAS COMUNES
-
-**Q: Qué pasa si me bloqueo?**  
-A: Contacta a Dev 4 (Tech Lead) o la persona de quien depende tu task. Post en chat del equipo.
-
-**Q: Puedo hacer task en diferente orden?**  
-A: Sí, pero respeta las dependencias (ej: 3.1 Backend antes de 3.2 UI)
-
-**Q: Qué si termino antes?**  
-A: Ayuda al compañero que está bloqueado OR empieza testing del siguiente sprint
-
-**Q: Qué control de versión usan?**  
-A: Git flow: feature branches → refactor → develop. Ver sección "GIT WORKFLOW" arriba.
-
-**Q: Dónde reporto bugs encontrados?**  
-A: En Discord en canal #bugs con descripción, pasos para reproducir, expected vs actual.
+### Project Reaches 100% if:
+- ✅ All 5 sprints completed
+- ✅ CUMPLIMIENTO_CRUDZASO.md shows 100%
+- ✅ All commits pushed to `develop` branch
+- ✅ README.md updated with business rules
+- ✅ CAMBIOS_REALIZADOS.md reflects session 3 work
+- ✅ Full integration test passed
+- ✅ Zero breaking changes
 
 ---
 
-**Última actualización:** 2026-02-05  
-**Creado por:** GitHub Copilot  
-**Referencia:** [CUMPLIMIENTO_CRUDZASO.md](CUMPLIMIENTO_CRUDZASO.md) - Detalles técnicos de cada task
+## 📞 FAQ
+
+**Q: I'm blocked by another developer?**  
+A: Casi imposible! Estás en tu feature branch independiente. Revisa si necesitas algo de db.json; sino, continue.
+
+**Q: Can I start before Day 1?**  
+A: Sí! Setup early: `git branch`, `git checkout -b feature/sprint-X-*`, familiarize con archivos.
+
+**Q: What if I finish early?**  
+A: Great! Start writing your test cases, add comments to code, help Dev 5 with integration planning.
+
+**Q: Merge conflicts?**  
+A: Probable only in db.json. Divide smartly: Dev 1 adds matches[], Dev 2 updates existing, Dev 3 adds reservations[], Dev 4 no touch, etc.
+
+**Q: How do I handle API errors?**  
+A: Try-catch en TODOS los fetch calls. Show user-friendly error messages. Log to console para debugging.
+
+**Q: Should I commit every change?**  
+A: Commit cuando completes una lógica funcional. Commits pequeños son mejores (easy rollback).
+
+---
+
+## 🎯 GOAL: 100% CUMPLIMIENTO in 2-3 DAYS
+
+| Dev | Sprint | Feature | Horas | % Gain |
+|-----|--------|---------|-------|--------|
+| 1 | 1 | Create Matches | 3-4h | +13% |
+| 2 | 2 | Match States | 2-3h | +30% |
+| 3 | 3 | Reservations | 4-5h | +70% |
+| 4 | 4 | Contact Privacy | 2-3h | +10% |
+| 5 | 5 | Polish & Testing | 2-3h | +10% |
+| **TOTALS** | **5 Sprints** | **100% Complete** | **14-16h** | **100%** |
+
+---
+
+**Last Updated:** 2026-02-05  
+**Team Model:** Full-Parallel (5 independent developers)  
+**Dependencies:** 0 (zero blocking)  
+**Start Date:** Today!
