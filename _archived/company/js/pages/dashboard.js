@@ -18,7 +18,7 @@ async function loadMetrics(companyId) {
         fetch(`${API_URL}/jobs?companyId=${companyId}`),
         fetch(`${API_URL}/applications`),
         fetch(`${API_URL}/interviews?companyId=${companyId}&status=scheduled`),
-        fetch(`${API_URL}/matches?companyId=${companyId}`),
+        fetch(`${API_URL}/matches?companyId=${companyId}`), 
       ]);
 
     const jobs = await jobsRes.json();
