@@ -1,16 +1,20 @@
 const API_URL = "http://localhost:3000";
 const STATES = ["pending", "contacted", "interview", "hired", "rejected"];
 
+// Solution for Dynamic ID and fetch routing problems
+// Get user from localStorage
+const user = JSON.parse(localStorage.getItem("user"));
+
 document.addEventListener("DOMContentLoaded", () => {
-  loadMatches();
+  loadMatches(user.id);
 });
 
 /* ===============================
    🔄 Cargar todos los matches
 ================================= */
-async function loadMatches() {
+async function loadMatches(companyId) {
   try {
-    const res = await fetch(`${API_URL}/matches?companyId=1`);
+    const res = await fetch(`${API_URL}/matches?companyId=${companyId}`);
     const matches = await res.json();
 
     renderPipeline(matches);
@@ -26,9 +30,10 @@ function renderPipeline(matches) {
   const container = document.getElementById("pipeline-container");
   container.innerHTML = "";
 
-  STATES.forEach(state => {
+  STATES.forEach((state) => {
     const column = document.createElement("div");
-    column.className = "bg-background-card p-4 rounded-xl shadow-card min-h-[200px]";
+    column.className =
+      "bg-background-card p-4 rounded-xl shadow-card min-h-[200px]";
 
     column.innerHTML = `
       <h4 class="font-semibold mb-4 capitalize flex justify-between items-center">
@@ -41,7 +46,7 @@ function renderPipeline(matches) {
     container.appendChild(column);
   });
 
-  matches.forEach(match => renderMatchCard(match));
+  matches.forEach((match) => renderMatchCard(match));
 }
 
 /* ===============================
@@ -52,10 +57,15 @@ async function renderMatchCard(match) {
     const column = document.getElementById(`column-${match.status}`);
     const counter = document.getElementById(`count-${match.status}`);
 
-    const candidate = await fetch(`${API_URL}/candidates/${match.candidateId}`).then(r => r.json());
-    const job = await fetch(`${API_URL}/jobs/${match.jobId}`).then(r => r.json());
+    const candidate = await fetch(
+      `${API_URL}/candidates/${match.candidateId}`,
+    ).then((r) => r.json());
+    const job = await fetch(`${API_URL}/jobs/${match.jobId}`).then((r) =>
+      r.json(),
+    );
 
-    const candidateName = candidate.name || candidate.fullName || "Unknown Candidate";
+    const candidateName =
+      candidate.name || candidate.fullName || "Unknown Candidate";
     const jobTitle = job.title || job.position || "Unknown Job";
 
     const card = document.createElement("div");
@@ -72,12 +82,10 @@ async function renderMatchCard(match) {
 
     column.appendChild(card);
     counter.textContent = Number(counter.textContent) + 1;
-
   } catch (error) {
     console.error("Error rendering match:", error);
   }
 }
-
 
 /* ===============================
    🎯 Botones según estado
@@ -125,7 +133,7 @@ async function updateMatch(matchId, newStatus) {
     await fetch(`${API_URL}/matches/${matchId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: newStatus })
+      body: JSON.stringify({ status: newStatus }),
     });
 
     loadMatches(); // Recargar pipeline

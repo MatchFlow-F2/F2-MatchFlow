@@ -1,10 +1,13 @@
 const API_URL = "http://localhost:3000";
 
-document.addEventListener("DOMContentLoaded", loadJobs);
+// Solution for Dynamic ID and fetch routing problems
+// Get user from localStorage
+const user = JSON.parse(localStorage.getItem("user"));
+document.addEventListener("DOMContentLoaded", loadJobs(user.id));
 
-async function loadJobs() {
+async function loadJobs(companyId) {
   try {
-    const res = await fetch(`${API_URL}/jobs?companyId=1`);
+    const res = await fetch(`${API_URL}/jobs?companyId=${companyId}`);
     const jobs = await res.json();
     renderJobs(jobs);
   } catch (err) {
@@ -19,9 +22,10 @@ function renderJobs(jobs) {
   container.innerHTML = "";
   counter.textContent = `${jobs.length} jobs`;
 
-  jobs.forEach(job => {
+  jobs.forEach((job) => {
     const card = document.createElement("div");
-    card.className = "bg-background-app p-4 rounded-lg flex justify-between items-center";
+    card.className =
+      "bg-background-app p-4 rounded-lg flex justify-between items-center";
 
     card.innerHTML = `
       <div>
@@ -49,7 +53,7 @@ async function closeJob(id) {
   await fetch(`${API_URL}/jobs/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: "closed" })
+    body: JSON.stringify({ status: "closed" }),
   });
   loadJobs();
 }

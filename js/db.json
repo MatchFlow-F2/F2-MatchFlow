@@ -5,7 +5,7 @@
       "email": "test1@crudzaso.com",
       "password": "123",
       "name": "John",
-      "role": "candidate",
+      "role": "company",
       "openToWork": true,
       "profile": {
         "title": "Senior Frontend Developer",
@@ -90,7 +90,7 @@
   "jobs": [
     {
       "id": "101",
-      "companyId": "3",
+      "companyId": "1",
       "title": "React Developer",
       "description": "We are looking for a React expert for an international project.",
       "requirements": [
@@ -101,7 +101,7 @@
     },
     {
       "id": "102",
-      "companyId": "4",
+      "companyId": "1",
       "title": "Product Designer",
       "description": "Design the future of our mobile app.",
       "requirements": [
@@ -119,6 +119,31 @@
       "candidateId": "1",
       "status": "pending",
       "createdAt": "2026-01-27T10:00:00Z"
+    },
+    {
+      "id": "1",
+      "status": "rejected",
+      "candidateId": "2",
+      "jobId": "101",
+      "companyId": "1",
+      "createdAt": "2026-01-27T10:00:00Z"
+    }
+  ],
+  "interviews": [
+    {
+      "companyId": "1",
+      "candidateId": "2",
+      "jobId": "101",
+      "date": "5/2/2026",
+      "time": "5/2/2026",
+      "id": "33",
+      "status": "cancelled"
+    }
+  ],
+  "candidates": [
+    {
+      "name": "John",
+      "id": "2"
     }
   ]
 }

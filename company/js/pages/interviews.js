@@ -1,10 +1,17 @@
 const API_URL = "http://localhost:3000";
 
-document.addEventListener("DOMContentLoaded", loadInterviews);
+// Solution for Dynamic ID and fetch routing problems
+// Get user from localStorage
+const user = JSON.parse(localStorage.getItem("user"));
+// I pass the user ID to the loadInterviews function
+document.addEventListener("DOMContentLoaded", loadInterviews(user.id));
 
-async function loadInterviews() {
+// I create a parameter for the companyId function
+async function loadInterviews(companyId) {
   try {
-    const res = await fetch(`${API_URL}/interviews?companyId=1`);
+    // Commented error line
+    // const res = await fetch(`${API_URL}/interviews?companyId=1`);
+    const res = await fetch(`${API_URL}/interviews?companyId=${companyId}`);
     const interviews = await res.json();
 
     renderInterviews(interviews);
@@ -21,11 +28,16 @@ async function renderInterviews(interviews) {
   counter.textContent = `${interviews.length} interviews`;
 
   for (const interview of interviews) {
-    const candidate = await fetch(`${API_URL}/candidates/${interview.candidateId}`).then(r=>r.json());
-    const job = await fetch(`${API_URL}/jobs/${interview.jobId}`).then(r=>r.json());
+    const candidate = await fetch(
+      `${API_URL}/candidates/${interview.candidateId}`,
+    ).then((r) => r.json());
+    const job = await fetch(`${API_URL}/jobs/${interview.jobId}`).then((r) =>
+      r.json(),
+    );
 
     const card = document.createElement("div");
-    card.className = "bg-background-app p-4 rounded-lg flex justify-between items-center";
+    card.className =
+      "bg-background-app p-4 rounded-lg flex justify-between items-center";
 
     card.innerHTML = `
       <div>
@@ -51,7 +63,7 @@ async function completeInterview(id) {
   await fetch(`${API_URL}/interviews/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: "completed" })
+    body: JSON.stringify({ status: "completed" }),
   });
   loadInterviews();
 }
@@ -60,7 +72,7 @@ async function cancelInterview(id) {
   await fetch(`${API_URL}/interviews/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: "cancelled" })
+    body: JSON.stringify({ status: "cancelled" }),
   });
   loadInterviews();
 }
