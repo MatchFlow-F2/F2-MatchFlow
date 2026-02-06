@@ -20,7 +20,6 @@
 | **Open to Work** | 100% | ✅ COMPLETADO | Toggle UI, PATCH sync, localStorage |
 | **Crear Matches** | 0% | ❌ NO HECHO | UI + validación duplicados |
 | **Match States** | 40% | ⚠️ PARCIAL | pending, interview, discarded FALTAN |
-| **Reservas** | 30% | ⚠️ PARCIAL | Sin UI de bloqueo |
 | **Contact Privacy** | 0% | ❌ NO HECHO | Visible siempre (DEBE ser solo si "contacted") |
 | **json-server** | 100% | ✅ OK | Instalado, db.json correcto |
 | **Fetch API** | 90% | ✅ BUENO | Falta error handling robusto |
