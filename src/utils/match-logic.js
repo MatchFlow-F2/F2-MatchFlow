@@ -136,6 +136,16 @@ async function getCompanyMatches(companyId) {
   }
 }
 
+async function getCandidateMatches(candidateId) {
+  try {
+    const response = await fetch(`${API_URL}/matches?candidateId=${candidateId}`);
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching candidate matches:", error);
+    return [];
+  }
+}
+
 async function getJobMatches(jobId) {
   try {
     const response = await fetch(`${API_URL}/matches?jobId=${jobId}`);
