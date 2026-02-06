@@ -1,149 +1,136 @@
-const API_URL = "http://localhost:3000";
-const local = JSON.parse(localStorage.getItem("user"));
+import { Storage } from '../login/js/storage.js';
+import { AuthGuard } from '../login/js/guards.js';
 
-if(!local){
-  window.location.href = '../login.html';
-}
+// PROTECT ROUTES
+AuthGuard.checkAccess('candidate');
 
-//Info the user
-const nameUser = document.getElementById("nameProfile");
-if(nameUser){
-  nameUser.textContent = local.name;
-}
+const API_URL = 'http://localhost:3000';
 
-// ✅ Cargar estado inicial de Open to Work
-document.addEventListener("DOMContentLoaded", () => {
+// GET SESSION
+const local = Storage.getSession();
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Info del usuario en el perfil
+  const nameUser = document.getElementById('nameProfile');
+  if (nameUser && local) {
+    nameUser.textContent = local.name;
+  }
+
+  // Inicializar funciones principales
   loadOpenToWorkStatus();
   loadJobOffers();
+  setupNavigation();
 });
 
-//button Home
-document.getElementById("btnHome").addEventListener("click", () => {
-  document.getElementById("home").scrollIntoView({
-    behavior: "smooth"
-  });
-});
-//button offers Work
-document.getElementById("btnWork").addEventListener("click", () => {
-  document.getElementById("work").scrollIntoView({
-    behavior: "smooth"
-  });
-});
-//button Matches
-document.getElementById("btnMatches").addEventListener("click", () => {
-  document.getElementById("matches").scrollIntoView({
-    behavior: "smooth"
-  });
-});
-//button reservations
-document.getElementById("btnReservations").addEventListener("click", () => {
-  document.getElementById("reservations").scrollIntoView({
-    behavior: "smooth"
-  });
-});
+function setupNavigation() {
+  const navButtons = [
+    { btnId: 'btnHome', sectionId: 'home' },
+    { btnId: 'btnWork', sectionId: 'work' },
+    { btnId: 'btnMatches', sectionId: 'matches' },
+    { btnId: 'btnReservations', sectionId: 'reservations' },
+  ];
 
-
-//Evento de toggle para Open to Work
-const checkActive = document.getElementById("check");
-const containerOfertas = document.querySelector(".container-ofertas");
-
-checkActive.addEventListener("change", async function () {
-  const newOpenToWorkStatus = checkActive.checked;
-  
-  try {
-    // ✅ Actualizar el estado de openToWork en la base de datos
-    const response = await fetch(`${API_URL}/users/${local.id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ openToWork: newOpenToWorkStatus })
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to update Open to Work status");
+  navButtons.forEach((item) => {
+    const btn = document.getElementById(item.btnId);
+    if (btn) {
+      btn.addEventListener('click', () => {
+        document.getElementById(item.sectionId)?.scrollIntoView({
+          behavior: 'smooth',
+        });
+      });
     }
+  });
+}
 
-    // ✅ Actualizar localStorage
-    const updatedUser = { ...local, openToWork: newOpenToWorkStatus };
-    localStorage.setItem("user", JSON.stringify(updatedUser));
+const checkActive = document.getElementById('check');
+const containerOfertas = document.querySelector('.container-ofertas');
 
-    // ✅ Mostrar/cargar ofertas según estado
-    if (newOpenToWorkStatus) {
-      await loadJobOffers();
-      containerOfertas.style.display = "block";
-    } else {
-      containerOfertas.style.display = "none";
-      containerOfertas.innerHTML = "";
+if (checkActive) {
+  checkActive.addEventListener('change', async function () {
+    const newOpenToWorkStatus = checkActive.checked;
+
+    try {
+      // Actualizar el estado en el servidor
+      const response = await fetch(`${API_URL}/users/${local.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ openToWork: newOpenToWorkStatus }),
+      });
+
+      if (!response.ok) throw new Error('Failed to update status');
+
+      const updatedUser = { ...local, openToWork: newOpenToWorkStatus };
+      Storage.saveSession(updatedUser);
+
+      // Mostrar/ocultar ofertas según el estado
+      if (newOpenToWorkStatus) {
+        await loadJobOffers();
+        containerOfertas.style.display = 'block';
+      } else {
+        containerOfertas.style.display = 'none';
+        containerOfertas.innerHTML = '';
+      }
+
+      console.log(`Status updated: ${newOpenToWorkStatus}`);
+    } catch (error) {
+      console.error('Error updating Open to Work status:', error);
+      checkActive.checked = !newOpenToWorkStatus; // Revertir si falla
+      alert('Error updating status. Please try again.');
     }
+  });
+}
 
-    console.log(`Open to Work status updated: ${newOpenToWorkStatus}`);
-  } catch (error) {
-    console.error("Error updating Open to Work status:", error);
-    checkActive.checked = !newOpenToWorkStatus; // Revert toggle on error
-    alert("Error updating status. Please try again.");
-  }
-});
-
-// ✅ NUEVA: Cargar estado de Open to Work
 async function loadOpenToWorkStatus() {
+  if (!checkActive || !local) return;
+
   try {
     checkActive.checked = local.openToWork || false;
-    if (checkActive.checked) {
-      containerOfertas.style.display = "block";
-    } else {
-      containerOfertas.style.display = "none";
-    }
+    containerOfertas.style.display = checkActive.checked ? 'block' : 'none';
   } catch (error) {
-    console.error("Error loading Open to Work status:", error);
+    console.error('Error loading status:', error);
   }
 }
 
-// ✅ NUEVA: Cargar ofertas reales desde db.json
 async function loadJobOffers() {
+  if (!containerOfertas) return;
+
   try {
     const response = await fetch(`${API_URL}/jobs`);
     const jobs = await response.json();
 
-    containerOfertas.innerHTML = "";
+    containerOfertas.innerHTML = '';
 
     if (jobs.length === 0) {
       containerOfertas.innerHTML = `<p class="text-muted">No offers available right now.</p>`;
       return;
     }
 
-    jobs.forEach(job => {
-      const card = document.createElement("div");
-      card.className = "card mb-2";
+    jobs.forEach((job) => {
+      const card = document.createElement('div');
+      card.className = 'card mb-2';
       card.innerHTML = `
-        <div class="card-body d-flex justify-content-between align-items-center">
-          <div>
-            <h3 class="card-title">${job.title}</h3>
-            <p class="card-text">${job.description}</p>
-          </div>
-          <div>
-            <p style="color: #cbd5e1">Company: ${job.companyId}</p>
-            <p>Status: ${job.status}</p>
-          </div>
-          <div>
-            <button class="btn btn-bg" onclick="viewJobDetails(${job.id})">See Details</button>
-          </div>
-        </div>
-      `;
+                <div class="card-body d-flex justify-content-between align-items-center">
+                  <div>
+                    <h3 class="card-title">${job.title}</h3>
+                    <p class="card-text">${job.description}</p>
+                  </div>
+                  <div>
+                    <p style="color: #cbd5e1">Company ID: ${job.companyId}</p>
+                    <p>Status: ${job.status}</p>
+                  </div>
+                  <div>
+                    <button class="btn btn-bg" onclick="viewJobDetails(${job.id})">See Details</button>
+                  </div>
+                </div>
+            `;
       containerOfertas.appendChild(card);
     });
   } catch (error) {
-    console.error("Error loading job offers:", error);
+    console.error('Error loading job offers:', error);
     containerOfertas.innerHTML = `<p class="text-danger">Error loading offers.</p>`;
   }
 }
 
-// ✅ NUEVA: Ver detalles de una oferta
-function viewJobDetails(jobId) {
+window.viewJobDetails = function (jobId) {
   alert(`Job Details Modal would open for Job ID: ${jobId}`);
-  // TODO: Implement modal to show full job details
-}
-
-
-
-
-      
-
+};
