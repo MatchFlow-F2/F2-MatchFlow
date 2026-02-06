@@ -4,29 +4,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
-  <link rel="stylesheet" href="../dist/output.css">
+  <title>Dashboard - MatchFlow</title>
+  <link rel="stylesheet" href="/src/styles/global.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 
 </head>
 
-<body class="bg-background-app text-text-primary font-sans">
+<body>
 
-  <div class="flex min-h-screen">
+  <div class="layout">
 
     <!-- Sidebar -->
-    <div id="sidebar-container"></div>
+    <aside class="sidebar">
+      <div>
+        <h1 class="sidebar-logo">MatchFlow</h1>
 
+        <nav class="sidebar-nav">
+          <a href="/src/pages/dashboard/index.html" class="active">
+            <i class="fa-solid fa-chart-line"></i> Dashboard
+          </a>
+
+          <a href="/src/pages/jobs/index.html">
+            <i class="fa-solid fa-briefcase"></i> Jobs
+          </a>
+
+          <a href="/src/pages/candidates/index.html">
+            <i class="fa-solid fa-user-group"></i> Candidates
+          </a>
+
+          <a href="/src/pages/matches/index.html">
+            <i class="fa-solid fa-handshake"></i> Matches
+          </a>
+
+          <a href="/src/pages/interviews/index.html">
+            <i class="fa-solid fa-calendar-check"></i> Interviews
+          </a>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="avatar"></div>
+        <div>
+          <p class="user-name">Company Name</p>
+          <p class="user-role">Recruiter</p>
+        </div>
+      </div>
+    </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 p-8 space-y-8">
+    <main class="main-content">
 
       <!-- Header -->
       <div>
-        <h2 class="text-3xl font-bold">MatchFlow</h2>
-        <p class="text-text-muted mt-1">Hiring management overview</p>
+        <h2 class="title-xl">Dashboard</h2>
+        <p class="text-muted">Hiring management overview</p>
       </div>
 
       <!-- Metrics -->
@@ -137,22 +170,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="./dashboard.js"></script>
-
-  <script>
-fetch("../components/sidebar.html")
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById("sidebar-container").innerHTML = data;
-
-    // Resaltar botón activo
-    const links = document.querySelectorAll("aside nav a");
-    links.forEach(link => {
-      if (window.location.pathname.includes(link.getAttribute("href"))) {
-        link.classList.add("bg-background-card", "text-white");
-      }
-    });
-  });
-</script>
 </body>
 
 

@@ -23,11 +23,11 @@ export const AuthGuard = {
       );
 
       if (user.role === 'company') {
-        window.location.href = 'company-dashboard.html';
+        window.location.href = '/src/pages/dashboard/index.html';
       } else if (user.role === 'candidate') {
-        window.location.href = 'candidate-dashboard.html';
+        window.location.href = '/src/pages/candidates/index.html';
       } else {
-        window.location.href = 'index.html';
+        window.location.href = '/src/pages/login/index.html';
       }
     }
   },

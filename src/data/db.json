@@ -218,5 +218,25 @@
       "recipientId": "3",
       "recipientType": "company"
     }
+  ],
+  "interviews": [
+    {
+      "id": 1,
+      "companyId": "3",
+      "candidateId": "1",
+      "jobId": "101",
+      "date": "2026-02-15",
+      "time": "10:00 AM",
+      "status": "scheduled"
+    },
+    {
+      "id": 2,
+      "companyId": "4",
+      "candidateId": "3",
+      "jobId": "102",
+      "date": "2026-02-16",
+      "time": "2:00 PM",
+      "status": "scheduled"
+    }
   ]
 }

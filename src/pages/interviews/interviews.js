@@ -21,25 +21,25 @@ async function renderInterviews(interviews) {
   counter.textContent = `${interviews.length} interviews`;
 
   for (const interview of interviews) {
-    const candidate = await fetch(`${API_URL}/candidates/${interview.candidateId}`).then(r=>r.json());
+    const candidate = await fetch(`${API_URL}/users/${interview.candidateId}`).then(r=>r.json());
     const job = await fetch(`${API_URL}/jobs/${interview.jobId}`).then(r=>r.json());
 
     const card = document.createElement("div");
-    card.className = "bg-background-app p-4 rounded-lg flex justify-between items-center";
+    card.className = "interview-card";
 
     card.innerHTML = `
-      <div>
-        <p class="font-semibold">${candidate.name || "Unknown Candidate"}</p>
-        <p class="text-text-muted text-sm">${job.title || "Unknown Job"}</p>
-        <p class="text-xs text-text-muted mt-1">${interview.date} at ${interview.time}</p>
+      <div class="interview-info">
+        <p class="interview-name">${candidate.name || "Unknown Candidate"}</p>
+        <p class="interview-job">${job.title || "Unknown Job"}</p>
+        <p class="interview-date">${interview.date} at ${interview.time}</p>
       </div>
 
-      <div class="flex gap-2">
+      <div class="interview-actions">
         <button onclick="completeInterview(${interview.id})"
-          class="px-3 py-1 bg-green-600 text-white rounded text-xs">Completed</button>
+          class="btn btn-green">Completed</button>
 
         <button onclick="cancelInterview(${interview.id})"
-          class="px-3 py-1 bg-red-600 text-white rounded text-xs">Cancel</button>
+          class="btn btn-red">Cancel</button>
       </div>
     `;
 
