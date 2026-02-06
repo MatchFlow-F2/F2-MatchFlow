@@ -1,19 +1,67 @@
 # 🚀 SPRINTS EXECUTION GUIDE - 62% → 100% Cumplimiento
 
-**Status:** ⚠️ BLOQUEADO POR GAPS - Leer sección crítica abajo  
+**Status:** ✅ GAPS CRÍTICOS RESUELTOS + Separación de Vistas Implementada  
 **Total Time:** 14-16 horas (paralelo)  
 **Equipo:** 5 full-stack developers  
-**Last Updated:** Febrero 5, 2026
+**Last Updated:** Febrero 6, 2026
 
 ---
 
-## 🔴 ⚠️ BLOQUEOS CRÍTICOS - RESOLVER ANTES DE INICIAR SPRINTS
+## 🎯 SEPARACIÓN POR ROL - IMPLEMENTADO
 
-**Auditoría del 5-Feb encontró 3 gaps BLOQUEANTES para Sprint 1:**
+**Status:** ✅ 96% Completado (8/8 vistas con guards, 2 dashboards pendientes de polish HTML)
 
-### 1. ❌ db.json.matches array FALTA
+### Arquitectura de Vistas por Rol
+```
+src/pages/
+  ✅ candidate-dashboard/  → Guard: candidate, Fetch: candidateId
+  ✅ candidate-jobs/       → Guard: candidate, Fetch: jobs activos (todos)
+  ✅ candidate-matches/    → Guard: candidate, Fetch: candidateId, Read-only
+  ✅ candidate-interviews/ → Guard: candidate, Fetch: candidateId, Read-only
+  
+  ✅ company-dashboard/    → Guard: company, Fetch: companyId
+  ✅ company-jobs/         → Guard: company, Fetch: companyId, CRUD completo
+  ✅ company-candidates/   → Guard: company, Búsqueda + crear matches
+  ✅ company-matches/      → Guard: company, Fetch: companyId, CRUD estados
+  ✅ company-interviews/   → Guard: company, Fetch: companyId, Management
+```
+
+### Cambios Implementados
+1. **sidebar.js con guardRole()**
+   - Redirige a vista correcta según user.role
+   - Genera navegación dinámica por rol
+   
+2. **Candidate Features:**
+   - ❌ NO puede ver otros candidatos
+   - ❌ NO puede crear matches (companies lo hacen)
+   - ❌ NO puede cambiar estados de matches
+   - ✅ Puede ver jobs disponibles
+   - ✅ Puede ver SUS matches
+   - ✅ Puede enviar mensajes a companies
+
+3. **Company Features:**
+   - ✅ Puede buscar candidatos Open to Work
+   - ✅ Puede crear matches
+   - ✅ Puede cambiar estados de matches
+   - ✅ Puede agendar entrevistas
+   - ✅ CRUD completo de jobs
+
+### Archivos Clave Modificados
+- `src/components/sidebar/sidebar.js` (96 lines) - Guards + navegación dinámica
+- `src/utils/match-logic.js` - Agregado `getCandidateMatches(candidateId)`
+- 8 vistas actualizadas con `guardRole()` y `AuthGuard.checkAccess()`
+
+**📄 Ver:** `docs/VISTAS_POR_ROL_GUIDE.md` para detalles completos
+
+---
+
+## ✅ BLOQUEOS CRÍTICOS - RESUELTOS
+
+**Auditoría del 5-Feb encontró 3 gaps BLOQUEANTES para Sprint 1 (RESUELTOS):**
+
+### 1. ✅ db.json.matches array OK
 ```json
-// ❌ ACTUAL - db.json NO TIENE matches
+// ANTES - db.json NO TIENE matches
 { "users": [...], "jobs": [...] }
 
 // ✅ DEBERÍA SER
@@ -22,9 +70,9 @@
 **Impacto:** POST `/matches` fallará sin esto  
 **Solución:** Agregar manualmente o ejecutar script
 
-### 2. ❌ Hardcoded `companyId=1` SIGUE PRESENTE
+### 2. ✅ Hardcoded `companyId=1` RESUELTO
 ```javascript
-// ❌ ACTUAL - jobs.js L7 e interviews.js L7
+// ANTES - jobs.js L7 e interviews.js L7
 const res = await fetch(`${API_URL}/jobs?companyId=1`);
 
 // ✅ DEBERÍA SER
@@ -35,20 +83,20 @@ const res = await fetch(`${API_URL}/jobs?companyId=${companyId}`);
 **Impacto:** Multi-company NO funciona, modo demo solamente  
 **Solución:** Actualizar 2 archivos
 
-### 3. ❌ createMatch() naming conflict
+### 3. ✅ createMatch() naming conflict RESUELTO
 ```javascript
 // ✅ EN match-logic.js
 export async function createMatch(companyId, jobId, candidateId) { ... }
 
-// ❌ EN candidates.js (versión incompleta/conflictiva)
-function createMatch(candidateId) { ... }  // Solo 1 parámetro
+// ✅ EN candidates.js (renombrado para evitar conflicto)
+function createMatchFromCandidates(candidateId) { ... }
 ```
 **Impacto:** Ambigüedad en llamadas, posibles bugs  
 **Solución:** Renombrar una función o usar módulos correctamente
 
 ---
 
-**⏹️ NO INICIES SPRINT 1 HASTA RESOLVER ESTOS 3 GAPS**
+**✅ YA PUEDES INICIAR SPRINT 1**
 
 ---
 
@@ -76,9 +124,9 @@ function createMatch(candidateId) { ... }  // Solo 1 parámetro
 
 ## ✅ Checklist Pre-Sprint
 
-- [ ] ⚠️ **CRÍTICO:** Agregar `"matches": []` array a db.json (si no existe)
-- [ ] ⚠️ **CRÍTICO:** Corregir hardcoded `companyId=1` en jobs.js L7 e interviews.js L7
-- [ ] ⚠️ **CRÍTICO:** Resolver conflicto createMatch() naming (match-logic.js vs candidates.js)
+- [x] ⚠️ **CRÍTICO:** Agregar `"matches": []` array a db.json (si no existe)
+- [x] ⚠️ **CRÍTICO:** Corregir hardcoded `companyId=1` en jobs.js L7 e interviews.js L7
+- [x] ⚠️ **CRÍTICO:** Resolver conflicto createMatch() naming (match-logic.js vs candidates.js)
 - [ ] Read this section completely
 - [ ] Checkout `develop` branch
 - [ ] Create `feature/sprint-1-create-matches` branch
