@@ -1,0 +1,420 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "test1@crudzaso.com",
+      "password": "123",
+      "name": "John Doe",
+      "role": "candidate",
+      "openToWork": true,
+      "plan": "free",
+      "area": "tech",
+      "region": "north-america",
+      "monthlyMatchCount": 0,
+      "monthlyReservationCount": 1,
+      "profile": {
+        "title": "Senior Frontend Developer",
+        "skills": ["React", "Bootstrap", "JavaScript"],
+        "bio": "Passionate developer with 5 years of experience building web applications.",
+        "hourlyRate": null
+      },
+      "contactInfo": {
+        "phone": "+1 555 019 2834",
+        "linkedin": "linkedin.com/in/johndoe"
+      }
+    },
+    {
+      "id": "2",
+      "email": "test2@crudzaso.com",
+      "password": "123",
+      "name": "Jane Smith",
+      "role": "candidate",
+      "openToWork": true,
+      "plan": "pro1",
+      "area": "tech",
+      "region": "north-america",
+      "monthlyMatchCount": 0,
+      "monthlyReservationCount": 1,
+      "profile": {
+        "title": "UX/UI Designer",
+        "skills": ["Figma", "Adobe XD", "CSS"],
+        "bio": "Designer focused on creating intuitive user experiences.",
+        "hourlyRate": 65
+      },
+      "contactInfo": {
+        "phone": "+1 555 987 6543",
+        "linkedin": "linkedin.com/in/janesmith"
+      }
+    },
+    {
+      "id": "3",
+      "email": "alex.johnson@crudzaso.com",
+      "password": "123",
+      "name": "TechCorp Inc.",
+      "role": "company",
+      "openToWork": false,
+      "plan": "business",
+      "area": "tech",
+      "region": "north-america",
+      "monthlyMatchCount": 2,
+      "monthlyReservationCount": 0,
+      "profile": {
+        "title": "Software Development Company",
+        "skills": [],
+        "bio": "Leading software development company specializing in web and mobile solutions."
+      },
+      "contactInfo": {
+        "phone": "+1 555 234 5678",
+        "linkedin": "linkedin.com/company/techcorp"
+      }
+    },
+    {
+      "id": "4",
+      "email": "maria.garcia@crudzaso.com",
+      "password": "123",
+      "name": "Maria Garcia",
+      "role": "candidate",
+      "openToWork": false,
+      "plan": "free",
+      "area": "data",
+      "region": "south-america",
+      "monthlyMatchCount": 0,
+      "monthlyReservationCount": 0,
+      "profile": {
+        "title": "Data Scientist",
+        "skills": ["Python", "TensorFlow", "SQL", "Tableau"],
+        "bio": "Currently employed but interested in future opportunities.",
+        "hourlyRate": null
+      },
+      "contactInfo": {
+        "phone": "+1 555 345 6789",
+        "linkedin": "linkedin.com/in/mariagarcia"
+      }
+    },
+    {
+      "id": "5",
+      "email": "david.lee@crudzaso.com",
+      "password": "123",
+      "name": "David Lee",
+      "role": "candidate",
+      "openToWork": true,
+      "plan": "pro2",
+      "area": "devops",
+      "region": "europe",
+      "monthlyMatchCount": 0,
+      "monthlyReservationCount": 0,
+      "profile": {
+        "title": "DevOps Engineer",
+        "skills": ["Docker", "Kubernetes", "CI/CD", "Linux"],
+        "bio": "Infrastructure and DevOps specialist looking for challenging projects.",
+        "hourlyRate": 85
+      },
+      "contactInfo": {
+        "phone": "+1 555 456 7890",
+        "linkedin": "linkedin.com/in/davidlee"
+      }
+    },
+    {
+      "id": "6",
+      "email": "designhub@crudzaso.com",
+      "password": "123",
+      "name": "DesignHub Agency",
+      "role": "company",
+      "openToWork": false,
+      "plan": "free",
+      "area": "design",
+      "region": "north-america",
+      "monthlyMatchCount": 0,
+      "monthlyReservationCount": 0,
+      "profile": {
+        "title": "Creative Design Agency",
+        "skills": [],
+        "bio": "Award-winning design agency focusing on digital products."
+      },
+      "contactInfo": {
+        "phone": "+1 555 567 8901",
+        "linkedin": "linkedin.com/company/designhub"
+      }
+    },
+    {
+      "id": "7",
+      "email": "globaltech@crudzaso.com",
+      "password": "123",
+      "name": "GlobalTech Solutions",
+      "role": "company",
+      "openToWork": false,
+      "plan": "enterprise",
+      "area": "tech",
+      "region": "europe",
+      "monthlyMatchCount": 15,
+      "monthlyReservationCount": 0,
+      "profile": {
+        "title": "Enterprise Software Solutions",
+        "skills": [],
+        "bio": "Fortune 500 company providing enterprise-grade software solutions worldwide."
+      },
+      "contactInfo": {
+        "phone": "+44 20 7946 0958",
+        "linkedin": "linkedin.com/company/globaltech"
+      }
+    }
+  ],
+  "jobs": [
+    {
+      "id": "101",
+      "companyId": "3",
+      "title": "React Developer",
+      "description": "We are looking for a React expert for an international project.",
+      "requirements": ["3+ years exp", "English B2"],
+      "status": "active",
+      "location": "Remote",
+      "salary": "80k-120k",
+      "createdAt": "2026-02-01T10:00:00.000Z"
+    },
+    {
+      "id": "102",
+      "companyId": "6",
+      "title": "Product Designer",
+      "description": "Design the future of our mobile app.",
+      "requirements": ["Portfolio", "Figma"],
+      "status": "active",
+      "location": "Hybrid - New York",
+      "salary": "90k-130k",
+      "createdAt": "2026-02-02T11:00:00.000Z"
+    },
+    {
+      "id": "103",
+      "companyId": "3",
+      "title": "Backend Developer",
+      "description": "Build scalable APIs using Node.js and Express.",
+      "requirements": ["5+ years Node.js", "Database design"],
+      "status": "active",
+      "location": "Remote",
+      "salary": "100k-150k",
+      "createdAt": "2026-02-01T14:00:00.000Z"
+    },
+    {
+      "id": "104",
+      "companyId": "7",
+      "title": "DevOps Engineer",
+      "description": "Deploy and maintain our cloud infrastructure on AWS.",
+      "requirements": ["AWS certified", "Kubernetes experience"],
+      "status": "active",
+      "location": "London, UK",
+      "salary": "110k-160k",
+      "createdAt": "2026-02-03T09:00:00.000Z"
+    },
+    {
+      "id": "105",
+      "companyId": "6",
+      "title": "Frontend Engineer",
+      "description": "Create responsive web applications with modern frameworks.",
+      "requirements": ["Vue.js or React", "CSS expertise"],
+      "status": "closed",
+      "location": "Remote",
+      "salary": "75k-110k",
+      "createdAt": "2026-01-28T15:00:00.000Z"
+    }
+  ],
+  "matches": [
+    {
+      "id": "1",
+      "companyId": "3",
+      "jobId": "101",
+      "candidateId": "1",
+      "status": "contacted",
+      "createdAt": "2026-02-04T07:35:34.286Z",
+      "updatedAt": "2026-02-05T10:20:15.442Z"
+    },
+    {
+      "id": "2",
+      "companyId": "3",
+      "jobId": "101",
+      "candidateId": "2",
+      "status": "pending",
+      "createdAt": "2026-02-04T07:35:41.408Z",
+      "updatedAt": "2026-02-04T07:35:41.408Z"
+    },
+    {
+      "id": "3",
+      "companyId": "3",
+      "jobId": "103",
+      "candidateId": "5",
+      "status": "interview",
+      "createdAt": "2026-02-03T14:20:00.000Z",
+      "updatedAt": "2026-02-05T16:30:45.123Z"
+    },
+    {
+      "id": "4",
+      "companyId": "7",
+      "jobId": "104",
+      "candidateId": "5",
+      "status": "hired",
+      "createdAt": "2026-02-02T09:15:30.000Z",
+      "updatedAt": "2026-02-05T18:45:20.678Z"
+    },
+    {
+      "id": "5",
+      "companyId": "6",
+      "jobId": "102",
+      "candidateId": "2",
+      "status": "discarded",
+      "createdAt": "2026-02-01T11:30:00.000Z",
+      "updatedAt": "2026-02-03T09:15:22.890Z"
+    }
+  ],
+  "reservations": [
+    {
+      "id": "1",
+      "companyId": "3",
+      "jobId": "101",
+      "candidateId": "1",
+      "isActive": true,
+      "createdAt": "2026-02-04T07:35:34.305Z",
+      "releasedAt": null
+    },
+    {
+      "id": "2",
+      "companyId": "3",
+      "jobId": "101",
+      "candidateId": "2",
+      "isActive": true,
+      "createdAt": "2026-02-04T07:35:41.420Z",
+      "releasedAt": null
+    },
+    {
+      "id": "3",
+      "companyId": "3",
+      "jobId": "103",
+      "candidateId": "5",
+      "isActive": false,
+      "createdAt": "2026-02-03T14:20:00.000Z",
+      "releasedAt": "2026-02-05T18:45:20.678Z"
+    },
+    {
+      "id": "4",
+      "companyId": "7",
+      "jobId": "104",
+      "candidateId": "5",
+      "isActive": false,
+      "createdAt": "2026-02-02T09:15:30.000Z",
+      "releasedAt": "2026-02-05T18:45:20.678Z"
+    },
+    {
+      "id": "5",
+      "companyId": "6",
+      "jobId": "102",
+      "candidateId": "2",
+      "isActive": false,
+      "createdAt": "2026-02-01T11:30:00.000Z",
+      "releasedAt": "2026-02-03T09:15:22.890Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "1",
+      "matchId": "1",
+      "senderId": "3",
+      "senderType": "company",
+      "recipientId": "1",
+      "recipientType": "candidate",
+      "content": "Hi John! We're impressed with your profile. Would you be available for a quick call next week?",
+      "timestamp": "2026-02-05T10:25:30.000Z",
+      "read": true
+    },
+    {
+      "id": "2",
+      "matchId": "1",
+      "senderId": "1",
+      "senderType": "candidate",
+      "recipientId": "3",
+      "recipientType": "company",
+      "content": "Hello! Thank you for reaching out. I'm available Tuesday or Thursday afternoon.",
+      "timestamp": "2026-02-05T14:45:10.000Z",
+      "read": true
+    },
+    {
+      "id": "3",
+      "matchId": "1",
+      "senderId": "3",
+      "senderType": "company",
+      "recipientId": "1",
+      "recipientType": "candidate",
+      "content": "Perfect! Let's schedule for Thursday at 3 PM. I'll send you a calendar invite.",
+      "timestamp": "2026-02-05T15:20:45.000Z",
+      "read": false
+    },
+    {
+      "id": "4",
+      "matchId": "3",
+      "senderId": "3",
+      "senderType": "company",
+      "recipientId": "5",
+      "recipientType": "candidate",
+      "content": "Hi David! Your DevOps experience is exactly what we need. Can we schedule an interview?",
+      "timestamp": "2026-02-05T16:35:00.000Z",
+      "read": true
+    },
+    {
+      "id": "5",
+      "matchId": "3",
+      "senderId": "5",
+      "senderType": "candidate",
+      "recipientId": "3",
+      "recipientType": "company",
+      "content": "Sure! I'm available next week. What time works best for you?",
+      "timestamp": "2026-02-05T17:10:22.000Z",
+      "read": false
+    }
+  ],
+  "interviews": [
+    {
+      "id": "1",
+      "companyId": "3",
+      "candidateId": "1",
+      "jobId": "101",
+      "matchId": "1",
+      "date": "2026-02-08",
+      "time": "15:00",
+      "status": "scheduled",
+      "location": "Zoom Meeting",
+      "notes": "Technical interview - React and JavaScript focus"
+    },
+    {
+      "id": "2",
+      "companyId": "3",
+      "candidateId": "5",
+      "jobId": "103",
+      "matchId": "3",
+      "date": "2026-02-09",
+      "time": "10:00",
+      "status": "scheduled",
+      "location": "Office - Main Conference Room",
+      "notes": "System design and architecture discussion"
+    },
+    {
+      "id": "3",
+      "companyId": "6",
+      "candidateId": "2",
+      "jobId": "102",
+      "matchId": "5",
+      "date": "2026-02-03",
+      "time": "14:00",
+      "status": "completed",
+      "location": "Zoom Meeting",
+      "notes": "Portfolio review completed. Moving to second round."
+    },
+    {
+      "id": "4",
+      "companyId": "7",
+      "candidateId": "5",
+      "jobId": "104",
+      "matchId": "4",
+      "date": "2026-02-04",
+      "time": "11:00",
+      "status": "completed",
+      "location": "London Office",
+      "notes": "Excellent technical skills. Offer extended."
+    }
+  ]
+}
