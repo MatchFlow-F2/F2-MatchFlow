@@ -1,4 +1,8 @@
 # ⚡ PLAN 6 HORAS - Part 2 Monetization
+> ⚠️ **DOCUMENTO OBSOLETO** - Plan original superado por implementación real.  
+> 📄 Ver: **[CAMBIOS_REALIZADOS.md](CAMBIOS_REALIZADOS.md)** + **[CUMPLIMIENTO_CRUDZASO.md](CUMPLIMIENTO_CRUDZASO.md)** para progreso real.  
+> **Progreso Real:** Part 1: 85%, Part 2: 25% (vs plan original 100%/100% en 6h)
+
 
 **Deadline:** 6 horas TOTALES | **Equipo:** 5 devs paralelo | **Objetivo:** 100% funcional + presentación lista
 

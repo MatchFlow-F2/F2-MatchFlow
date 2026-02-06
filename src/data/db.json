@@ -9,7 +9,11 @@
       "openToWork": true,
       "profile": {
         "title": "Senior Frontend Developer",
-        "skills": ["React", "Bootstrap", "JavaScript"],
+        "skills": [
+          "React",
+          "Bootstrap",
+          "JavaScript"
+        ],
         "bio": "Passionate developer with 5 years of experience building web applications."
       },
       "contactInfo": {
@@ -26,7 +30,11 @@
       "openToWork": true,
       "profile": {
         "title": "UX/UI Designer",
-        "skills": ["Figma", "Adobe XD", "CSS"],
+        "skills": [
+          "Figma",
+          "Adobe XD",
+          "CSS"
+        ],
         "bio": "Designer focused on creating intuitive user experiences."
       },
       "contactInfo": {
@@ -42,7 +50,12 @@
       "openToWork": true,
       "profile": {
         "title": "Full Stack Developer",
-        "skills": ["Node.js", "React", "MongoDB", "AWS"],
+        "skills": [
+          "Node.js",
+          "React",
+          "MongoDB",
+          "AWS"
+        ],
         "bio": "Experienced full stack developer with 7 years in tech. Open to remote opportunities."
       },
       "contactInfo": {
@@ -59,7 +72,12 @@
       "openToWork": false,
       "profile": {
         "title": "Data Scientist",
-        "skills": ["Python", "TensorFlow", "SQL", "Tableau"],
+        "skills": [
+          "Python",
+          "TensorFlow",
+          "SQL",
+          "Tableau"
+        ],
         "bio": "Currently employed but interested in future opportunities."
       },
       "contactInfo": {
@@ -76,13 +94,26 @@
       "openToWork": true,
       "profile": {
         "title": "DevOps Engineer",
-        "skills": ["Docker", "Kubernetes", "CI/CD", "Linux"],
+        "skills": [
+          "Docker",
+          "Kubernetes",
+          "CI/CD",
+          "Linux"
+        ],
         "bio": "Infrastructure and DevOps specialist looking for challenging projects."
       },
       "contactInfo": {
         "phone": "+1 555 456 7890",
         "linkedin": "linkedin.com/in/davidlee"
       }
+    },
+    {
+      "name": "x",
+      "email": "x@gmail.com",
+      "password": "123",
+      "role": "company",
+      "createdAt": "2026-02-06T22:25:48.961Z",
+      "id": "4-2vF6G"
     }
   ],
   "jobs": [
@@ -91,7 +122,10 @@
       "companyId": "3",
       "title": "React Developer",
       "description": "We are looking for a React expert for an international project.",
-      "requirements": ["3+ years exp", "English B2"],
+      "requirements": [
+        "3+ years exp",
+        "English B2"
+      ],
       "status": "active"
     },
     {
@@ -99,7 +133,10 @@
       "companyId": "4",
       "title": "Product Designer",
       "description": "Design the future of our mobile app.",
-      "requirements": ["Portfolio", "Figma"],
+      "requirements": [
+        "Portfolio",
+        "Figma"
+      ],
       "status": "active"
     },
     {
@@ -107,7 +144,10 @@
       "companyId": "3",
       "title": "Backend Developer",
       "description": "Build scalable APIs using Node.js and Express.",
-      "requirements": ["5+ years Node.js", "Database design"],
+      "requirements": [
+        "5+ years Node.js",
+        "Database design"
+      ],
       "status": "active"
     },
     {
@@ -115,7 +155,10 @@
       "companyId": "5",
       "title": "DevOps Engineer",
       "description": "Deploy and maintain our cloud infrastructure on AWS.",
-      "requirements": ["AWS certified", "Kubernetes experience"],
+      "requirements": [
+        "AWS certified",
+        "Kubernetes experience"
+      ],
       "status": "active"
     },
     {
@@ -123,8 +166,23 @@
       "companyId": "4",
       "title": "Frontend Engineer",
       "description": "Create responsive web applications with modern frameworks.",
-      "requirements": ["Vue.js or React", "CSS expertise"],
+      "requirements": [
+        "Vue.js or React",
+        "CSS expertise"
+      ],
       "status": "active"
+    },
+    {
+      "companyId": "4-2vF6G",
+      "title": "junior",
+      "description": "algo util",
+      "location": "presencial",
+      "requirements": [
+        "react"
+      ],
+      "status": "active",
+      "createdAt": "2026-02-06T22:44:13.098Z",
+      "id": "whj4GeH"
     }
   ],
   "matches": [
@@ -143,6 +201,14 @@
       "status": "pending",
       "createdAt": "2026-02-04T07:35:41.408Z",
       "id": 2
+    },
+    {
+      "companyId": "4-2vF6G",
+      "jobId": "whj4GeH",
+      "candidateId": "5",
+      "status": "pending",
+      "createdAt": "2026-02-06T22:44:21.584Z",
+      "id": 3
     }
   ],
   "reservations": [
@@ -161,6 +227,14 @@
       "isActive": true,
       "createdAt": "2026-02-04T07:35:41.420Z",
       "id": 2
+    },
+    {
+      "companyId": "4-2vF6G",
+      "jobId": "whj4GeH",
+      "candidateId": "5",
+      "isActive": true,
+      "createdAt": "2026-02-06T22:44:21.633Z",
+      "id": 3
     }
   ],
   "messages": [

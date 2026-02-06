@@ -18,7 +18,25 @@ const user = Storage.getSession();
 
 // const user = JSON.parse(localStorage.getItem("user"));
 // I pass the user ID to the loadInterviews function
-document.addEventListener("DOMContentLoaded", loadInterviews(user.id));
+document.addEventListener("DOMContentLoaded", () => {
+  // Update profile display
+  const profileNameEl = document.getElementById("profile-name");
+  if (profileNameEl) profileNameEl.textContent = user.name;
+
+  const profileRoleEl = document.getElementById("profile-role");
+  if (profileRoleEl) profileRoleEl.textContent = user.role.charAt(0).toUpperCase() + user.role.slice(1);
+
+  // Logout button handler
+  const logoutBtn = document.getElementById("logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("user");
+      window.location.href = "/src/pages/login/index.html";
+    });
+  }
+
+  loadInterviews(user.id);
+});
 
 // I create a parameter for the companyId function
 async function loadInterviews(companyId) {

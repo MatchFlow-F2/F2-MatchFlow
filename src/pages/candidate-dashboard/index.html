@@ -44,10 +44,17 @@
       </div>
 
       <div class="sidebar-footer">
-        <div class="avatar"></div>
-        <div>
-          <p class="user-name">Company Name</p>
-          <p class="user-role">Recruiter</p>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2 flex-1">
+            <div class="avatar"></div>
+            <div>
+              <p class="user-name" id="profile-name">Candidate</p>
+              <p class="user-role" id="profile-role">Candidate</p>
+            </div>
+          </div>
+          <button id="logout-btn" title="Logout" class="px-2 py-1 text-red-600 hover:text-red-700 hover:bg-red-600 hover:bg-opacity-10 rounded transition">
+            <i class="fa-solid fa-sign-out-alt"></i>
+          </button>
         </div>
       </div>
     </aside>
@@ -67,81 +74,88 @@
         <div class="bg-background-card p-5 rounded-xl shadow-card">
           <div class="flex justify-between items-center">
             <i class="fa-solid fa-briefcase text-text-muted"></i>
-            <span class="text-green-500 text-sm">+1 this week</span>
+            <span class="text-green-500 text-sm">+5 available</span>
           </div>
-          <h3 id="metric-jobs" class="text-2xl font-bold mt-3">2</h3>
-          <p class="text-text-muted text-sm">Published Jobs</p>
+          <h3 id="metric-jobs" class="text-2xl font-bold mt-3">0</h3>
+          <p class="text-text-muted text-sm">Job Opportunities</p>
         </div>
 
         <div class="bg-background-card p-5 rounded-xl shadow-card">
           <div class="flex justify-between items-center">
-            <i class="fa-solid fa-user-group text-text-muted"></i>
-            <span class="text-green-500 text-sm">+10 this week</span>
+            <i class="fa-solid fa-handshake text-text-muted"></i>
+            <span class="text-blue-500 text-sm">Active</span>
           </div>
           <h3 id="metric-applicants" class="text-2xl font-bold mt-3">0</h3>
-          <p class="text-text-muted text-sm">Applicants</p>
+          <p class="text-text-muted text-sm">My Matches</p>
         </div>
 
         <div class="bg-background-card p-5 rounded-xl shadow-card">
           <div class="flex justify-between items-center">
-            <i class="fa-solid fa-user-group text-text-muted"></i>
-            <span class="text-green-500 text-sm">-2 this week</span>
+            <i class="fa-solid fa-calendar-check text-text-muted"></i>
+            <span class="text-orange-500 text-sm">Pending</span>
           </div>
-          <h3 id="metric-interviews" class="text-2xl font-bold mt-3">15</h3>
-          <p class="text-text-muted text-sm">Schedule Interviews</p>
+          <h3 id="metric-interviews" class="text-2xl font-bold mt-3">0</h3>
+          <p class="text-text-muted text-sm">Scheduled Interviews</p>
         </div>
 
-        <div class="flex items-center justify-end">
-          <button class="bg-brand hover:bg-brand-hover px-5 py-3 rounded-lg text-white flex items-center gap-2">
-            <i class="fa-solid fa-plus"></i> Create Job
-          </button>
+        <div class="bg-background-card p-5 rounded-xl shadow-card">
+          <div class="flex justify-between items-center">
+            <i class="fa-solid fa-briefcase-open text-text-muted"></i>
+            <span class="text-purple-500 text-sm">Open</span>
+          </div>
+          <h3 class="text-2xl font-bold mt-3" id="metric-open">0</h3>
+          <p class="text-text-muted text-sm">Open to Work</p>
         </div>
 
       </section>
 
-      <!-- Charts + Jobs Grid -->
+      <!-- Charts + Lists -->
       <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-        <!-- Application Trend -->
-        <div class="bg-background-card p-6 rounded-xl shadow-card">
-          <div class="flex justify-between mb-4">
-            <h4 class="font-semibold">Application Trend</h4>
-            <span class="text-text-muted text-sm">Last 6 weeks</span>
-          </div>
-          <canvas id="applicationsChart" height="120"></canvas>
-        </div>
-
-        <!-- Jobs Trend -->
-        <div class="bg-background-card p-6 rounded-xl shadow-card">
-          <div class="flex justify-between mb-4">
-            <h4 class="font-semibold">Jobs Published Trend</h4>
-            <span class="text-text-muted text-sm">Last 6 weeks</span>
-          </div>
-          <canvas id="jobsChart" height="120"></canvas>
-        </div>
-
-        <!-- JOB LIST (NEW POSITION) -->
+        <!-- Available Jobs List -->
         <div class="bg-background-card p-6 rounded-xl shadow-card flex flex-col">
           <div class="flex justify-between items-center mb-4">
-            <h4 class="font-semibold">Published Jobs</h4>
-            <button
-              class="bg-brand hover:bg-brand-hover px-4 py-2 rounded-lg text-white text-sm flex items-center gap-2">
-              <i class="fa-solid fa-plus"></i> Create Job
-            </button>
+            <h4 class="font-semibold">Available Jobs</h4>
+            <span class="text-text-muted text-sm text-brand">View all →</span>
           </div>
 
-          <div id="jobs-list" class="space-y-3 overflow-y-auto pr-2" style="max-height: 220px;">
+          <div id="jobs-list" class="space-y-3 overflow-y-auto pr-2" style="max-height: 280px;">
             <!-- Jobs injected by JS -->
           </div>
         </div>
 
-        <!-- Matches Donut -->
+        <!-- Matches by Status -->
         <div class="bg-background-card p-6 rounded-xl shadow-card">
           <div class="flex justify-between mb-4">
             <h4 class="font-semibold">Matches by Status</h4>
+            <span class="text-text-muted text-sm">Overview</span>
           </div>
-          <div class="h-48">
+          <div class="h-64">
             <canvas id="matchesChart"></canvas>
+          </div>
+        </div>
+
+        <!-- My Matches List -->
+        <div class="bg-background-card p-6 rounded-xl shadow-card flex flex-col">
+          <div class="flex justify-between items-center mb-4">
+            <h4 class="font-semibold">My Matches</h4>
+            <span class="text-text-muted text-sm text-brand">View all →</span>
+          </div>
+
+          <div id="matches-list" class="space-y-3 overflow-y-auto pr-2" style="max-height: 280px;">
+            <!-- Matches injected by JS -->
+          </div>
+        </div>
+
+        <!-- Interviews List -->
+        <div class="bg-background-card p-6 rounded-xl shadow-card flex flex-col">
+          <div class="flex justify-between items-center mb-4">
+            <h4 class="font-semibold">Scheduled Interviews</h4>
+            <span class="text-text-muted text-sm">Next 7 days</span>
+          </div>
+
+          <div id="interviews-list" class="space-y-3 overflow-y-auto pr-2" style="max-height: 280px;">
+            <!-- Interviews injected by JS -->
           </div>
         </div>
 

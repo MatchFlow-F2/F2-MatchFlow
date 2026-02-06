@@ -16,7 +16,7 @@
   <div class="layout">
 
     <!-- Sidebar -->
-    <aside class="sidebar">
+    <aside class="sidebar" style="display: flex; flex-direction: column;">
       <div>
         <h1 class="sidebar-logo">MatchFlow</h1>
 
@@ -43,13 +43,19 @@
         </nav>
       </div>
 
-      <div class="sidebar-footer">
-        <div class="avatar"></div>
-        <div>
-          <p class="user-name">Company Name</p>
-          <p class="user-role">Recruiter</p>
+      <div class="sidebar-footer" style="margin-top: auto;">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="avatar"></div>
+          <div>
+            <p class="user-name" id="profile-name">Company</p>
+            <p class="user-role" id="profile-role">Company</p>
+          </div>
         </div>
       </div>
+
+      <button id="logout-btn" style="width: 100%; padding: 0.75rem; background: #dc2626; color: white; border: none; border-radius: 0.375rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: background 0.2s; font-family: inherit; margin-bottom: 0.5rem;" onmouseover="this.style.background='#b91c1c'" onmouseout="this.style.background='#dc2626'">
+        <i class="fa-solid fa-sign-out-alt"></i> Logout
+      </button>
     </aside>
 
     <!-- Main Content -->
@@ -91,11 +97,7 @@
           <p class="text-text-muted text-sm">Schedule Interviews</p>
         </div>
 
-        <div class="flex items-center justify-end">
-          <button class="bg-brand hover:bg-brand-hover px-5 py-3 rounded-lg text-white flex items-center gap-2">
-            <i class="fa-solid fa-plus"></i> Create Job
-          </button>
-        </div>
+      
 
       </section>
 

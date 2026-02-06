@@ -1,60 +1,62 @@
 # 📚 Índice de Documentación - MatchFlow
 
 **Última actualización:** Febrero 6, 2026  
-**Progreso Part 1:** 68% ⚠️ | **Progreso Part 2:** 0% ❌ | **Deadline:** 6 horas
+**Progreso Part 1:** 85% ✅ | **Progreso Part 2:** 25% ⏳ | **Próximos pasos:** Testing + UI Integration
 
-> 🚨 **PART 2 ACTIVO:** Sistema de planes + enforcement + presentación  
-> ⏱️ **URGENTE:** Ver [PLAN_6_HORAS.md](PLAN_6_HORAS.md) para roadmap ejecutivo
+> ✅ **SESIÓN 4 COMPLETADA:** Separación de vistas por rol + DB schema Part 2  
+> ⏱️ **SIGUIENTE:** Testing role guards + Integración plans.js en UI
 
 ---
 
-## 📁 Documentación Activa (11 Documentos)
+## 📁 Documentación Activa (9 Documentos)
 
-### 🔴 PLANIFICACIÓN CRÍTICA (Part 2)
+### 🟢 IMPLEMENTACIÓN RECIENTE (Sesión 4)
 
-**1. [PLAN_6_HORAS.md](PLAN_6_HORAS.md)** ⚡ - ROADMAP EJECUTIVO
-- **LEER PRIMERO** - Plan hora por hora ultra-optimizado
-- Código completo por task (copy-paste ready)
-- Distribución 5 devs en paralelo
-- Scope mínimo si hay retrasos
-- **Usar:** Iniciar trabajo inmediato Part 2
+**1. [VISTAS_POR_ROL_GUIDE.md](VISTAS_POR_ROL_GUIDE.md)** ⚡ - SEPARACIÓN POR ROL
+- **96% Completado** - Arquitectura role-based implementada
+- 8 vistas con guards (candidate-* y company-*)
+- Sidebar dinámico + guardRole() function
+- Progress tracker detallado
+- **Usar:** Ver checklist de implementación y testing
 
-**2. [PRESENTATION_SCRIPT.md](PRESENTATION_SCRIPT.md)** 🎤 - Presentación 15 min
-- Script completo por speaker (5 devs)
-- 11 slides con contenido exacto
-- Demo flow técnico
-- Checklist pre-presentación
-- **Usar:** Preparar presentación final
+**2. [DB_REFORMULADA_GUIDE.md](DB_REFORMULADA_GUIDE.md)** 💾 - Part 2 Schema
+- Schema completo con campos de monetización
+- Ejemplos de uso de plans.js
+- Comparación old vs new schema
+- Próximos pasos de migración
+- **Usar:** Migrar db.json a estructura Part 2
 
-**3. [CUMPLIMIENTO_CRUDZASO.md](CUMPLIMIENTO_CRUDZASO.md)** 📊 - Progreso Master
-- Checklist Part 1 (68%) + Part 2 (0%)
-- Candidate plans (Free/Pro1/Pro2)
-- Company plans (Free/Business/Enterprise)
-- Gaps críticos identificados
+**3. [SPRINTS_EXECUTION.md](SPRINTS_EXECUTION.md)** 📋 - Guía Sprints Part 1
+- ✅ Gaps críticos resueltos (P2, P3, P5)
+- Separación por rol documentada
+- Code examples y test cases
+- **Usar:** Referencia para patterns y testing
+
+---
+
+### 🟡 TRACKING & STATUS
+
+**4. [CUMPLIMIENTO_CRUDZASO.md](CUMPLIMIENTO_CRUDZASO.md)** 📊 - Progreso Master
+- Part 1: 85% (↑ desde 68%)
+- Part 2: 25% (plans.js + schema listos)
+- Checklist actualizado
 - **Usar:** Ver status global proyecto
 
----
-
-### 🟡 PLANIFICACIÓN PART 1 (Referencia)
-
-**4. [SPRINTS_EXECUTION.md](SPRINTS_EXECUTION.md)** - Sprints Originales
-- Code examples Part 1
-- Test cases y validación
-- **Usar:** Referencia para patterns existentes
-
-**5. [TEAM_ASSIGNMENT_GUIDE.md](TEAM_ASSIGNMENT_GUIDE.md)** - Asignaciones Equipo
-- Dev 1-5 roles (Part 1)
-- **Usar:** Ver especialización por dev
-
----
-
-### 📋 HISTORIAL & REFERENCIA
-
-**6. [CAMBIOS_REALIZADOS.md](CAMBIOS_REALIZADOS.md)** - Tracking Sesiones
+**5. [CAMBIOS_REALIZADOS.md](CAMBIOS_REALIZADOS.md)** - Historial Sesiones
 - Sesión 1: Open to Work ✅
 - Sesión 2: Refactorización ✅
 - Sesión 3: CSS Global ✅
-- **Usar:** Entender qué se hizo antes
+- Sesión 4: Role Separation + Part 2 Schema ✅
+- **Usar:** Entender qué se hizo en cada sesión
+
+**6. [ANÁLISIS_ENDPOINTS.md](ANÁLISIS_ENDPOINTS.md)** - Issues Técnicos
+- ✅ 5 resueltos (P1, P2, P3, P4, P5)
+- ⏳ 2 pendientes (N+1, Contact Privacy)
+- **Usar:** Ver bugs conocidos
+
+---
+
+### 📋 REFERENCIA
 
 **7. [INFORME_ESTANDARIZACION_CSS.md](INFORME_ESTANDARIZACION_CSS.md)** - CSS Global
 - Sistema unificado documentado
@@ -65,39 +67,92 @@
 - Patrón toggle UI + PATCH
 - **Usar:** Referencia para features similares
 
----
-
-### 🔧 PROBLEMAS TÉCNICOS
-
-**9. [ANÁLISIS_ENDPOINTS.md](ANÁLISIS_ENDPOINTS.md)** - Issues Pendientes
-- 3 resueltos, 4 pendientes
-- Hardcoded companyId (CRÍTICO)
-- db.json.matches falta (BLOQUEANTE)
-- **Usar:** Ver bugs conocidos antes de codear
+**9. [INDEX.md](INDEX.md)** - Este documento
 
 ---
 
-### 🗑️ ARCHIVO
+## 🗑️ DOCUMENTOS OBSOLETOS (Archivar)
 
-**10. [PLAN_MIGRACION_CSS.md](PLAN_MIGRACION_CSS.md)** - CSS Completado
-- Condensado a 47 líneas (referencia histórica)
+**⚠️ PLAN_6_HORAS.md** - Roadmap 6h (OBSOLETO)
+- Creado cuando deadline era inminente
+- Plan superado por trabajo actual
+- **Mantener solo como referencia histórica**
 
-**11. [INDEX.md](INDEX.md)** - Este documento
+**⚠️ TEAM_ASSIGNMENT_GUIDE.md** - Asignaciones originales (PARCIALMENTE OBSOLETO)
+- Distribución de sprints ya no aplica
+- Trabajo se realizó de forma diferente
+- **Mantener solo como referencia**
+
+**⚠️ PRESENTATION_SCRIPT.md** - Script presentación (REVISAR)
+- Necesita actualización con trabajo real completado
+- Slides deben reflejar arquitectura actual
+
+**⚠️ PLAN_MIGRACION_CSS.md** - Migration Plan (COMPLETADO)
+- CSS ya migrado completamente
+- **Mantener solo como referencia histórica**
 
 ---
 
-## 🎯 GUÍA DE LECTURA URGENTE (Part 2)
+## 🎯 GUÍA DE LECTURA POR ROL
 
-### 🚨 PARA INICIAR AHORA (Orden obligatorio)
+### 👨‍💻 DESARROLLADOR (Continuar trabajo)
 
-1. ⚡ **[PLAN_6_HORAS.md](PLAN_6_HORAS.md)** - Tu task específica (30-60 min)
-2. 📊 **[CUMPLIMIENTO_CRUDZASO.md](CUMPLIMIENTO_CRUDZASO.md)** - Contexto Part 2
-3. 🔧 **[ANÁLISIS_ENDPOINTS.md](ANÁLISIS_ENDPOINTS.md)** - Bugs a evitar
+**Orden recomendado:**
+1. ⚡ **[VISTAS_POR_ROL_GUIDE.md](VISTAS_POR_ROL_GUIDE.md)** - Estado actual implementación
+2. 📊 **[CUMPLIMIENTO_CRUDZASO.md](CUMPLIMIENTO_CRUDZASO.md)** - Ver qué falta
+3. 💾 **[DB_REFORMULADA_GUIDE.md](DB_REFORMULADA_GUIDE.md)** - Schema Part 2
+4. 🔧 **[ANÁLISIS_ENDPOINTS.md](ANÁLISIS_ENDPOINTS.md)** - Bugs pendientes
+5. 📋 **[SPRINTS_EXECUTION.md](SPRINTS_EXECUTION.md)** - Patterns y ejemplos
 
-### 📝 PARA PRESENTACIÓN (última hora)
+### 📊 TECH LEAD / PM (Review)
 
-1. 🎤 **[PRESENTATION_SCRIPT.md](PRESENTATION_SCRIPT.md)** - Tu sección asignada
-2. 📊 **[CUMPLIMIENTO_CRUDZASO.md](CUMPLIMIENTO_CRUDZASO.md)** - Métricas presentar
+**Orden recomendado:**
+1. 📊 **[CUMPLIMIENTO_CRUDZASO.md](CUMPLIMIENTO_CRUDZASO.md)** - Status general
+2. 📝 **[CAMBIOS_REALIZADOS.md](CAMBIOS_REALIZADOS.md)** - Historial trabajo
+3. ⚡ **[VISTAS_POR_ROL_GUIDE.md](VISTAS_POR_ROL_GUIDE.md)** - Última implementación
+4. 🔧 **[ANÁLISIS_ENDPOINTS.md](ANÁLISIS_ENDPOINTS.md)** - Deuda técnica
+
+### 🎤 PRESENTADOR (Preparar demo)
+
+**Orden recomendado:**
+1. 📊 **[CUMPLIMIENTO_CRUDZASO.md](CUMPLIMIENTO_CRUDZASO.md)** - Métricas
+2. 📝 **[CAMBIOS_REALIZADOS.md](CAMBIOS_REALIZADOS.md)** - Story sesión por sesión
+3. ⚡ **[VISTAS_POR_ROL_GUIDE.md](VISTAS_POR_ROL_GUIDE.md)** - Feature principal (role separation)
+4. 💾 **[DB_REFORMULADA_GUIDE.md](DB_REFORMULADA_GUIDE.md)** - Part 2 schema
+5. 📋 **[INFORME_ESTANDARIZACION_CSS.md](INFORME_ESTANDARIZACION_CSS.md)** - Mejoras técnicas
+
+---
+
+## 📈 PROGRESO SESIONES
+
+```
+Sesión 1 (5 feb): Open to Work           55% → 60%
+Sesión 2 (5 feb): Refactorización        60% → 62%
+Sesión 3 (6 feb): CSS Global             62% → 68%
+Sesión 4 (6 feb): Role Separation        68% → 85% ✅
+Próxima: Testing + UI Integration        85% → 95%+
+```
+
+---
+
+## 🚀 PRÓXIMOS PASOS
+
+### Inmediato (2-3 horas)
+1. ⏳ Testing role-based views (guards funcionando)
+2. ⏳ Integrar plans.js en UI (mostrar límites de plan)
+3. ⏳ Migrar db.json → db-reformulada.json
+
+### Corto Plazo (1 día)
+4. ⏳ Resolver N+1 queries (performance)
+5. ⏳ Implementar contact privacy (status >= contacted)
+6. ⏳ Polish dashboards HTML (métricas por rol)
+
+### Presentación
+7. ⏳ Actualizar PRESENTATION_SCRIPT.md con trabajo real
+8. ⏳ Preparar demo flow completo
+9. ⏳ Screenshots y métricas finales
+
+---
 
 ---
 

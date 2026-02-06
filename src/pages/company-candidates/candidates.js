@@ -4,6 +4,24 @@ guardRole('company');
 const API_URL = "http://localhost:3000";
 
 document.addEventListener("DOMContentLoaded", () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  // Update profile display
+  const profileNameEl = document.getElementById("profile-name");
+  if (profileNameEl) profileNameEl.textContent = user.name;
+
+  const profileRoleEl = document.getElementById("profile-role");
+  if (profileRoleEl) profileRoleEl.textContent = user.role.charAt(0).toUpperCase() + user.role.slice(1);
+
+  // Logout button handler
+  const logoutBtn = document.getElementById("logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("user");
+      window.location.href = "/src/pages/login/index.html";
+    });
+  }
+
   loadCandidates();
   setupSearch();
 });

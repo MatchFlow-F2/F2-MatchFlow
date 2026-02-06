@@ -1,6 +1,6 @@
 # 📡 ANÁLISIS: Problemas de Endpoints y APIs
 
-**Última actualización:** 6-Feb-2026 | **Estado:** 3 resueltos, 4 pendientes
+**Última actualización:** 6-Feb-2026 | **Estado:** 5 resueltos, 2 pendientes
 
 ---
 
@@ -17,29 +17,71 @@ const res = await fetch(`${API_URL}/users?role=candidate&openToWork=true`);
 
 ---
 
-## ❌ PROBLEMAS PENDIENTES (CRÍTICOS)
+### ~~P2: CompanyId Hardcodeado~~
 
-### P2: CompanyId Hardcodeado
-
-**Archivos:** `src/pages/jobs/jobs.js` (L7), `src/pages/interviews/interviews.js` (L7)
+**Archivos:** `src/pages/jobs/jobs.js`, `src/pages/interviews/interviews.js`
 
 ```javascript
-// ❌ ACTUAL
-const res = await fetch(`${API_URL}/jobs?companyId=1`);
-
-// ✅ DEBE SER
+// ✅ CORREGIDO por teammate
 const user = JSON.parse(localStorage.getItem('user'));
-const companyId = user?.id || 1;
+const companyId = user?.id;
 const res = await fetch(`${API_URL}/jobs?companyId=${companyId}`);
 ```
 
-**Impacto:** 🔴 CRÍTICO - Seguridad comprometida, todos ven job/interviews de company 1  
-**Tiempo:** 30 min  
-**Prioridad:** ⚠️ RESOLVER ANTES DE SPRINT 1
+**Status:** ✅ COMPLETADO - Verificado sesión 4  
+**Solucionado por:** Teammate en merge anterior
 
 ---
 
-### P3: N+1 Query Problem
+### ~~P3: createMatch() Naming Conflict~~
+
+**Problema:** Dos funciones con mismo nombre, diferentes signaturas
+- `match-logic.js`: `createMatch(companyId, jobId, candidateId)` 
+- `candidates.js`: `createMatch(candidateId)` con hardcoded companyId
+
+**Solución (Sesión 4):**
+```javascript
+// ✅ RENOMBRADO en candidates.js
+function createMatchFromCandidates(candidateId) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const companyId = user?.id; // Dinámico
+  // ...
+}
+```
+
+**Status:** ✅ COMPLETADO - Implementado sesión 4
+
+---
+
+### ~~P4: db.json.matches Array Falta~~
+
+**Problema:** Endpoint POST /matches fallaba sin array
+
+```json
+// ✅ AGREGADO
+{ "users": [...], "jobs": [...], "matches": [] }
+```
+
+**Status:** ✅ COMPLETADO - Agregado en sesión anterior
+
+---
+
+### ~~P5: package.json db.json path incorrecto~~
+
+**Problema:** json-server buscaba db.json en path incorrecto
+
+```json
+// ✅ CORREGIDO
+"server": "json-server --watch src/data/db.json --port 3000"
+```
+
+**Status:** ✅ COMPLETADO - Commit previo
+
+---
+
+## ❌ PROBLEMAS PENDIENTES
+
+### P6: N+1 Query Problem
 
 **Archivos:** `interviews.js`, `candidates.js` (múltiples loops)
 
@@ -63,46 +105,26 @@ const enriched = interviews.map(i => ({
 }));
 ```
 
-**Impacto:** 🔴 CRÍTICO - Performance terrible con muchos datos  
+**Impacto:** � MEDIO - Performance mejorable con muchos datos  
 **Tiempo:** 1-2 horas  
 **Prioridad:** 🟡 MEDIO - Optimización importante
 
 ---
 
-### P4: db.json.matches Array Falta
+### P7: Contact Privacy
 
-**Problema:** Endpoint POST /matches fallará
-
-```json
-// ❌ ACTUAL - db.json
-{ "users": [...], "jobs": [...] }
-
-// ✅ DEBE SER
-{ "users": [...], "jobs": [...], "matches": [] }
-```
-
-**Impacto:** 🔴 BLOQUEANTE - Bloquea Sprint 1 (Create Matches)  
-**Tiempo:** 5 min  
-**Prioridad:** ⚠️ RESOLVER ANTES DE SPRINT 1
-
----
-
-### P5: Falta Content-Type en Requests
-
-**Problema:** Algunas requests PATCH/POST sin headers
+**Problema:** Contact info visible siempre (debe ocultarse si status < "contacted")
 
 ```javascript
-// ✅ AÑADIR A TODOS LOS POST/PATCH
-fetch(url, {
-  method: 'PATCH',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(data),
-});
+// ✅ LÓGICA YA EXISTE en matches-ui.js
+const canSeeContact = ["contacted", "interview", "hired"].includes(match.status);
+
+// ⏳ FALTA: Enforcement completo en todas las vistas
 ```
 
-**Impacto:** 🟡 MENOR - Puede causar errores intermitentes  
-**Tiempo:** 15 min  
-**Prioridad:** 🟢 BAJO
+**Impacto:** 🟡 MEDIO - Privacy issue  
+**Tiempo:** 1 hora  
+**Prioridad:** 🟡 MEDIO - Enforcement UI
 
 ---
 
@@ -110,19 +132,22 @@ fetch(url, {
 
 | Problema | Severidad | Status | Tiempo Fix |
 |----------|-----------|--------|------------|
-| /candidates endpoint | 🔴 CRÍTICO | ✅ RESUELTO | - |
-| Hardcoded companyId | 🔴 CRÍTICO | ❌ PENDIENTE | 30 min |
-| db.json.matches falta | 🔴 BLOQUEANTE | ❌ PENDIENTE | 5 min |
-| N+1 Query | 🔴 CRÍTICO | ❌ PENDIENTE | 1-2h |
-| Falta Content-Type | 🟡 MENOR | ❌ PENDIENTE | 15 min |
+| P1: /candidates endpoint | 🔴 CRÍTICO | ✅ RESUELTO | - |
+| P2: Hardcoded companyId | 🔴 CRÍTICO | ✅ RESUELTO | - |
+| P3: createMatch conflict | 🔴 BLOQUEANTE | ✅ RESUELTO | - |
+| P4: db.json.matches falta | 🔴 BLOQUEANTE | ✅ RESUELTO | - |
+| P5: package.json path | 🔴 BLOQUEANTE | ✅ RESUELTO | - |
+| P6: N+1 Query | 🟡 MEDIO | ❌ PENDIENTE | 1-2h |
+| P7: Contact Privacy | 🟡 MEDIO | ⏳ PARCIAL | 1h |
 
-**Total Pendiente:** 2-3 horas de fixes  
-**Impacto:** +10% cumplimiento al resolver todos
+**Total Resueltos:** 5/7 (71%)  
+**Total Pendiente:** 2-3 horas de optimización  
+**Impacto:** Todos los bloqueantes resueltos ✅
 
 ---
 
 ## 📝 NOTAS
 
 - ✅ **Sesión 1:** Endpoint /candidates resuelto
-- ⏳ **Antes Sprint 1:** Resolver hardcoded companyId + matches array
-- ⏳ **Sprint 3-4:** Resolver N+1 queries (optimización)
+- ✅ **Sesión 4:** Gaps críticos P2, P3, P4, P5 resueltos
+- ⏳ **Próxima:** Optimizaciones P6, P7 (performance + privacy)

@@ -47,10 +47,17 @@
         </div>
 
         <div class="sidebar-footer">
-          <div class="avatar"></div>
-          <div>
-            <p class="user-name" id="nameProfile">Candidato</p>
-            <p class="user-role">Software Engineer</p>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 flex-1">
+              <div class="avatar"></div>
+              <div>
+                <p class="user-name" id="profile-name">Company</p>
+                <p class="user-role" id="profile-role">Company</p>
+              </div>
+            </div>
+            <button id="logout-btn" title="Logout" class="px-2 py-1 text-red-600 hover:text-red-700 hover:bg-red-600 hover:bg-opacity-10 rounded transition">
+              <i class="fa-solid fa-sign-out-alt"></i>
+            </button>
           </div>
         </div>
       </aside>
@@ -59,131 +66,49 @@
       <main class="main-content">
         <!-- Header -->
         <div>
-          <h2 class="title-xl">Candidate Dashboard</h2>
-          <p class="text-muted">First option contracting platform</p>
+          <h2 class="title-xl">Find Candidates</h2>
+          <p class="text-muted">Search for talented candidates</p>
         </div>
 
-        <!-- Visibilidad activa o desactiva -->
-        <div class="card">
-          <div class="card-body flex justify-between items-center">
-            <div>
-              <h3 class="card-title">Abierto al Trabajo</h3>
-              <p class="card-text">Visibilidad activa para empresas</p>
-            </div>
-            <div class="form-check form-switch">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="check"
-                switch
-              />
-              <label class="form-check-label" for="checkNativeSwitch"> </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- Ofertas de trabajos -->
-        <div>
-          <div class="flex justify-between items-center mb-3">
-            <h3 class="title-lg">Job Opportunities</h3>
-            <p class="text-muted text-sm">See Details...</p>
-          </div>
-          <div class="container-ofertas"></div>
-        </div>
-
-        <!-- Matches Actuales -->
-        <div>
-          <div class="flex justify-between items-center mb-3">
-            <h3 class="title-lg">Mis Matches Actuales</h3>
-            <a href="/src/pages/matches/index.html" class="text-muted text-sm"
-              >See Details...</a
-            >
-          </div>
-          <div class="matches-list">
-            <div class="card">
-              <div class="card-body flex justify-between items-center">
-                <div class="flex flex-col">
-                  <h3>Node JS Developer</h3>
-                  <p>BringhtApps</p>
-                </div>
-                <div>
-                  <button class="btn btn-outline-success">Contactando</button>
-                </div>
-                <div>
-                  <button class="btn btn-bg">Ver Perfil</button>
-                </div>
+        <!-- Search & Filters -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="grid grid-cols-3 gap-3 mb-3">
+              <div>
+                <label class="text-sm font-medium mb-1 block">Role</label>
+                <input 
+                  type="text" 
+                  id="filter-role" 
+                  class="w-full px-3 py-2 bg-background-card rounded border border-background-hover text-sm"
+                  placeholder="e.g., Developer, Designer"
+                />
               </div>
-            </div>
-            <div class="card">
-              <div class="card-body flex justify-between items-center">
-                <div class="flex flex-col">
-                  <h3>Full Stack Developer</h3>
-                  <p>WebGenius</p>
-                </div>
-                <div>
-                  <button class="btn btn-outline-success">Reserved</button>
-                </div>
-                <div>
-                  <button class="btn btn-bg">Reserved</button>
-                </div>
+              <div>
+                <label class="text-sm font-medium mb-1 block">Location</label>
+                <input 
+                  type="text" 
+                  id="filter-location" 
+                  class="w-full px-3 py-2 bg-background-card rounded border border-background-hover text-sm"
+                  placeholder="e.g., New York, Remote"
+                />
+              </div>
+              <div class="flex items-end">
+                <button id="btn-search" class="w-full px-3 py-2 bg-brand text-white rounded text-sm font-medium hover:bg-opacity-90">
+                  Search
+                </button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Reservations -->
-        <div>
-          <div class="flex justify-between items-center mb-3">
-            <h3 class="title-lg">My Reservations</h3>
-            <p class="text-muted text-sm">See Details...</p>
-          </div>
-          <div class="matches-list">
-            <div class="card">
-              <div class="card-body flex justify-between items-center">
-                <div class="flex gap-2 items-center">
-                  <div class="avatar">
-                    <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWC1Pr9W4mq-MfwEdQttYDi2POCXkVuPjb_w&s"
-                      alt="perfil"
-                    />
-                  </div>
-                  <div class="flex flex-col">
-                    <h3>Node JS Developer</h3>
-                    <p>BringhtApps</p>
-                  </div>
-                </div>
-                <div>
-                  <button class="btn btn-outline-success">Contactando</button>
-                </div>
-                <div>
-                  <button class="btn btn-bg">Ver Perfil</button>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-body flex justify-between items-center">
-                <div class="flex gap-2 items-center">
-                  <div class="avatar">
-                    <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWC1Pr9W4mq-MfwEdQttYDi2POCXkVuPjb_w&s"
-                      alt="perfil"
-                    />
-                  </div>
-                  <div class="flex flex-col">
-                    <h3>Full Stack Developer</h3>
-                    <p>WebGenius</p>
-                  </div>
-                </div>
-                <div>
-                  <button class="btn btn-outline-success">Contactando</button>
-                </div>
-                <div>
-                  <button class="btn btn-bg">Reservado</button>
-                </div>
-              </div>
-            </div>
-          </div>
+        <!-- Candidates Count -->
+        <div class="mb-3">
+          <p class="text-muted text-sm"><span id="candidates-count">Loading...</span></p>
+        </div>
+
+        <!-- Candidates List -->
+        <div id="candidates-container" class="flex flex-col gap-3">
+          <div class="text-center text-muted py-8">Loading candidates...</div>
         </div>
       </main>
     </div>

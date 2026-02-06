@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MatchFlow - Redirect</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>⚡</text></svg>">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+        }
+        div {
+            text-align: center;
+            color: white;
+        }
+        h1 {
+            margin: 0 0 20px;
+            font-size: 2.5rem;
+        }
+        p {
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        a:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>⚡ MatchFlow</h1>
+        <p>Redirigiendo al login...</p>
+        <a href="./src/pages/login/index.html">O haz clic aquí si no rediriges automáticamente</a>
+    </div>
+    <script>
+        window.location.href = './src/pages/login/index.html';
+    </script>
+</body>
+</html>

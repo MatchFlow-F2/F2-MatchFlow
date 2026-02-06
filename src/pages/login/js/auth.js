@@ -49,8 +49,8 @@ document.getElementById('login-form').onsubmit = async (e) => {
       setTimeout(() => {
         window.location.href =
           user.role === 'company'
-            ? '/src/pages/dashboard/index.html'
-            : '/src/pages/candidates/index.html';
+            ? '/src/pages/company-dashboard/index.html'
+            : '/src/pages/candidate-dashboard/index.html';
       }, 1000);
     } else {
       notify('Incorrect password');

@@ -14,7 +14,25 @@ const API_URL = "http://localhost:3000";
 AuthGuard.checkAccess("company");
 const user = Storage.getSession();
 //-----------------------------------------------------
-document.addEventListener("DOMContentLoaded", loadJobs(user.id));
+
+// Setup profile and logout
+document.addEventListener("DOMContentLoaded", () => {
+  const profileNameEl = document.getElementById("profile-name");
+  if (profileNameEl) profileNameEl.textContent = user.name;
+
+  const profileRoleEl = document.getElementById("profile-role");
+  if (profileRoleEl) profileRoleEl.textContent = user.role.charAt(0).toUpperCase() + user.role.slice(1);
+
+  const logoutBtn = document.getElementById("logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("user");
+      window.location.href = "/src/pages/login/index.html";
+    });
+  }
+
+  loadJobs(user.id);
+});
 
 async function loadJobs(companyId) {
   try {
@@ -66,11 +84,78 @@ async function closeJob(id) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ status: "closed" }),
   });
-  loadJobs();
+  loadJobs(user.id);
 }
 
 async function deleteJob(id) {
   if (!confirm("Delete this job?")) return;
   await fetch(`${API_URL}/jobs/${id}`, { method: "DELETE" });
-  loadJobs();
+  loadJobs(user.id);
+}
+
+// Create Job Modal functionality
+const createJobBtn = document.getElementById("create-job-btn");
+const createJobModal = document.getElementById("create-job-modal");
+const closeModalBtn = document.getElementById("close-modal-btn");
+const createJobForm = document.getElementById("create-job-form");
+
+if (createJobBtn) {
+  createJobBtn.addEventListener("click", () => {
+    createJobModal.style.display = "flex";
+  });
+}
+
+if (closeModalBtn) {
+  closeModalBtn.addEventListener("click", () => {
+    createJobModal.style.display = "none";
+  });
+}
+
+// Close modal when clicking outside
+if (createJobModal) {
+  createJobModal.addEventListener("click", (e) => {
+    if (e.target === createJobModal) {
+      createJobModal.style.display = "none";
+    }
+  });
+}
+
+if (createJobForm) {
+  createJobForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    const title = document.getElementById("job-title").value;
+    const description = document.getElementById("job-description").value;
+    const location = document.getElementById("job-location").value;
+    const requirementsStr = document.getElementById("job-requirements").value;
+    const requirements = requirementsStr.split(",").map(r => r.trim()).filter(r => r);
+    
+    try {
+      const newJob = {
+        companyId: user.id,
+        title,
+        description,
+        location,
+        requirements,
+        status: "active",
+        createdAt: new Date().toISOString()
+      };
+      
+      const res = await fetch(`${API_URL}/jobs`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newJob)
+      });
+      
+      if (res.ok) {
+        alert("Job created successfully!");
+        createJobForm.reset();
+        createJobModal.style.display = "none";
+        loadJobs(user.id);
+      }
+    } catch (err) {
+      console.error("Error creating job:", err);
+      alert("Error creating job");
+    }
+  });
 }

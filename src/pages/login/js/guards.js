@@ -23,9 +23,9 @@ export const AuthGuard = {
       );
 
       if (user.role === 'company') {
-        window.location.href = '/src/pages/dashboard/index.html';
+        window.location.href = '/src/pages/company-dashboard/index.html';
       } else if (user.role === 'candidate') {
-        window.location.href = '/src/pages/candidates/index.html';
+        window.location.href = '/src/pages/candidate-dashboard/index.html';
       } else {
         window.location.href = '/src/pages/login/index.html';
       }

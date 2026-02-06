@@ -18,6 +18,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const welcomeEl = document.getElementById("welcome-name");
   if (welcomeEl) welcomeEl.textContent = user.name;
 
+  // Update Open to Work status
+  const openEl = document.getElementById("metric-open");
+  if (openEl) {
+    openEl.textContent = user.openToWork ? "Yes" : "No";
+    openEl.parentElement.className = user.openToWork 
+      ? "flex justify-between items-center"
+      : "flex justify-between items-center opacity-50";
+  }
+
   loadMetrics(user.id);
 });
 
@@ -28,48 +37,43 @@ async function loadMetrics(candidateId) {
         fetch(`${API_URL}/jobs?status=active`),  // Available jobs
         fetch(`${API_URL}/matches?candidateId=${candidateId}`),  // My matches
         fetch(`${API_URL}/interviews?candidateId=${candidateId}&status=scheduled`),  // My interviews
-        fetch(`${API_URL}/matches?companyId=${companyId}`),
       ]);
 
     const jobs = await jobsRes.json();
-    const applications = await applicationsRes.json();
-    const interviews = await interviewsRes.json();
     const matches = await matchesRes.json();
+    const interviews = await interviewsRes.json();
 
     const jobsEl = document.getElementById("metric-jobs");
     if (jobsEl) jobsEl.textContent = jobs.length;
 
-    const jobIds = jobs.map((job) => job.id);
-    const companyApplications = applications.filter((app) =>
-      jobIds.includes(app.jobId),
-    );
-
-    const appsEl = document.getElementById("metric-applicants");
-    if (appsEl) appsEl.textContent = companyApplications.length;
+    const matchesEl = document.getElementById("metric-applicants");
+    if (matchesEl) matchesEl.textContent = matches.length;
 
     const intEl = document.getElementById("metric-interviews");
     if (intEl) intEl.textContent = interviews.length;
 
     // Renderizar componentes
-    renderJobs(jobs, applications);
-    renderCharts(jobs, applications);
+    renderJobs(jobs);
+    renderMatches(matches);
+    renderInterviews(interviews);
     renderMatchesChart(matches);
   } catch (error) {
     console.error("Error loading metrics:", error);
   }
 }
 
-function renderJobs(jobs, applications) {
+function renderJobs(jobs) {
   const container = document.getElementById("jobs-list");
   if (!container) return;
 
   container.innerHTML = "";
 
-  jobs.forEach((job) => {
-    const applicantsCount = applications.filter(
-      (app) => app.jobId === job.id,
-    ).length;
+  if (jobs.length === 0) {
+    container.innerHTML = "<p class='text-gray-500'>No available jobs</p>";
+    return;
+  }
 
+  jobs.forEach((job) => {
     const jobCard = document.createElement("div");
     jobCard.className =
       "flex justify-between items-center bg-background-app p-4 rounded-lg";
@@ -78,124 +82,99 @@ function renderJobs(jobs, applications) {
             <div>
                 <p class="font-medium text-white">${job.title}</p>
                 <p class="text-text-muted text-sm">
-                    ${job.location} • 
+                    ${job.location || 'Remote'} • 
                     <span class="${job.status === "closed" ? "text-red-500" : "text-green-500"} font-medium">
-                        ${job.status}
+                        ${job.status || 'active'}
                     </span>
                 </p>
             </div>
             <div class="flex items-center gap-3">
-                <span class="text-brand text-sm">${applicantsCount} applicants</span>
-                <button class="px-3 py-1 bg-background-card rounded text-sm text-white">View</button>
-                ${
-                  job.status !== "closed"
-                    ? `<button onclick="closeJob(${job.id})" class="px-3 py-1 bg-red-600 hover:bg-red-700 rounded text-sm text-white">
-                             Close
-                           </button>`
-                    : ""
-                }
+                <button class="px-3 py-1 bg-brand rounded text-sm text-white hover:opacity-90">View Details</button>
             </div>
         `;
+
     container.appendChild(jobCard);
   });
 }
 
-window.closeJob = async function (jobId) {
-  try {
-    const response = await fetch(`${API_URL}/jobs/${jobId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: "closed" }),
-    });
+function renderMatches(matches) {
+  const container = document.getElementById("matches-list");
+  if (!container) return;
 
-    if (response.ok) {
-      const user = Storage.getSession();
-      loadMetrics(user.id);
-    }
-  } catch (error) {
-    console.error("Error closing job:", error);
-  }
-};
+  container.innerHTML = "";
 
-function groupByLast6Weeks(items, dateField) {
-  const now = new Date();
-  const weeks = [];
-
-  for (let i = 5; i >= 0; i--) {
-    const start = new Date(now);
-    start.setDate(now.getDate() - i * 7);
-    start.setHours(0, 0, 0, 0);
-
-    const end = new Date(start);
-    end.setDate(start.getDate() + 7);
-
-    weeks.push({
-      label: `W${6 - i}`,
-      start,
-      end,
-    });
+  if (matches.length === 0) {
+    container.innerHTML = "<p class='text-gray-500'>No matches yet</p>";
+    return;
   }
 
-  return weeks.map((week) => ({
-    label: week.label,
-    count: items.filter((item) => {
-      const d = new Date(item[dateField]);
-      return d >= week.start && d < week.end;
-    }).length,
-  }));
+  matches.forEach((match) => {
+    const matchCard = document.createElement("div");
+    matchCard.className =
+      "flex justify-between items-center bg-background-app p-4 rounded-lg";
+
+    const statusColors = {
+      pending: "text-yellow-500",
+      contacted: "text-blue-500",
+      interview: "text-orange-500",
+      hired: "text-green-500",
+      rejected: "text-red-500",
+    };
+
+    matchCard.innerHTML = `
+            <div>
+                <p class="font-medium text-white">Match ID: ${match.id}</p>
+                <p class="text-text-muted text-sm">
+                    Job ID: ${match.jobId} • 
+                    <span class="${statusColors[match.status] || "text-gray-500"} font-medium">
+                        ${match.status || 'pending'}
+                    </span>
+                </p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button class="px-3 py-1 bg-brand rounded text-sm text-white hover:opacity-90">View</button>
+            </div>
+        `;
+
+    container.appendChild(matchCard);
+  });
 }
 
-function renderCharts(jobs, applications) {
-  const ctxApps = document.getElementById("applicationsChart");
-  const ctxJobs = document.getElementById("jobsChart");
+function renderInterviews(interviews) {
+  const container = document.getElementById("interviews-list");
+  if (!container) return;
 
-  if (!ctxApps || !ctxJobs) return;
+  container.innerHTML = "";
 
-  const appsData = groupByLast6Weeks(applications, "createdAt");
-  const jobsData = groupByLast6Weeks(jobs, "createdAt");
+  if (interviews.length === 0) {
+    container.innerHTML = "<p class='text-gray-500'>No scheduled interviews</p>";
+    return;
+  }
 
-  new Chart(ctxApps, {
-    type: "line",
-    data: {
-      labels: appsData.map((w) => w.label),
-      datasets: [
-        {
-          label: "Applications",
-          data: appsData.map((w) => w.count),
-          borderColor: "#3B82F6",
-          backgroundColor: "rgba(59,130,246,0.2)",
-          tension: 0.4,
-        },
-      ],
-    },
-    options: {
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { ticks: { color: "#94A3B8" } },
-        y: { ticks: { color: "#94A3B8" } },
-      },
-    },
-  });
+  interviews.forEach((interview) => {
+    const interviewCard = document.createElement("div");
+    interviewCard.className =
+      "flex justify-between items-center bg-background-app p-4 rounded-lg";
 
-  new Chart(ctxJobs, {
-    type: "bar",
-    data: {
-      labels: jobsData.map((w) => w.label),
-      datasets: [
-        {
-          label: "Jobs",
-          data: jobsData.map((w) => w.count),
-          backgroundColor: "#60A5FA",
-        },
-      ],
-    },
-    options: {
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { ticks: { color: "#94A3B8" } },
-        y: { ticks: { color: "#94A3B8" } },
-      },
-    },
+    const date = new Date(interview.date);
+    const dateStr = date.toLocaleDateString("es-ES", {
+      month: "short",
+      day: "numeric",
+    });
+
+    interviewCard.innerHTML = `
+            <div>
+                <p class="font-medium text-white">${interview.companyName || "Company"}</p>
+                <p class="text-text-muted text-sm">
+                    ${dateStr} • ${interview.time || "TBA"}
+                </p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button class="px-3 py-1 bg-brand rounded text-sm text-white hover:opacity-90">View</button>
+            </div>
+        `;
+
+    container.appendChild(interviewCard);
   });
 }
 
@@ -217,29 +196,34 @@ function renderMatchesChart(matches) {
     }
   });
 
-  const sortedStatuses = Object.values(statusMap).sort(
-    (a, b) => b.count - a.count,
-  );
+  const sortedStatuses = Object.values(statusMap).filter(s => s.count > 0);
+
+  if (sortedStatuses.length === 0) {
+    ctxMatches.parentElement.innerHTML = "<p class='text-gray-500 text-center py-8'>No matches yet</p>";
+    return;
+  }
 
   new Chart(ctxMatches, {
-    type: "bar",
+    type: "doughnut",
     data: {
       labels: sortedStatuses.map((s) => s.label),
       datasets: [
         {
-          label: "Matches",
           data: sortedStatuses.map((s) => s.count),
           backgroundColor: sortedStatuses.map((s) => s.color),
-          borderRadius: 6,
-          barThickness: 28,
+          borderColor: "#1a1a2e",
+          borderWidth: 2,
         },
       ],
     },
     options: {
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { ticks: { color: "#94A3B8" }, grid: { display: false } },
-        y: { beginAtZero: true, ticks: { color: "#94A3B8", stepSize: 1 } },
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: {
+          position: "bottom",
+          labels: { color: "#94A3B8", padding: 15 },
+        },
       },
     },
   });

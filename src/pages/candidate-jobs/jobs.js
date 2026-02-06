@@ -14,7 +14,25 @@ const API_URL = "http://localhost:3000";
 AuthGuard.checkAccess("candidate");
 const user = Storage.getSession();
 //-----------------------------------------------------
-document.addEventListener("DOMContentLoaded", loadJobs());
+
+// Setup profile and logout
+document.addEventListener("DOMContentLoaded", () => {
+  const profileNameEl = document.getElementById("profile-name");
+  if (profileNameEl) profileNameEl.textContent = user.name;
+
+  const profileRoleEl = document.getElementById("profile-role");
+  if (profileRoleEl) profileRoleEl.textContent = user.role.charAt(0).toUpperCase() + user.role.slice(1);
+
+  const logoutBtn = document.getElementById("logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("user");
+      window.location.href = "/src/pages/login/index.html";
+    });
+  }
+
+  loadJobs();
+});
 
 async function loadJobs() {
   try {

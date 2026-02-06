@@ -1,4 +1,8 @@
 # 🎤 SCRIPT DE PRESENTACIÓN - 15 MINUTOS
+> ⚠️ **REQUIERE ACTUALIZACIÓN** - Script basado en estado previo (68% Part 1, 0% Part 2).  
+> 📄 **Estado Real:** Part 1: 85%, Part 2: 25% - Role separation ready, schema ready.  
+> 🔄 Actualizar demostración con: sidebar guards, candidate/company views, plans.js enforcement.
+
 
 **Equipo:** MatchFlow Team | **Fecha:** TBD | **Formato:** Técnica + Comercial  
 **Audiencia:** Crudzaso Leadership | **Objetivo:** Demostrar Part 1 completo + Part 2 monetización

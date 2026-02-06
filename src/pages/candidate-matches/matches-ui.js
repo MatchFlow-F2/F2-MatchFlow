@@ -18,6 +18,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  // Update profile display
+  const profileNameEl = document.getElementById("profile-name");
+  if (profileNameEl) profileNameEl.textContent = user.name;
+
+  const profileRoleEl = document.getElementById("profile-role");
+  if (profileRoleEl) profileRoleEl.textContent = user.role.charAt(0).toUpperCase() + user.role.slice(1);
+
+  // Logout button handler
+  const logoutBtn = document.getElementById("logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("user");
+      window.location.href = "/src/pages/login/index.html";
+    });
+  }
+
   await loadMatches(user.id);
 
   // Activar filtro "all" visualmente
