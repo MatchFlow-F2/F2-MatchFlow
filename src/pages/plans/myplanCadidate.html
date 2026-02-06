@@ -64,61 +64,46 @@
           <p class="text-muted">Manage your subscription plan to get access to all features.</p>
         </div>
         <!--Planes de suscripción-->
-        <section id="listaDePlanes" class="container mt-5">
-            <div class="row g-4">
-                <!-- Free Plan -->
-                <div class="col-12 col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title fw-bold">Free Candidate</h5>
-                            <h2 class="my-3">$0 <small class="text-muted fs-6">/month</small></h2>
-                            <ul class="list-unstyled flex-grow-1">
-                                <li class="mb-2">Can be reserved by only one company at a time.</li>
-                                <li class="mb-2">When reserved, other companies: cannot reserve the candidate, may or may not see them (decision inherited from Part 1).</li>
-                            </ul>
-                        </div>
+        <section id="listaDePlanes" class="mt-5">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="card">
+                    <div class="card-body flex flex-col">
+                        <h5 class="card-title fw-bold">Free Candidate</h5>
+                        <h2 class="my-3">$0 <small class="text-muted fs-6">/month</small></h2>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">Only one company can reserve.</li>
+                            <li class="mb-2">Others may not see the candidate.</li>
+                        </ul>
                     </div>
                 </div>
-                <!-- Pro Candidate – Level 1 -->
-                <div class="col-12 col-md-4">
-                    <div class="card h-100 border-primary shadow">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title fw-bold">Pro Candidate – Level 1</h5>
-                            <h2 class="my-3">$49 <small class="text-muted fs-6">/month</small></h2>
-                            <ul class="list-unstyled flex-grow-1">
-                                <li class="mb-2">Can be reserved by up to 2 companies simultaneously.</li>
-                                <li class="mb-2">Reservation count must be enforced by the system.</li>
-                                <li class="mb-2">If the limit is reached, further reservations must be blocked.</li>
-                            </ul>
-                            <button class="btn btn-primary mt-auto">
-                                Upgrade
-                            </button>
-                        </div>
+                <div class="card border border-gray-700">
+                    <div class="card-body flex flex-col">
+                        <h5 class="card-title fw-bold">Pro Candidate – Level 1</h5>
+                        <h2 class="my-3">$49 <small class="text-muted fs-6">/month</small></h2>
+                        <ul class="list-unstyled flex-1">
+                            <li class="mb-2">Up to 2 companies.</li>
+                            <li class="mb-2">Reservations enforced.</li>
+                            <li class="mb-2">Blocking on limit.</li>
+                        </ul>
+                        <button class="btn btn-primary mt-3">Upgrade</button>
                     </div>
                 </div>
-                <!-- Pro Candidate – Level 2 -->
-                <div class="col-12 col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title fw-bold">Pro Candidate – Level 2</h5>
-                            <h2 class="my-3">$129 <small class="text-muted fs-6">/month</small></h2>
-                            <ul class="list-unstyled flex-grow-1">
-                                <li class="mb-2">Can be reserved by up to 5 companies simultaneously.</li>
-                                <li class="mb-2">Reservation limits must be enforced.</li>
-                                <li class="mb-2">This plan represents maximum exposure for candidates.</li>
-                            </ul>
-                            <button class="btn btn-primary mt-auto">
-                                Upgrade
-                            </button>
-                        </div>
+                <div class="card">
+                    <div class="card-body flex flex-col">
+                        <h5 class="card-title fw-bold">Pro Candidate – Level 2</h5>
+                        <h2 class="my-3">$129 <small class="text-muted fs-6">/month</small></h2>
+                        <ul class="list-unstyled flex-1">
+                            <li class="mb-2">Up to 5 companies.</li>
+                            <li class="mb-2">No visibility restriction.</li>
+                            <li class="mb-2">Benefits included.</li>
+                        </ul>
+                        <button class="btn btn-primary mt-3">Upgrade</button>
                     </div>
                 </div>
             </div>
         </section>
-
       </main>
     </div>
-
     <script type="module" src="./interviews.js"></script>
   </body>
 </html>
