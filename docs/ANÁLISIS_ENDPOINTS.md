@@ -1,98 +1,98 @@
-# 📡 ANÁLISIS: Problemas de Endpoints
+# 📡 ANÁLISIS: Problemas de Endpoints y APIs
 
-**Hallazgo:** 30% de errores causados por endpoints incorrectos / hardcoded IDs
-
----
-
-## ✅ ENDPOINTS DISPONIBLES EN db.json
-
-```
-GET    /users                           ✅ (9 items: 5 cand + 4 companies)
-GET    /jobs                            ✅ (7 items)
-GET    /matches                         ✅ (5 items)
-GET    /reservations                    ✅ (2 items)
-GET    /messages                        ✅ (2 items)
-```
+**Última actualización:** 6-Feb-2026 | **Estado:** 3 resueltos, 4 pendientes
 
 ---
 
-## ❌ ENDPOINTS INEXISTENTES (Pero se llaman en código)
+## ✅ PROBLEMAS RESUELTOS
 
+### ~~P1: Endpoint /candidates inexistente~~
+
+**Solución (Sesión 1):**
+```javascript
+// ✅ CORRECTO
+const res = await fetch(`${API_URL}/users?role=candidate&openToWork=true`);
 ```
-/candidates              ← NO EXISTE - Usar /users?role=candidate
-/interviews             ← NO EXISTE - Usar /reservations o crear tabla
-/applications           ← NO EXISTE - Usar /matches
-GET /interviews         ← NO EXISTE
-POST /interviews        ← NO EXISTE
-DELETE /interviews/{id} ← NO EXISTE
-```
+**Status:** ✅ COMPLETADO - Implementado en candidates.js L13
 
 ---
 
-## 🔴 PROBLEMAS CRÍTICOS
+## ❌ PROBLEMAS PENDIENTES (CRÍTICOS)
 
-### P1: Hardcoded CompanyId
+### P2: CompanyId Hardcodeado
 
-**Archivo:** `src/pages/jobs/jobs.js` (L7)  
-**Problema:** Siempre obtiene jobs del company 1
+**Archivos:** `src/pages/jobs/jobs.js` (L7), `src/pages/interviews/interviews.js` (L7)
 
 ```javascript
-// ❌ INCORRECTO
+// ❌ ACTUAL
 const res = await fetch(`${API_URL}/jobs?companyId=1`);
 
-// ✅ CORRECTO
-const companyId = JSON.parse(localStorage.getItem('user')).id;
+// ✅ DEBE SER
+const user = JSON.parse(localStorage.getItem('user'));
+const companyId = user?.id || 1;
 const res = await fetch(`${API_URL}/jobs?companyId=${companyId}`);
 ```
 
-**Impacto:** SEGURIDAD comprometida - todos ven jobs de company 1
-
----
-
-### P2: CompanyId Hardcodeado en Interviews
-
-**Archivo:** `src/pages/interviews/interviews.js` (L10)
-
-```javascript
-// ❌ INCORRECTO
-const res = await fetch(`${API_URL}/interviews?companyId=1`);
-
-// ✅ CORRECTO (ya que /interviews NO existe)
-// Usar /reservations como interviews
-const res = await fetch(`${API_URL}/reservations?companyId=${userId}`);
-```
+**Impacto:** 🔴 CRÍTICO - Seguridad comprometida, todos ven job/interviews de company 1  
+**Tiempo:** 30 min  
+**Prioridad:** ⚠️ RESOLVER ANTES DE SPRINT 1
 
 ---
 
 ### P3: N+1 Query Problem
 
-**Archivos:** interviews.js, candidates.js (múltiples loops)  
-**Problema:** 1 + N requests (1 inicial + N por item)
+**Archivos:** `interviews.js`, `candidates.js` (múltiples loops)
 
 ```javascript
-// ❌ INCORRECTO (201 requests para 100 items)
+// ❌ ACTUAL (201 requests para 100 items)
 for (const interview of interviews) {
   const candidate = await fetch(`/users/${id}`);
   const job = await fetch(`/jobs/${id}`);
 }
 
 // ✅ CORRECTO (3 requests totales)
-const [interviews, users, jobs] = await Promise.all([...])
+const [interviews, users, jobs] = await Promise.all([
+  fetch('/interviews').then(r => r.json()),
+  fetch('/users').then(r => r.json()),
+  fetch('/jobs').then(r => r.json())
+]);
 const enriched = interviews.map(i => ({
   ...i,
   candidate: users.find(u => u.id === i.candidateId),
   job: jobs.find(j => j.id === i.jobId)
-}))
+}));
 ```
+
+**Impacto:** 🔴 CRÍTICO - Performance terrible con muchos datos  
+**Tiempo:** 1-2 horas  
+**Prioridad:** 🟡 MEDIO - Optimización importante
 
 ---
 
-### P4: Endpoint Headers Incorrectos
+### P4: db.json.matches Array Falta
 
-**Problema:** Algunas requests faltan `Content-Type: application/json`
+**Problema:** Endpoint POST /matches fallará
+
+```json
+// ❌ ACTUAL - db.json
+{ "users": [...], "jobs": [...] }
+
+// ✅ DEBE SER
+{ "users": [...], "jobs": [...], "matches": [] }
+```
+
+**Impacto:** 🔴 BLOQUEANTE - Bloquea Sprint 1 (Create Matches)  
+**Tiempo:** 5 min  
+**Prioridad:** ⚠️ RESOLVER ANTES DE SPRINT 1
+
+---
+
+### P5: Falta Content-Type en Requests
+
+**Problema:** Algunas requests PATCH/POST sin headers
 
 ```javascript
-// ✅ CORRECTO
+// ✅ AÑADIR A TODOS LOS POST/PATCH
 fetch(url, {
   method: 'PATCH',
   headers: { 'Content-Type': 'application/json' },
@@ -100,30 +100,29 @@ fetch(url, {
 });
 ```
 
----
-
-## 📊 RESUMEN PROBLEMAS ENCONTRADOS
-
-| Problema              | Severidad  | Ubicación                    | Solución                               | Tiempo    |
-| --------------------- | ---------- | ---------------------------- | -------------------------------------- | --------- |
-| Hardcoded companyId   | 🔴 CRÍTICO | jobs.js, interviews.js       | Usar `localStorage.getItem('user').id` | 30 min    |
-| /interviews NO existe | 🔴 CRÍTICO | interviews.js                | Remap a /reservations                  | 20 min    |
-| N+1 Query             | 🔴 CRÍTICO | interviews.js, candidates.js | Promise.all + map                      | 1-2 horas |
-| Falta Content-Type    | 🟡 MENOR   | Varios                       | Agregar headers HTTP                   | 15 min    |
-| /candidates no existe | 🔴 CRÍTICO | candidates.js                | Usar /users?role=candidate             | ✅ FIXED  |
-
-**Total Tiempo Arreglo:** 2-3 horas | **Impacto:** +10% Cumplimiento
+**Impacto:** 🟡 MENOR - Puede causar errores intermitentes  
+**Tiempo:** 15 min  
+**Prioridad:** 🟢 BAJO
 
 ---
 
-## ✅ ARREGLADOS (Sesión 1)
+## 📊 RESUMEN
 
-- ✅ `/candidates` endpoint → `/users?role=candidate&openToWork=true`
-- ✅ Added error handling en candidate.js
-- ✅ localStorage user data sync
+| Problema | Severidad | Status | Tiempo Fix |
+|----------|-----------|--------|------------|
+| /candidates endpoint | 🔴 CRÍTICO | ✅ RESUELTO | - |
+| Hardcoded companyId | 🔴 CRÍTICO | ❌ PENDIENTE | 30 min |
+| db.json.matches falta | 🔴 BLOQUEANTE | ❌ PENDIENTE | 5 min |
+| N+1 Query | 🔴 CRÍTICO | ❌ PENDIENTE | 1-2h |
+| Falta Content-Type | 🟡 MENOR | ❌ PENDIENTE | 15 min |
 
-**Pendientes:**
+**Total Pendiente:** 2-3 horas de fixes  
+**Impacto:** +10% cumplimiento al resolver todos
 
-- ⏳ Hardcoded companyId en jobs, interviews
-- ⏳ N+1 Query problems
-- ⏳ /interviews remap a /reservations
+---
+
+## 📝 NOTAS
+
+- ✅ **Sesión 1:** Endpoint /candidates resuelto
+- ⏳ **Antes Sprint 1:** Resolver hardcoded companyId + matches array
+- ⏳ **Sprint 3-4:** Resolver N+1 queries (optimización)

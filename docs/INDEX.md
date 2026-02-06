@@ -1,123 +1,124 @@
 # 📚 Índice de Documentación - MatchFlow
 
 **Última actualización:** Febrero 6, 2026  
-**Status del Proyecto:** ✅ CSS Estandarizado + 🚀 En Desarrollo Activo
-
-> ✅ **ACTUALIZACIÓN 6-FEB:** Sistema CSS global implementado. Todas las páginas ahora usan diseño unificado sin dependencias externas.
+**Progreso del Proyecto:** 68% ✅ | **Status:** CSS Estandarizado + Desarrollo Activo
 
 ---
 
-## 📁 Documentación Vigente (11 Documentos)
+## 📁 Documentación Activa (7 Documentos)
 
-### 🔴 CRÍTICA: Requisitos & Roadmap
+### 🔴 PLANIFICACIÓN MASTER
 
-#### **CUMPLIMIENTO_CRUDZASO.md** 📊
+**1. [CUMPLIMIENTO_CRUDZASO.md](CUMPLIMIENTO_CRUDZASO.md)** - Roadmap Completo
+- Checklist de requisitos y progreso (68%)
+- 5 sprints detallados para llegar a 100%
+- Problemas críticos identificados
+- Timeline: 14-16 horas restantes
 
-- **Propósito:** Guía maestra de requisitos y progreso
-- **Contenido:** Checklist de features, análisis de gaps, sprint breakdown
-- **Progreso:** 62% cumplimiento (después Open to Work + refactoring)
-- **Sprint Plan:** 5 sprints detallados para llegar a 100% (14-16 horas)
-- **Actualización:** Después de cada sesión/sprint
+**2. [SPRINTS_EXECUTION.md](SPRINTS_EXECUTION.md)** - Guía Técnica Completa
+- Code examples por sprint
+- Test cases y validación
+- Setup y troubleshooting
+- **LEER PRIMERO** antes de implementar features
 
----
-
-### 🟡 CRITICAL: Sprint Execution (¡Leer primero!)
-
-#### **SPRINTS_EXECUTION.md** 🚀 [PRIMARY]
-- **Propósito:** Documento MASTER con detalles COMPLETOS para implementación
-- **Contenido:** Code examples, checklists, testing procedures, db.json updates
-- **5 Sprints:** Cada uno con tareas específicas, code samples, validación
-- **Responsable:** Todos los devs (DEV 1-5)
-- **Usar cuando:** Comenzando a implementar cualquier feature
-
-#### **TEAM_ASSIGNMENT_GUIDE.md** 👥 [REFERENCE]
-- **Propósito:** Asignaciones específicas, timeline, dependencias
-- **Contenido:** Dev 1-5 roles, sprints, schedule, no blocking model
-- **Responsable:** Tech Lead + Team
-- **Usar cuando:** Definir quién hace qué y cuándo
-
-#### **TESTING_CHECKLIST.md** ✅
-- **Propósito:** Validación exhaustiva de cada feature antes de merge
-- **Contenido:** Test cases por sprint, edge cases, full integration test
-- **Responsable:** Dev 4 (QA Lead) + Dev 3 (QA Support)
+**3. [TEAM_ASSIGNMENT_GUIDE.md](TEAM_ASSIGNMENT_GUIDE.md)** - Asignaciones de Equipo
+- Dev 1-5 roles específicos
+- Sprints sin dependencias (trabajo paralelo)
+- Timeline y schedule
 
 ---
 
-### 📋 REFERENCIA: Problemas Técnicos & Features Completadas
+### 📋 HISTORIAL & REFERENCIAS
 
-#### **AUDIT_ULTIMOS_2_MERGES.md** 🔍 [NEW]
+**4. [CAMBIOS_REALIZADOS.md](CAMBIOS_REALIZADOS.md)** - Tracking de Sesiones
+- Sesión 1: Open to Work ✅
+- Sesión 2: Refactorización ✅
+- Sesión 3: CSS Global ✅
+- Progreso: 55% → 68%
 
-- **Propósito:** Auditoría exhaustiva de los últimos 2 merges a develop
-- **Contenido:** Qué se solucionó, análisis de cambios, verificación de status
-- **Actualización:** Después de merge a develop
+**5. [INFORME_ESTANDARIZACION_CSS.md](INFORME_ESTANDARIZACION_CSS.md)** - CSS Global (Sesión 3)
+- Sistema CSS unificado documentado
+- Problemas resueltos (routing + CSS)
+- Métricas: -500KB CDN, -92% archivos
+- Recomendaciones futuras
 
-#### **ANÁLISIS_ENDPOINTS.md** 📡
-
-- **Propósito:** Mapa de problemas técnicos identificados
-- **Crítico:** Issues con hardcoded companyId, N+1 queries, endpoints faltantes
-- **Uso:** Reference para debugging
-
-#### **CAMBIOS_REALIZADOS.md** 📝
-
-- **Propósito:** Tracking de sesiones y progreso
-- **Contenido:** Session 1 (Open to Work), Session 2 (Refactoring), Session 3 (CSS Global)
-- **Actualización:** Al final de cada sesión
-
-#### **INFORME_ESTANDARIZACION_CSS.md** 🎨 [NEW]
-
-- **Propósito:** Informe completo de migración CSS y corrección de rutas
-- **Contenido:** Problemas resueltos, sistema CSS global, métricas, antes/después
-- **Estado:** ✅ Completado 6-Feb-2026
-- **Impacto:** Sistema unificado, -500KB CDN, -92% archivos CSS
-
-#### **PLAN_MIGRACION_CSS.md** 🎨 [OBSOLETO]
-
-- **Propósito:** Hoja de ruta Tailwind → Bootstrap (plan original)
-- **Estado:** ⚠️ OBSOLETO - Reemplazado por global.css
-- **Ver:** INFORME_ESTANDARIZACION_CSS.md para implementación real
-
-#### **IMPLEMENTACION_OPEN_TO_WORK.md** ✅
-- **Propósito:** Documentación de feature completada
-- **Patrón:** Referencia para implementar features similares
+**6. [IMPLEMENTACION_OPEN_TO_WORK.md](IMPLEMENTACION_OPEN_TO_WORK.md)** - Feature Completada
+- Toggle UI + PATCH sync
+- Patrón de referencia para features similares
+- Validación y testing
 
 ---
 
-## ✅ DOCUMENTACIÓN ELIMINADA
+### 🔧 PROBLEMAS TÉCNICOS
 
-| Archivo                          | Razón                         | Sesión    |
-| -------------------------------- | ----------------------------- | --------- |
-| ANÁLISIS_DETALLADO_DUPLICADOS.md | Problemas resueltos           | Sesión 2  |
-| AUDIT_ARCHIVOS_DUPLICADOS.md     | Duplicados archivados         | Sesión 2  |
-| AUDIT_REPORT.md                  | Duplica CUMPLIMIENTO_CRUDZASO | Sesión 2  |
-| PLAN_REVISIONES.md               | Plan obsoleto                 | Sesión 2  |
-| DEVELOPMENT_WORKFLOW.md          | Nunca fue creado              | N/A       |
-
-**Total:** 11 documentos vigentes (funcionales, actualizados)
+**7. [ANÁLISIS_ENDPOINTS.md](ANÁLISIS_ENDPOINTS.md)** - Issues & Fixes
+- 1 resuelto, 4 pendientes
+- Hardcoded companyId (CRÍTICO)
+- db.json.matches falta (BLOQUEANTE)
+- N+1 queries (Performance)
 
 ---
 
-## 🎯 LECTURA RECOMENDADA POR ROL
+## 🗑️ DOCUMENTOS ELIMINADOS (4)
 
-### Desarrollador Backend (Dev 1)
-1. ✅ TEAM_ASSIGNMENT_GUIDE.md (tu sección)
-2. ✅ SPRINTS_EXECUTION.md (código y ejemplos)
-3. CUMPLIMIENTO_CRUDZASO.md (antes de cada sprint)
-4. TESTING_CHECKLIST.md (para validar tu código)
+| Archivo | Razón | Fecha |
+|---------|-------|-------|
+| AUDIT_ULTIMOS_2_MERGES.md | Auditoría obsoleta, refería doc inexistente | 6-Feb |
+| TESTING_CHECKLIST.md | Redundante, contenido en SPRINTS_EXECUTION | 6-Feb |
+| PLAN_MIGRACION_CSS.md | Condensado a 47 líneas (era 187) | 6-Feb |
+| AUDIT_ARCHIVOS_DUPLICADOS.md | Sesión 2 cleanup | 5-Feb |
 
-### Desarrollador Frontend (Dev 2)
-1. ✅ TEAM_ASSIGNMENT_GUIDE.md (tu sección)
-2. ✅ INFORME_ESTANDARIZACION_CSS.md (sistema CSS global)
-3. IMPLEMENTACION_OPEN_TO_WORK.md (patrón para features)
-4. TESTING_CHECKLIST.md (para validar tu código)
+---
 
-### QA / Dev 3
-1. ✅ TESTING_CHECKLIST.md (es tu documento)
-2. ✅ TEAM_ASSIGNMENT_GUIDE.md (tu sección)
-3. INFORME_ESTANDARIZACION_CSS.md (cambios recientes)
+## 🎯 GUÍA DE LECTURA POR ROL
 
-### Tech Lead (Dev 4)
-1. ✅ TEAM_ASSIGNMENT_GUIDE.md (assignment authority)
-2. CUMPLIMIENTO_CRUDZASO.md (roadmap authority)
-3. INFORME_ESTANDARIZACION_CSS.md (últimos cambios)
-4. TESTING_CHECKLIST.md (approve merges)
-5. CAMBIOS_REALIZADOS.md (update progress)
+### 👨‍💻 Desarrollador (Dev 1-5)
+**Orden de lectura:**
+1. ✅ **CUMPLIMIENTO_CRUDZASO.md** - Entender estado actual (68%)
+2. ✅ **SPRINTS_EXECUTION.md** - Tu sprint específico con código
+3. ✅ **TEAM_ASSIGNMENT_GUIDE.md** - Tu rol y dependencias
+4. 📖 **ANÁLISIS_ENDPOINTS.md** - Problemas técnicos conocidos
+
+### 🎨 Frontend Developer
+**Enfoque especial:**
+- ✅ **INFORME_ESTANDARIZACION_CSS.md** - Sistema CSS global
+- ✅ **IMPLEMENTACION_OPEN_TO_WORK.md** - Patrón UI implementado
+- 📖 **SPRINTS_EXECUTION.md Sprint 4** - Contact Privacy UI
+
+### 🧪 QA / Tester
+**Testing workflow:**
+1. ✅ **SPRINTS_EXECUTION.md** - Test cases por sprint
+2. ✅ **CUMPLIMIENTO_CRUDZASO.md** - Features a validar
+3. 📖 **ANÁLISIS_ENDPOINTS.md** - Bugs conocidos
+
+### 👔 Tech Lead / PM
+**Vista general:**
+1. ✅ **CUMPLIMIENTO_CRUDZASO.md** - Progreso y roadmap
+2. ✅ **TEAM_ASSIGNMENT_GUIDE.md** - Asignaciones de equipo
+3. ✅ **CAMBIOS_REALIZADOS.md** - Historial de sesiones
+4. 📖 **SPRINTS_EXECUTION.md** - Detalles técnicos completos
+
+---
+
+## 📊 ESTRUCTURA DE DOCUMENTACIÓN
+
+```
+docs/
+├── 🔴 PLANIFICACIÓN (3 docs)
+│   ├── CUMPLIMIENTO_CRUDZASO.md        [Roadmap master]
+│   ├── SPRINTS_EXECUTION.md             [Guía técnica]
+│   └── TEAM_ASSIGNMENT_GUIDE.md         [Asignaciones]
+│
+├── 📋 HISTORIAL (3 docs)
+│   ├── CAMBIOS_REALIZADOS.md            [Tracking sesiones]
+│   ├── INFORME_ESTANDARIZACION_CSS.md   [CSS global]
+│   └── IMPLEMENTACION_OPEN_TO_WORK.md   [Feature completada]
+│
+└── 🔧 TÉCNICO (1 doc)
+    └── ANÁLISIS_ENDPOINTS.md             [Issues & fixes]
+```
+
+---
+
+**Total:** 7 documentos activos | 2,500+ líneas de documentación útil  
+**Última limpieza:** 6-Feb-2026 (eliminados 4 documentos obsoletos/redundantes)

@@ -368,7 +368,7 @@ const jobs = await fetch(`http://localhost:3000/jobs?companyId=${userData.id}`)
 - [ ] Fix: companyId not hardcoded anywhere
 - [ ] DB: matches[] has correct structure
 - [ ] Git: All changes committed to `feature/sprint-1-create-matches`
-- [ ] Testing: All 6 test cases pass (see TESTING_CHECKLIST.md)
+- [ ] Testing: All 6 test cases pass
 - [ ] No console errors
 - [ ] No broken features from previous sessions
 
@@ -1119,8 +1119,7 @@ async function renderCandidateContactSection(candidate, matchId) {
 
 ## 🎨 TASK 5.2: Full End-to-End Testing
 
-**Duration:** 1 hour  
-**Process:** Follow TESTING_CHECKLIST.md completely
+**Duration:** 1 hour
 
 ### Test Scenarios
 - [ ] Candidate login → search jobs → create match → track status
@@ -1157,7 +1156,7 @@ async function renderCandidateContactSection(candidate, matchId) {
 
 ## ✅ Sprint 5 Validation Checklist
 
-- [ ] All TESTING_CHECKLIST.md cases pass
+- [ ] All integration tests pass
 - [ ] Zero console errors
 - [ ] Zero UI bugs
 - [ ] Cross-company isolation verified
