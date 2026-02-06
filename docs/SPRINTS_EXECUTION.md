@@ -1,9 +1,54 @@
 # 🚀 SPRINTS EXECUTION GUIDE - 62% → 100% Cumplimiento
 
-**Status:** Ready for Team Execution  
+**Status:** ⚠️ BLOQUEADO POR GAPS - Leer sección crítica abajo  
 **Total Time:** 14-16 horas (paralelo)  
 **Equipo:** 5 full-stack developers  
 **Last Updated:** Febrero 5, 2026
+
+---
+
+## 🔴 ⚠️ BLOQUEOS CRÍTICOS - RESOLVER ANTES DE INICIAR SPRINTS
+
+**Auditoría del 5-Feb encontró 3 gaps BLOQUEANTES para Sprint 1:**
+
+### 1. ❌ db.json.matches array FALTA
+```json
+// ❌ ACTUAL - db.json NO TIENE matches
+{ "users": [...], "jobs": [...] }
+
+// ✅ DEBERÍA SER
+{ "users": [...], "jobs": [...], "matches": [] }
+```
+**Impacto:** POST `/matches` fallará sin esto  
+**Solución:** Agregar manualmente o ejecutar script
+
+### 2. ❌ Hardcoded `companyId=1` SIGUE PRESENTE
+```javascript
+// ❌ ACTUAL - jobs.js L7 e interviews.js L7
+const res = await fetch(`${API_URL}/jobs?companyId=1`);
+
+// ✅ DEBERÍA SER
+const user = JSON.parse(localStorage.getItem('user'));
+const companyId = user?.id || 1;
+const res = await fetch(`${API_URL}/jobs?companyId=${companyId}`);
+```
+**Impacto:** Multi-company NO funciona, modo demo solamente  
+**Solución:** Actualizar 2 archivos
+
+### 3. ❌ createMatch() naming conflict
+```javascript
+// ✅ EN match-logic.js
+export async function createMatch(companyId, jobId, candidateId) { ... }
+
+// ❌ EN candidates.js (versión incompleta/conflictiva)
+function createMatch(candidateId) { ... }  // Solo 1 parámetro
+```
+**Impacto:** Ambigüedad en llamadas, posibles bugs  
+**Solución:** Renombrar una función o usar módulos correctamente
+
+---
+
+**⏹️ NO INICIES SPRINT 1 HASTA RESOLVER ESTOS 3 GAPS**
 
 ---
 
@@ -31,6 +76,9 @@
 
 ## ✅ Checklist Pre-Sprint
 
+- [ ] ⚠️ **CRÍTICO:** Agregar `"matches": []` array a db.json (si no existe)
+- [ ] ⚠️ **CRÍTICO:** Corregir hardcoded `companyId=1` en jobs.js L7 e interviews.js L7
+- [ ] ⚠️ **CRÍTICO:** Resolver conflicto createMatch() naming (match-logic.js vs candidates.js)
 - [ ] Read this section completely
 - [ ] Checkout `develop` branch
 - [ ] Create `feature/sprint-1-create-matches` branch

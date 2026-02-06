@@ -9,30 +9,34 @@
 | Requisitos Negocio  | 65%     | ✅                 | Open to Work implementado           |
 | Requisitos Técnicos | 75%     | ✅                 | Fetch, localStorage, json-server OK |
 | Documentación       | 60%     | ⚠️                 | 7/11 docs consolidados              |
-| **GENERAL**         | **62%** | **✅ EN PROGRESO** | +15% en 2 sesiones                  |
+| **GENERAL**         | **62%** | **⚠️ REVISAR** | AUDITORÍA 5-Feb: 3 gaps críticos encontrados |
+
+> ⚠️ **NOTA CRÍTICA:** 62% es CONDICIONAL a resolver 3 gaps antes de iniciar sprints (ver abajo)
 
 ## ⚡ ESTADO POR FEATURE
 
 | Feature | Progreso | Status | Acción |
 |---------|----------|--------|--------|
 | **Open to Work** | 100% | ✅ COMPLETADO | Toggle UI, PATCH sync, localStorage |
-| **Crear Matches** | 0% | ❌ NO HECHO | UI + validación duplicados |
+| **Crear Matches** | 0% | ❌ BLOQUEADO | ⚠️ ESPERA: db.json.matches + hardcoded companyId fix |
 | **Match States** | 40% | ⚠️ PARCIAL | pending, interview, discarded FALTAN |
 | **Reservas** | 30% | ⚠️ PARCIAL | Validación y bloqueo |
 | **Contact Privacy** | 0% | ❌ NO HECHO | Visible siempre (DEBE ser solo si "contacted") |
-| **json-server** | 100% | ✅ OK | Instalado, db.json correcto |
-| **Fetch API** | 90% | ✅ BUENO | Falta error handling robusto |
+| **json-server** | 90% | ⚠️ INCOMPLETO | ❌ AUDITORÍA 5-Feb: FALTA matches array en db.json |
+| **Fetch API** | 75% | ⚠️ PARCIAL | ❌ AUDITORÍA 5-Feb: hardcoded companyId=1 en jobs.js + interviews.js |
 | **Caching** | 50% | ⚠️ PARCIAL | Solo user data, faltan candidatos/jobs |
 
-## 🔴 PROBLEMAS CRÍTICOS (TIER 1)
+## 🔴 PROBLEMAS CRÍTICOS (TIER 1) - UPDATE 5-FEB
 
-| **Problema**                                | **Severidad** | **Arreglo**                             |
-| ------------------------------------------- | ------------- | --------------------------------------- |
-| Endpoints invalidos (/candidates NO existe) | 🔴 CRÍTICO    | Usar `/users?role=candidate`            |
-| CompanyId hardcodeado (=1 siempre)          | 🔴 CRÍTICO    | Usar `localStorage.getItem('user').id`  |
-| N+1 Query (201 requests para 100 items)     | 🔴 CRÍTICO    | Usar `Promise.all([...])`               |
-| Contact info siempre visible                | 🔴 CRÍTICO    | Esconder si status ≠ "contacted"        |
-| Reservas sin bloqueo                        | 🔴 CRÍTICO    | Validar conflictos, rechazar duplicados |
+| **Problema**                                | **Severidad** | **Status** | **Acción**                             |
+| ------------------------------------------- | ------------- | ---------- | --------------------------------------- |
+| Endpoints invalidos (/candidates NO existe) | 🔴 CRÍTICO    | ✅ SOLVED  | Usar `/users?role=candidate`            |
+| **CompanyId hardcodeado (=1 siempre)**      | 🔴 CRÍTICO    | ❌ ABIERTO | jobs.js L7, interviews.js L7 - Usar localStorage.getItem('user').id |
+| **db.json.matches array FALTA**             | 🔴 BLOQUEANTE | ❌ ABIERTO | Agregar `"matches": []` a db.json - Bloquea Sprint 1,2,3 |
+| **createMatch() naming conflict**           | 🔴 BLOQUEANTE | ❌ ABIERTO | 2 funciones mismo nombre (match-logic.js vs candidates.js) |
+| N+1 Query (201 requests para 100 items)     | 🔴 CRÍTICO    | ⏳ PENDIENTE | Usar `Promise.all([...])`               |
+| Contact info siempre visible                | 🔴 CRÍTICO    | ⏳ PENDIENTE | Esconder si status ≠ "contacted"        |
+| Reservas sin bloqueo                        | 🔴 CRÍTICO    | ⏳ PENDIENTE | Validar conflictos, rechazar duplicados |
 
 ## ✅ COMPLETADO
 

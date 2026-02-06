@@ -44,7 +44,7 @@ Meta: 100% ✅
 
 | HTML       | Antes                        | Ahora                        | Status |
 | ---------- | ---------------------------- | ---------------------------- | ------ |
-| login      | `./js/login-auth.js`         | `./login-auth.js`            | ✅     |
+| login      | `./js/login-auth.js`         | `./js/auth.js`               | ✅     |
 | candidates | `./js/candidate.js`          | `./candidate.js`             | ✅     |
 | jobs       | `../js/pages/jobs.js`        | `./jobs.js`                  | ✅     |
 | interviews | `../js/pages/interviews.js`  | `./interviews.js`            | ✅     |
@@ -141,7 +141,37 @@ Meta: 100% ✅
 
 ---
 
-## 📈 PROYECCIÓN
+## ⚠️ AUDITORÍA 5 DE FEBRERO - GAPS ENCONTRADOS
+
+**Revisor:** GitHub Copilot  
+**Fecha:** Febrero 5, 2026  
+**Status:** Sesiones 1-2 completadas ✅ Pero Sprint 1 tiene GAPS CRÍTICOS
+
+### 🔴 GAPS CRÍTICOS ANTES DE SPRINT 1
+
+1. **db.json.matches array FALTA**
+   - POST `/matches` fallará sin esto
+   - Bloquea Sprint 1: Create Matches
+   - Solución: Agregar `"matches": []` a db.json
+
+2. **Hardcoded `companyId=1` AÚN PRESENTE**
+   - jobs.js línea 7: `fetch(\`${API_URL}/jobs?companyId=1\`)`
+   - interviews.js línea 7: `fetch(\`${API_URL}/interviews?companyId=1\`)`
+   - Multi-company NO funciona
+   - Solución: Usar `localStorage.getItem('user')?.id`
+
+3. **createMatch naming conflict**
+   - 2 funciones con mismo nombre, diferentes firmas
+   - match-logic.js: `createMatch(companyId, jobId, candidateId)` ✅
+   - candidates.js: `createMatch(candidateId)` ❌ incompleta
+   - Solución: Renombrar candidatos.js version o usar módulos correctamente
+
+### ⚠️ OTROS GAPS MENORES
+
+4. candidates.html falta `<script src="./candidates.js"></script>` → listado no carga
+5. CAMBIOS_REALIZADOS.md tenía "login-auth.js" (ya corregido a "auth.js")
+
+---
 
 ```
 62% ────────────── Hoy

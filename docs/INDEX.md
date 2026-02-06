@@ -1,7 +1,9 @@
 # 📚 Índice de Documentación - MatchFlow
 
 **Última actualización:** Febrero 5, 2026  
-**Status del Proyecto:** ✅ Refactorizado + 🚀 En Desarrollo Activo
+**Status del Proyecto:** ✅ Refactorizado + 🚀 En Desarrollo Activo + ⚠️ GAPS ENCONTRADOS
+
+> ⚠️ **CRÍTICO:** Auditoría 5-Feb encontró 3 gaps bloqueantes. Ver [CAMBIOS_REALIZADOS.md](CAMBIOS_REALIZADOS.md) y [SPRINTS_EXECUTION.md](SPRINTS_EXECUTION.md) para detalles. **NO INICIAR SPRINT 1 SIN RESOLVER ESTOS GAPS.**
 
 ---
 
