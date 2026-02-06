@@ -7,9 +7,9 @@
 ## 📊 PROGRESO GENERAL
 
 ```
-Sesión 1 (5 feb): Open to Work       55% → 60% 
-Sesión 2 (5 feb): Refactorización    60% → 62%  
-Próxima: Crear Matches               62% → 70%+ 
+Sesión 1 (5 feb): Open to Work       55% → 60%
+Sesión 2 (5 feb): Refactorización    60% → 62%
+Próxima: Crear Matches               62% → 70%+
 Meta: 100% ✅
 ```
 
@@ -20,16 +20,16 @@ Meta: 100% ✅
 **Duración:** 4 horas  
 **Commits:** `72b19c6`, `4dbe589`, `8475caa`
 
-| Tarea | Archivo | Cambio | Líneas | Estado |
-|-------|---------|--------|--------|--------|
-| Endpoint correcto | candidates.js | `/candidates` → `/users?role=candidate&openToWork=true` | L13 | ✅ |
-| Toggle UI | candidate.js | Agregó loadOpenToWorkStatus(), toggle listener | L15-140 | ✅ |
-| PATCH sync | candidate.js | Sincroniza con `/users/{id}` | L50-75 | ✅ |
-| localStorage | candidate.js | Actualiza state en caché | L68 | ✅ |
-| Job offers | candidate.js | loadJobOffers() con GET `/jobs` | L102-140 | ✅ |
-| Error handling | candidate.js | Rollback si PATCH falla | L76-78 | ✅ |
-| DB migration | db.json | 5→9 users, 5→7 jobs, campos enriquecidos | L1-222 | ✅ |
-| Documentacion | IMPLEMENTACION_OPEN_TO_WORK.md | Feature doc creado | 392 líneas | ✅ |
+| Tarea             | Archivo                        | Cambio                                                  | Líneas     | Estado |
+| ----------------- | ------------------------------ | ------------------------------------------------------- | ---------- | ------ |
+| Endpoint correcto | candidates.js                  | `/candidates` → `/users?role=candidate&openToWork=true` | L13        | ✅     |
+| Toggle UI         | candidate.js                   | Agregó loadOpenToWorkStatus(), toggle listener          | L15-140    | ✅     |
+| PATCH sync        | candidate.js                   | Sincroniza con `/users/{id}`                            | L50-75     | ✅     |
+| localStorage      | candidate.js                   | Actualiza state en caché                                | L68        | ✅     |
+| Job offers        | candidate.js                   | loadJobOffers() con GET `/jobs`                         | L102-140   | ✅     |
+| Error handling    | candidate.js                   | Rollback si PATCH falla                                 | L76-78     | ✅     |
+| DB migration      | db.json                        | 5→9 users, 5→7 jobs, campos enriquecidos                | L1-222     | ✅     |
+| Documentacion     | IMPLEMENTACION_OPEN_TO_WORK.md | Feature doc creado                                      | 392 líneas | ✅     |
 
 **Impacto:** Open to Work Feature 100% Funcional ✅
 
@@ -42,16 +42,17 @@ Meta: 100% ✅
 
 ### 🔵 JS Routes Refactor (30 min)
 
-| HTML | Antes | Ahora | Status |
-|------|-------|-------|--------|
-| login | `./js/login-auth.js` | `./login-auth.js` | ✅ |
-| candidates | `./js/candidate.js` | `./candidate.js` | ✅ |
-| jobs | `../js/pages/jobs.js` | `./jobs.js` | ✅ |
-| interviews | `../js/pages/interviews.js` | `./interviews.js` | ✅ |
-| dashboard | `../js/pages/dashboard.js` | `./dashboard.js` | ✅ |
-| matches | `../js/pages/match-logic.js` | `../../utils/match-logic.js` | ✅ |
+| HTML       | Antes                        | Ahora                        | Status |
+| ---------- | ---------------------------- | ---------------------------- | ------ |
+| login      | `./js/login-auth.js`         | `./login-auth.js`            | ✅     |
+| candidates | `./js/candidate.js`          | `./candidate.js`             | ✅     |
+| jobs       | `../js/pages/jobs.js`        | `./jobs.js`                  | ✅     |
+| interviews | `../js/pages/interviews.js`  | `./interviews.js`            | ✅     |
+| dashboard  | `../js/pages/dashboard.js`   | `./dashboard.js`             | ✅     |
+| matches    | `../js/pages/match-logic.js` | `../../utils/match-logic.js` | ✅     |
 
 **Archivos Eliminados (5):**
+
 - `src/utils/_OBSOLETE_api.js`
 - `public/_OBSOLETE_favicon.ico`
 - `src/pages/matches/_OBSOLETE_matches.js`
@@ -59,17 +60,20 @@ Meta: 100% ✅
 - `src/components/header/_OBSOLETE_header.html`
 
 **Archivos Preservados (8 CSS para migración):**
+
 - `_OBSOLETE_variables.css`, `_OBSOLETE_sidebar.css`, `_OBSOLETE_candidates.css`, `_OBSOLETE_jobs.css`, `_OBSOLETE_matches.css`, `_OBSOLETE_interviews.css`, `_OBSOLETE_dashboard.css`, `_OBSOLETE_header.css`
 
 ### 📚 Docs Cleanup (20 min)
 
 **Eliminados (4):**
+
 - ANÁLISIS_DETALLADO_DUPLICADOS.md ❌
 - AUDIT_ARCHIVOS_DUPLICADOS.md ❌
 - AUDIT_REPORT.md ❌
 - PLAN_REVISIONES.md ❌
 
 **Consolidados (7 vigentes):**
+
 - README.md ✅
 - CUMPLIMIENTO_CRUDZASO.md ✅
 - ANÁLISIS_ENDPOINTS.md ✅
@@ -93,19 +97,22 @@ Meta: 100% ✅
 ## 🔄 SESIONES FUTURAS
 
 ### Sesión 3: Crear Matches (Próxima)
+
 - [ ] UI "Create Match" en dashboard
 - [ ] Form: candidate + job dropdown
 - [ ] Validación: prevenir duplicados
 - [ ] POST call a createMatchForUser()
 - **Estimación:** 3-4 horas | **Impacto:** +13%
 
-### Sesión 4: Match States  
+### Sesión 4: Match States
+
 - [ ] Agregar estados: pending, interview, discarded
 - [ ] State machine (validar transiciones)
 - [ ] UI botones cambiar estado
 - **Estimación:** 2-3 horas | **Impacto:** +10%
 
 ### Sesión 5: Reservations (Crítico)
+
 - [ ] UI "Reserve" button candidato
 - [ ] Validación conflictos (1 active per candidate)
 - [ ] Bloqueo visual candidatos reservados
@@ -113,11 +120,13 @@ Meta: 100% ✅
 - **Estimación:** 4-5 horas | **Impacto:** +15%
 
 ### Sesión 6: Contact Privacy
-- [ ] Esconder contact si status ≠ "contacted"  
+
+- [ ] Esconder contact si status ≠ "contacted"
 - [ ] WhatsApp redirect OR mensajería interna
 - **Estimación:** 2-3 horas | **Impacto:** +10%
 
 ### Sesión 7: README + Docs
+
 - [ ] Business rules en README
 - [ ] Team members & clans
 - [ ] Group decisions
@@ -125,6 +134,7 @@ Meta: 100% ✅
 - **Estimación:** 1-2 horas | **Impacto:** +20%
 
 ### Sesión 8: CSS Migration (Parallelizable)
+
 - [ ] Bootstrap setup
 - [ ] Migrate all pages Tailwind → Bootstrap
 - **Estimación:** 6-7 horas distribuidas
