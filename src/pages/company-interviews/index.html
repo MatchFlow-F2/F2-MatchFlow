@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Interviews - MatchFlow</title>
+
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div>
+          <h1 class="sidebar-logo">MatchFlow</h1>
+
+          <nav class="sidebar-nav">
+            <a href="/src/pages/dashboard/index.html">
+              <i class="fa-solid fa-chart-line"></i> Dashboard
+            </a>
+
+            <a href="/src/pages/jobs/index.html">
+              <i class="fa-solid fa-briefcase"></i> Jobs
+            </a>
+
+            <a href="/src/pages/candidates/index.html">
+              <i class="fa-solid fa-user-group"></i> Candidates
+            </a>
+
+            <a href="/src/pages/matches/index.html">
+              <i class="fa-solid fa-handshake"></i> Matches
+            </a>
+
+            <a href="/src/pages/interviews/index.html" class="active">
+              <i class="fa-solid fa-calendar-check"></i> Interviews
+            </a>
+          </nav>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="avatar"></div>
+          <div>
+            <p class="user-name">Company Name</p>
+            <p class="user-role">Recruiter</p>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <div>
+          <h2 class="title-xl">Interviews</h2>
+          <p class="text-muted">Manage scheduled interviews</p>
+        </div>
+
+        <section class="card">
+          <div class="card-header">
+            <h4 class="font-semibold">Upcoming Interviews</h4>
+            <span id="interview-count" class="text-muted text-sm"></span>
+          </div>
+
+          <div id="interviews-container" class="interviews-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/src/components/sidebar/sidebar.js"></script>
+    <script type="module" src="./interviews.js"></script>
+  </body>
+</html>

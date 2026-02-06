@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find Candidates - MatchFlow</title>
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Candidate</title>
+  </head>
+
+  <body>
+    <div class="layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div>
+          <h1 class="sidebar-logo">MatchFlow</h1>
+
+          <nav class="sidebar-nav">
+            <a href="/src/pages/dashboard/index.html">
+              <i class="fa-solid fa-chart-line"></i> Dashboard
+            </a>
+
+            <a href="/src/pages/jobs/index.html">
+              <i class="fa-solid fa-briefcase"></i> Jobs
+            </a>
+
+            <a href="/src/pages/candidates/index.html" class="active">
+              <i class="fa-solid fa-user-group"></i> Candidates
+            </a>
+
+            <a href="/src/pages/matches/index.html">
+              <i class="fa-solid fa-handshake"></i> Matches
+            </a>
+
+            <a href="/src/pages/interviews/index.html">
+              <i class="fa-solid fa-calendar-check"></i> Interviews
+            </a>
+          </nav>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="avatar"></div>
+          <div>
+            <p class="user-name" id="nameProfile">Candidato</p>
+            <p class="user-role">Software Engineer</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Header -->
+        <div>
+          <h2 class="title-xl">Candidate Dashboard</h2>
+          <p class="text-muted">First option contracting platform</p>
+        </div>
+
+        <!-- Visibilidad activa o desactiva -->
+        <div class="card">
+          <div class="card-body flex justify-between items-center">
+            <div>
+              <h3 class="card-title">Abierto al Trabajo</h3>
+              <p class="card-text">Visibilidad activa para empresas</p>
+            </div>
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="check"
+                switch
+              />
+              <label class="form-check-label" for="checkNativeSwitch"> </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ofertas de trabajos -->
+        <div>
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="title-lg">Job Opportunities</h3>
+            <p class="text-muted text-sm">See Details...</p>
+          </div>
+          <div class="container-ofertas"></div>
+        </div>
+
+        <!-- Matches Actuales -->
+        <div>
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="title-lg">Mis Matches Actuales</h3>
+            <a href="/src/pages/matches/index.html" class="text-muted text-sm"
+              >See Details...</a
+            >
+          </div>
+          <div class="matches-list">
+            <div class="card">
+              <div class="card-body flex justify-between items-center">
+                <div class="flex flex-col">
+                  <h3>Node JS Developer</h3>
+                  <p>BringhtApps</p>
+                </div>
+                <div>
+                  <button class="btn btn-outline-success">Contactando</button>
+                </div>
+                <div>
+                  <button class="btn btn-bg">Ver Perfil</button>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body flex justify-between items-center">
+                <div class="flex flex-col">
+                  <h3>Full Stack Developer</h3>
+                  <p>WebGenius</p>
+                </div>
+                <div>
+                  <button class="btn btn-outline-success">Reserved</button>
+                </div>
+                <div>
+                  <button class="btn btn-bg">Reserved</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reservations -->
+        <div>
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="title-lg">My Reservations</h3>
+            <p class="text-muted text-sm">See Details...</p>
+          </div>
+          <div class="matches-list">
+            <div class="card">
+              <div class="card-body flex justify-between items-center">
+                <div class="flex gap-2 items-center">
+                  <div class="avatar">
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWC1Pr9W4mq-MfwEdQttYDi2POCXkVuPjb_w&s"
+                      alt="perfil"
+                    />
+                  </div>
+                  <div class="flex flex-col">
+                    <h3>Node JS Developer</h3>
+                    <p>BringhtApps</p>
+                  </div>
+                </div>
+                <div>
+                  <button class="btn btn-outline-success">Contactando</button>
+                </div>
+                <div>
+                  <button class="btn btn-bg">Ver Perfil</button>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body flex justify-between items-center">
+                <div class="flex gap-2 items-center">
+                  <div class="avatar">
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWC1Pr9W4mq-MfwEdQttYDi2POCXkVuPjb_w&s"
+                      alt="perfil"
+                    />
+                  </div>
+                  <div class="flex flex-col">
+                    <h3>Full Stack Developer</h3>
+                    <p>WebGenius</p>
+                  </div>
+                </div>
+                <div>
+                  <button class="btn btn-outline-success">Contactando</button>
+                </div>
+                <div>
+                  <button class="btn btn-bg">Reservado</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="/src/components/sidebar/sidebar.js"></script>
+    <script type="module" src="./candidates.js"></script>
+
+    <!-- PROTECT ROUTE -->
+    <!-- <script>
+      (function () {
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (!user) {
+          window.location.replace("../login/index.html");
+          return;
+        }
+        if (user.role !== "candidate") {
+          window.location.replace("../dashboard/index.html");
+        }
+      })();
+    </script> -->
+  </body>
+</html>
