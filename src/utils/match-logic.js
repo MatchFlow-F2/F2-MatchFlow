@@ -238,3 +238,65 @@ async function getCompanyReservations(companyId) {
     return [];
   }
 }
+
+// =======================
+// STATE MACHINE - UTILIDADES
+// =======================
+
+function getAllowedNextStates(currentStatus) {
+  const statusFlow = {
+    pending: ["contacted", "discarded"],
+    contacted: ["interview", "discarded"],
+    interview: ["hired", "discarded"],
+    hired: [],
+    discarded: [],
+  };
+
+  return statusFlow[currentStatus] || [];
+}
+
+function getStateMetadata(status) {
+  const stateMetadata = {
+    pending: { 
+      label: "Pendiente", 
+      color: "text-secondary", 
+      icon: "fa-clock",
+      badge: "#6c757d"
+    },
+    contacted: { 
+      label: "Contactado", 
+      color: "text-primary", 
+      icon: "fa-phone",
+      badge: "#0d6efd"
+    },
+    interview: { 
+      label: "Entrevista", 
+      color: "text-warning", 
+      icon: "fa-calendar",
+      badge: "#ffc107"
+    },
+    hired: { 
+      label: "Contratado", 
+      color: "text-success", 
+      icon: "fa-check",
+      badge: "#198754"
+    },
+    discarded: { 
+      label: "Descartado", 
+      color: "text-danger", 
+      icon: "fa-times",
+      badge: "#dc3545"
+    },
+  };
+
+  return stateMetadata[status] || stateMetadata.pending;
+}
+
+function isFinalState(status) {
+  return status === "hired" || status === "discarded";
+}
+
+function validateStateTransition(fromStatus, toStatus) {
+  const allowedNextStates = getAllowedNextStates(fromStatus);
+  return allowedNextStates.includes(toStatus);
+}
