@@ -40,6 +40,28 @@
       "contactInfo": {
         "phone": "+1 555 987 6543"
       }
+    },
+    {
+      "id": "3",
+      "email": "test3@crudzaso.com",
+      "password": "123",
+      "name": "Maria Garcia",
+      "role": "candidate",
+      "openToWork": true,
+      "profile": {
+        "title": "Full Stack Developer",
+        "skills": [
+          "Node.js",
+          "React",
+          "PostgreSQL",
+          "Docker"
+        ],
+        "bio": "Full stack developer with 3 years of experience in web and mobile applications."
+      },
+      "contactInfo": {
+        "phone": "+1 555 234 5678",
+        "linkedin": "linkedin.com/in/mariagarcia"
+      }
     }
   ],
   "jobs": [
@@ -68,20 +90,49 @@
   ],
   "matches": [
     {
+      "id": 1,
       "companyId": "3",
       "jobId": "101",
       "candidateId": "1",
       "status": "contacted",
       "createdAt": "2026-02-04T07:35:34.286Z",
-      "id": 1
+      "updatedAt": "2026-02-05T10:15:22.450Z"
     },
     {
+      "id": 2,
       "companyId": "3",
       "jobId": "101",
       "candidateId": "2",
       "status": "pending",
       "createdAt": "2026-02-04T07:35:41.408Z",
-      "id": 2
+      "updatedAt": "2026-02-04T07:35:41.408Z"
+    },
+    {
+      "id": 3,
+      "companyId": "3",
+      "jobId": "102",
+      "candidateId": "1",
+      "status": "interview",
+      "createdAt": "2026-02-03T14:22:15.100Z",
+      "updatedAt": "2026-02-05T09:45:30.200Z"
+    },
+    {
+      "id": 4,
+      "companyId": "4",
+      "jobId": "102",
+      "candidateId": "2",
+      "status": "hired",
+      "createdAt": "2026-02-01T11:30:00.000Z",
+      "updatedAt": "2026-02-05T14:20:00.000Z"
+    },
+    {
+      "id": 5,
+      "companyId": "3",
+      "jobId": "101",
+      "candidateId": "3",
+      "status": "discarded",
+      "createdAt": "2026-02-02T16:45:12.300Z",
+      "updatedAt": "2026-02-05T08:10:45.600Z"
     }
   ],
   "reservations": [

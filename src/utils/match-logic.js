@@ -1,6 +1,130 @@
 const API_URL = window.API_URL;
 
 // =======================
+// STATE MACHINE DEFINITIONS
+// =======================
+
+const MATCH_STATES = {
+  PENDING: "pending",
+  CONTACTED: "contacted",
+  INTERVIEW: "interview",
+  HIRED: "hired",
+  DISCARDED: "discarded",
+};
+
+// State machine: defines valid transitions for each state
+const STATE_TRANSITIONS = {
+  pending: ["contacted", "discarded"],
+  contacted: ["interview", "discarded"],
+  interview: ["hired", "discarded"],
+  hired: [],
+  discarded: [],
+};
+
+// State metadata for UI rendering
+const STATE_METADATA = {
+  pending: {
+    label: "Pendiente",
+    color: "bg-gray-700",
+    textColor: "text-gray-300",
+    icon: "fa-clock",
+    badge: "gray",
+  },
+  contacted: {
+    label: "Contactado",
+    color: "bg-blue-700",
+    textColor: "text-blue-200",
+    icon: "fa-phone",
+    badge: "blue",
+  },
+  interview: {
+    label: "En Entrevista",
+    color: "bg-yellow-700",
+    textColor: "text-yellow-200",
+    icon: "fa-calendar",
+    badge: "yellow",
+  },
+  hired: {
+    label: "Contratado",
+    color: "bg-green-700",
+    textColor: "text-green-200",
+    icon: "fa-check",
+    badge: "green",
+  },
+  discarded: {
+    label: "Descartado",
+    color: "bg-red-700",
+    textColor: "text-red-200",
+    icon: "fa-times",
+    badge: "red",
+  },
+};
+
+// =======================
+// STATE VALIDATION
+// =======================
+
+/**
+ * Validates if a state transition is allowed
+ * @param {string} currentState - Current match state
+ * @param {string} newState - Desired state to transition to
+ * @returns {object} { valid: boolean, error?: string }
+ */
+function validateStateTransition(currentState, newState) {
+  // Validate both states exist
+  if (!Object.values(MATCH_STATES).includes(currentState)) {
+    return { valid: false, error: `Estado actual inválido: ${currentState}` };
+  }
+
+  if (!Object.values(MATCH_STATES).includes(newState)) {
+    return { valid: false, error: `Estado destino inválido: ${newState}` };
+  }
+
+  // Check if transition is not the same
+  if (currentState === newState) {
+    return { valid: false, error: "El match ya está en este estado" };
+  }
+
+  // Check if transition is allowed
+  const allowedNextStates = STATE_TRANSITIONS[currentState] || [];
+  if (!allowedNextStates.includes(newState)) {
+    return {
+      valid: false,
+      error: `No se puede pasar de "${currentState}" a "${newState}". Transiciones válidas: ${allowedNextStates.join(", ") || "ninguna"}`,
+    };
+  }
+
+  return { valid: true };
+}
+
+/**
+ * Gets state metadata for UI rendering
+ * @param {string} state - Match state
+ * @returns {object} State metadata object
+ */
+function getStateMetadata(state) {
+  return STATE_METADATA[state] || STATE_METADATA.pending;
+}
+
+/**
+ * Gets allowed next states for a given state
+ * @param {string} state - Current state
+ * @returns {array} Array of allowed next states
+ */
+function getAllowedNextStates(state) {
+  return STATE_TRANSITIONS[state] || [];
+}
+
+/**
+ * Checks if a state is a final state (no more transitions possible)
+ * @param {string} state - Match state
+ * @returns {boolean}
+ */
+function isFinalState(state) {
+  return getAllowedNextStates(state).length === 0;
+}
+
+// =======================
 // MATCHES (SERVICIOS)
 // =======================
 
@@ -74,47 +198,36 @@ async function createMatch(companyId, jobId, candidateId) {
 
 async function updateMatchStatus(matchId, newStatus) {
   try {
-    const validStatuses = [
-      "pending",
-      "contacted",
-      "interview",
-      "hired",
-      "discarded",
-    ];
-
-    if (!validStatuses.includes(newStatus)) {
-      console.error("Estado inválido:", newStatus);
-      return null;
-    }
-
+    // Fetch current match
     const match = await fetch(`${API_URL}/matches/${matchId}`).then((r) =>
       r.json(),
     );
 
-    const statusFlow = {
-      pending: ["contacted", "discarded"],
-      contacted: ["interview", "discarded"],
-      interview: ["hired", "discarded"],
-      hired: [],
-      discarded: [],
-    };
-
-    const allowedNextStatuses = statusFlow[match.status] || [];
-
-    if (!allowedNextStatuses.includes(newStatus)) {
-      console.error(`No se puede cambiar de ${match.status} a ${newStatus}`);
+    if (!match) {
+      console.error("Match no encontrado");
       return null;
     }
 
+    // Validate state transition
+    const validation = validateStateTransition(match.status, newStatus);
+    if (!validation.valid) {
+      console.error("Validación de transición fallida:", validation.error);
+      return null;
+    }
+
+    // Update match status
     const response = await fetch(`${API_URL}/matches/${matchId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: newStatus }),
+      body: JSON.stringify({
+        status: newStatus,
+        updatedAt: new Date().toISOString(),
+      }),
     });
 
     const updatedMatch = await response.json();
 
-    // liberar reserva si termina
+    // Release reservation if match ends
     if (newStatus === "discarded" || newStatus === "hired") {
       await releaseReservation(match.companyId, match.jobId, match.candidateId);
     }
