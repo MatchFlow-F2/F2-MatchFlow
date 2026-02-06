@@ -5,7 +5,7 @@
 
 ---
 
-## 📁 Documentación Vigente (10 Documentos)
+## 📁 Documentación Vigente (11 Documentos)
 
 ### 🔴 CRÍTICA: Requisitos & Roadmap
 
@@ -41,6 +41,12 @@
 ---
 
 ### 📋 REFERENCIA: Problemas Técnicos & Features Completadas
+
+#### **AUDIT_ULTIMOS_2_MERGES.md** 🔍 [NEW]
+
+- **Propósito:** Auditoría exhaustiva de los últimos 2 merges a develop
+- **Contenido:** Qué se solucionó, análisis de cambios, verificación de status
+- **Actualización:** Después de merge a develop
 
 #### **ANÁLISIS_ENDPOINTS.md** 📡
 
