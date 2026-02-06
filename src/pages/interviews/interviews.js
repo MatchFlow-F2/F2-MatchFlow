@@ -1,10 +1,25 @@
+// Solution
+// --------------------------------------------------
+import { Storage } from "../login/js/storage.js";
+//-------------------------------------------------------
 const API_URL = "http://localhost:3000";
 
-document.addEventListener("DOMContentLoaded", loadInterviews);
+// Solution
+//---------------------------------------------------
+// VERIFY SESSION
+const user = Storage.getSession();
+//-----------------------------------------------------
 
-async function loadInterviews() {
+// const user = JSON.parse(localStorage.getItem("user"));
+// I pass the user ID to the loadInterviews function
+document.addEventListener("DOMContentLoaded", loadInterviews(user.id));
+
+// I create a parameter for the companyId function
+async function loadInterviews(companyId) {
   try {
-    const res = await fetch(`${API_URL}/interviews?companyId=1`);
+    // Commented error line
+    // const res = await fetch(`${API_URL}/interviews?companyId=1`);
+    const res = await fetch(`${API_URL}/interviews?companyId=${companyId}`);
     const interviews = await res.json();
 
     renderInterviews(interviews);
@@ -12,7 +27,6 @@ async function loadInterviews() {
     console.error("Error loading interviews:", err);
   }
 }
-
 async function renderInterviews(interviews) {
   const container = document.getElementById("interviews-container");
   const counter = document.getElementById("interview-count");
@@ -21,8 +35,12 @@ async function renderInterviews(interviews) {
   counter.textContent = `${interviews.length} interviews`;
 
   for (const interview of interviews) {
-    const candidate = await fetch(`${API_URL}/users/${interview.candidateId}`).then(r=>r.json());
-    const job = await fetch(`${API_URL}/jobs/${interview.jobId}`).then(r=>r.json());
+    const candidate = await fetch(
+      `${API_URL}/users/${interview.candidateId}`,
+    ).then((r) => r.json());
+    const job = await fetch(`${API_URL}/jobs/${interview.jobId}`).then((r) =>
+      r.json(),
+    );
 
     const card = document.createElement("div");
     card.className = "interview-card";
@@ -51,7 +69,7 @@ async function completeInterview(id) {
   await fetch(`${API_URL}/interviews/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: "completed" })
+    body: JSON.stringify({ status: "completed" }),
   });
   loadInterviews();
 }
@@ -60,7 +78,7 @@ async function cancelInterview(id) {
   await fetch(`${API_URL}/interviews/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: "cancelled" })
+    body: JSON.stringify({ status: "cancelled" }),
   });
   loadInterviews();
 }

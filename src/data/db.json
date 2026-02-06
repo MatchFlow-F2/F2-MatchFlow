@@ -9,11 +9,7 @@
       "openToWork": true,
       "profile": {
         "title": "Senior Frontend Developer",
-        "skills": [
-          "React",
-          "Bootstrap",
-          "JavaScript"
-        ],
+        "skills": ["React", "Bootstrap", "JavaScript"],
         "bio": "Passionate developer with 5 years of experience building web applications."
       },
       "contactInfo": {
@@ -30,11 +26,7 @@
       "openToWork": true,
       "profile": {
         "title": "UX/UI Designer",
-        "skills": [
-          "Figma",
-          "Adobe XD",
-          "CSS"
-        ],
+        "skills": ["Figma", "Adobe XD", "CSS"],
         "bio": "Designer focused on creating intuitive user experiences."
       },
       "contactInfo": {
@@ -46,16 +38,11 @@
       "email": "alex.johnson@crudzaso.com",
       "password": "123",
       "name": "Alex Johnson",
-      "role": "candidate",
+      "role": "company",
       "openToWork": true,
       "profile": {
         "title": "Full Stack Developer",
-        "skills": [
-          "Node.js",
-          "React",
-          "MongoDB",
-          "AWS"
-        ],
+        "skills": ["Node.js", "React", "MongoDB", "AWS"],
         "bio": "Experienced full stack developer with 7 years in tech. Open to remote opportunities."
       },
       "contactInfo": {
@@ -72,12 +59,7 @@
       "openToWork": false,
       "profile": {
         "title": "Data Scientist",
-        "skills": [
-          "Python",
-          "TensorFlow",
-          "SQL",
-          "Tableau"
-        ],
+        "skills": ["Python", "TensorFlow", "SQL", "Tableau"],
         "bio": "Currently employed but interested in future opportunities."
       },
       "contactInfo": {
@@ -94,12 +76,7 @@
       "openToWork": true,
       "profile": {
         "title": "DevOps Engineer",
-        "skills": [
-          "Docker",
-          "Kubernetes",
-          "CI/CD",
-          "Linux"
-        ],
+        "skills": ["Docker", "Kubernetes", "CI/CD", "Linux"],
         "bio": "Infrastructure and DevOps specialist looking for challenging projects."
       },
       "contactInfo": {
@@ -114,10 +91,7 @@
       "companyId": "3",
       "title": "React Developer",
       "description": "We are looking for a React expert for an international project.",
-      "requirements": [
-        "3+ years exp",
-        "English B2"
-      ],
+      "requirements": ["3+ years exp", "English B2"],
       "status": "active"
     },
     {
@@ -125,10 +99,7 @@
       "companyId": "4",
       "title": "Product Designer",
       "description": "Design the future of our mobile app.",
-      "requirements": [
-        "Portfolio",
-        "Figma"
-      ],
+      "requirements": ["Portfolio", "Figma"],
       "status": "active"
     },
     {
@@ -136,10 +107,7 @@
       "companyId": "3",
       "title": "Backend Developer",
       "description": "Build scalable APIs using Node.js and Express.",
-      "requirements": [
-        "5+ years Node.js",
-        "Database design"
-      ],
+      "requirements": ["5+ years Node.js", "Database design"],
       "status": "active"
     },
     {
@@ -147,10 +115,7 @@
       "companyId": "5",
       "title": "DevOps Engineer",
       "description": "Deploy and maintain our cloud infrastructure on AWS.",
-      "requirements": [
-        "AWS certified",
-        "Kubernetes experience"
-      ],
+      "requirements": ["AWS certified", "Kubernetes experience"],
       "status": "active"
     },
     {
@@ -158,10 +123,7 @@
       "companyId": "4",
       "title": "Frontend Engineer",
       "description": "Create responsive web applications with modern frameworks.",
-      "requirements": [
-        "Vue.js or React",
-        "CSS expertise"
-      ],
+      "requirements": ["Vue.js or React", "CSS expertise"],
       "status": "active"
     }
   ],
@@ -238,5 +200,6 @@
       "time": "2:00 PM",
       "status": "scheduled"
     }
-  ]
+  ],
+  "applications": []
 }
