@@ -1,17 +1,17 @@
-import { Storage } from '../login/js/storage.js';
-import { AuthGuard } from '../login/js/guards.js';
+import { Storage } from "../login/js/storage.js";
+import { AuthGuard } from "../login/js/guards.js";
 
 // PROTECT ROUTES
-AuthGuard.checkAccess('candidate');
+// AuthGuard.checkAccess('candidate');
 
-const API_URL = 'http://localhost:3000';
+const API_URL = "http://localhost:3000";
 
 // GET SESSION
 const local = Storage.getSession();
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   // Info del usuario en el perfil
-  const nameUser = document.getElementById('nameProfile');
+  const nameUser = document.getElementById("nameProfile");
   if (nameUser && local) {
     nameUser.textContent = local.name;
   }
@@ -24,40 +24,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function setupNavigation() {
   const navButtons = [
-    { btnId: 'btnHome', sectionId: 'home' },
-    { btnId: 'btnWork', sectionId: 'work' },
-    { btnId: 'btnMatches', sectionId: 'matches' },
-    { btnId: 'btnReservations', sectionId: 'reservations' },
+    { btnId: "btnHome", sectionId: "home" },
+    { btnId: "btnWork", sectionId: "work" },
+    { btnId: "btnMatches", sectionId: "matches" },
+    { btnId: "btnReservations", sectionId: "reservations" },
   ];
 
   navButtons.forEach((item) => {
     const btn = document.getElementById(item.btnId);
     if (btn) {
-      btn.addEventListener('click', () => {
+      btn.addEventListener("click", () => {
         document.getElementById(item.sectionId)?.scrollIntoView({
-          behavior: 'smooth',
+          behavior: "smooth",
         });
       });
     }
   });
 }
 
-const checkActive = document.getElementById('check');
-const containerOfertas = document.querySelector('.container-ofertas');
+const checkActive = document.getElementById("check");
+const containerOfertas = document.querySelector(".container-ofertas");
 
 if (checkActive) {
-  checkActive.addEventListener('change', async function () {
+  checkActive.addEventListener("change", async function () {
     const newOpenToWorkStatus = checkActive.checked;
 
     try {
       // Actualizar el estado en el servidor
       const response = await fetch(`${API_URL}/users/${local.id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ openToWork: newOpenToWorkStatus }),
       });
 
-      if (!response.ok) throw new Error('Failed to update status');
+      if (!response.ok) throw new Error("Failed to update status");
 
       const updatedUser = { ...local, openToWork: newOpenToWorkStatus };
       Storage.saveSession(updatedUser);
@@ -65,17 +65,17 @@ if (checkActive) {
       // Mostrar/ocultar ofertas según el estado
       if (newOpenToWorkStatus) {
         await loadJobOffers();
-        containerOfertas.style.display = 'block';
+        containerOfertas.style.display = "block";
       } else {
-        containerOfertas.style.display = 'none';
-        containerOfertas.innerHTML = '';
+        containerOfertas.style.display = "none";
+        containerOfertas.innerHTML = "";
       }
 
       console.log(`Status updated: ${newOpenToWorkStatus}`);
     } catch (error) {
-      console.error('Error updating Open to Work status:', error);
+      console.error("Error updating Open to Work status:", error);
       checkActive.checked = !newOpenToWorkStatus; // Revertir si falla
-      alert('Error updating status. Please try again.');
+      alert("Error updating status. Please try again.");
     }
   });
 }
@@ -85,9 +85,9 @@ async function loadOpenToWorkStatus() {
 
   try {
     checkActive.checked = local.openToWork || false;
-    containerOfertas.style.display = checkActive.checked ? 'block' : 'none';
+    containerOfertas.style.display = checkActive.checked ? "block" : "none";
   } catch (error) {
-    console.error('Error loading status:', error);
+    console.error("Error loading status:", error);
   }
 }
 
@@ -98,7 +98,7 @@ async function loadJobOffers() {
     const response = await fetch(`${API_URL}/jobs`);
     const jobs = await response.json();
 
-    containerOfertas.innerHTML = '';
+    containerOfertas.innerHTML = "";
 
     if (jobs.length === 0) {
       containerOfertas.innerHTML = `<p class="text-muted">No offers available right now.</p>`;
@@ -106,8 +106,8 @@ async function loadJobOffers() {
     }
 
     jobs.forEach((job) => {
-      const card = document.createElement('div');
-      card.className = 'card mb-2';
+      const card = document.createElement("div");
+      card.className = "card mb-2";
       card.innerHTML = `
                 <div class="card-body d-flex justify-content-between align-items-center">
                   <div>
@@ -126,7 +126,7 @@ async function loadJobOffers() {
       containerOfertas.appendChild(card);
     });
   } catch (error) {
-    console.error('Error loading job offers:', error);
+    console.error("Error loading job offers:", error);
     containerOfertas.innerHTML = `<p class="text-danger">Error loading offers.</p>`;
   }
 }

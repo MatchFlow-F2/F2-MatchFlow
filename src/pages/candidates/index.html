@@ -95,7 +95,9 @@
         <div>
           <div class="flex justify-between items-center mb-3">
             <h3 class="title-lg">Mis Matches Actuales</h3>
-            <a href="/src/pages/matches/index.html" class="text-muted text-sm">See Details...</a>
+            <a href="/src/pages/matches/index.html" class="text-muted text-sm"
+              >See Details...</a
+            >
           </div>
           <div class="matches-list">
             <div class="card">
@@ -187,17 +189,17 @@
     <script type="module" src="./candidate.js"></script>
 
     <!-- PROTECT ROUTE -->
-    <script>
+    <!-- <script>
       (function () {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem("user"));
         if (!user) {
-          window.location.replace('../login/index.html');
+          window.location.replace("../login/index.html");
           return;
         }
-        if (user.role !== 'candidate') {
-          window.location.replace('../dashboard/index.html');
+        if (user.role !== "candidate") {
+          window.location.replace("../dashboard/index.html");
         }
       })();
-    </script>
+    </script> -->
   </body>
 </html>
