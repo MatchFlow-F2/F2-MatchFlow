@@ -1,15 +1,16 @@
 # 📝 CAMBIOS POR SESIÓN
 
-**Estado:** Sesión 2 completada | **Cumplimiento:** 55% → 62% ✅
+**Estado:** Sesión 3 completada | **Cumplimiento:** 55% → 68% ✅
 
 ---
 
 ## 📊 PROGRESO GENERAL
 
 ```
-Sesión 1 (5 feb): Open to Work       55% → 60%
-Sesión 2 (5 feb): Refactorización    60% → 62%
-Próxima: Crear Matches               62% → 70%+
+Sesión 1 (5 feb): Open to Work           55% → 60%
+Sesión 2 (5 feb): Refactorización        60% → 62%
+Sesión 3 (6 feb): CSS Global + Rutas     62% → 68%
+Próxima: Crear Matches                   68% → 75%+
 Meta: 100% ✅
 ```
 
@@ -91,6 +92,121 @@ Meta: 100% ✅
 - INDEX.md: Consolidado indice de docs vigentes
 
 **Git Push:** Desarrollar ✅
+
+---
+
+## SESIÓN 3: Estandarización CSS Global + Corrección Rutas
+
+**Duración:** 4 horas  
+**Commits:** `a28898a`, `fe43610`, `c72d53a`  
+**Fecha:** 6 de Febrero, 2026
+
+### 🎨 CSS Global Unificado (2.5 horas)
+
+**Problema Identificado:**
+- 3 sistemas CSS diferentes (Bootstrap 5, Tailwind CDN, CSS mixto)
+- Archivos duplicados (styles.css = main.css)
+- 10 archivos CSS obsoletos acumulados
+- Dependencias CDN externas (~500KB)
+- Estructura HTML inconsistente entre páginas
+
+**Solución Implementada:**
+
+| Acción | Detalles | Estado |
+|--------|----------|--------|
+| **Creado global.css** | Sistema unificado 1,100+ líneas | ✅ |
+| **Variables CSS** | 20+ variables centralizadas (--bg-app, --brand, etc.) | ✅ |
+| **Componentes** | Cards, buttons, forms, modals, sidebar, navbar | ✅ |
+| **Layout system** | .layout, .sidebar, .main-content | ✅ |
+| **Utilidades** | Flex, grid, spacing, colores | ✅ |
+| **Compatibilidad** | Clases Tailwind para transición suave | ✅ |
+
+**Páginas Actualizadas (5):**
+- `dashboard/index.html` - Layout + sidebar estático
+- `jobs/index.html` - Layout + sidebar estático  
+- `candidates/index.html` - Rediseño completo (eliminado navbar horizontal)
+- `interviews/index.html` - Sidebar estático
+- `matches/index.html` - Sin cambios (ya óptima)
+
+**Archivos CSS Eliminados (10):**
+- ❌ `_OBSOLETE_variables.css`
+- ❌ `_OBSOLETE_styles.css` (duplicado de main.css)
+- ❌ `_OBSOLETE_main.css` (duplicado de styles.css)
+- ❌ `_OBSOLETE_matches.css`
+- ❌ `_OBSOLETE_interviews.css`
+- ❌ `_OBSOLETE_candidates.css`
+- ❌ `_OBSOLETE_jobs.css`
+- ❌ `_OBSOLETE_dashboard.css`
+- ❌ `_OBSOLETE_sidebar.css`
+- ❌ `_OBSOLETE_header.css`
+
+**Dependencias Removidas:**
+```html
+<!-- ❌ ELIMINADO -->
+<link href="https://cdn.jsdelivr.net/.../bootstrap.min.css" />
+<script src="https://cdn.jsdelivr.net/.../bootstrap.bundle.min.js"></script>
+<link href="/dist/output.css" /> <!-- Tailwind -->
+
+<!-- ✅ AHORA -->
+<link rel="stylesheet" href="/src/styles/global.css" />
+```
+
+### 🔗 Corrección Rutas de Navegación (1 hora)
+
+**Problema:**
+- Rutas inconsistentes (relativas vs absolutas)
+- Enlaces rotos post-login
+- Redirecciones incorrectas
+
+**Archivos Corregidos:**
+```javascript
+// auth.js - Línea 52
+window.location.href = user.role === 'company'
+  ? '/src/pages/dashboard/index.html'  // ✅ Absoluta
+  : '/src/pages/candidates/index.html';
+
+// guards.js - Línea 13
+window.location.href = user.role === 'company'
+  ? '/src/pages/dashboard/index.html'  // ✅ Absoluta
+  : '/src/pages/candidates/index.html';
+```
+
+### 📊 Métricas de Impacto
+
+| Métrica | Antes | Después | Mejora |
+|---------|-------|---------|--------|
+| **CSS Externo** | ~500KB | 0KB | -500KB |
+| **Peticiones HTTP** | 5-7 | 2 | -60% |
+| **Archivos CSS** | 13 archivos | 1 archivo | -92% |
+| **Sistemas CSS** | 3 diferentes | 1 unificado | 100% |
+
+### 📄 Documentación Generada (30 min)
+
+**Creado:** `INFORME_ESTANDARIZACION_CSS.md` (403 líneas)
+
+Contenido:
+- Problemas resueltos (enrutamiento + CSS)
+- Sistema CSS global documentado
+- Métricas y benchmarks
+- Estructura antes/después
+- Recomendaciones futuras
+- Checklist de testing
+
+### 🔀 Git Operations
+
+**Conflictos Resueltos:**
+- `src/pages/dashboard/index.html` - Mantenida versión nueva
+- `src/pages/login/js/auth.js` - Rutas absolutas
+- `src/pages/login/js/guards.js` - Rutas absolutas
+
+**Commits:**
+1. `a28898a` - feat: Estandarizar CSS global y corregir errores de enrutamiento
+2. `fe43610` - Merge: Resolver conflictos manteniendo rutas absolutas
+3. `c72d53a` - docs: Agregar informe de estandarización CSS
+
+**Git Push:** `develop` ✅
+
+**Impacto:** Sistema CSS unificado, navegación corregida, +6% cumplimiento ✅
 
 ---
 

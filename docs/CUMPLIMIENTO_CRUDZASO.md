@@ -1,29 +1,32 @@
 ﻿# 📋 CUMPLIMIENTO REQUISITOS CRUDZASO
 
-**Actualizado:** Febrero 5, 2026 | **Progreso:** 62% ✅ EN DESARROLLO
+**Actualizado:** Febrero 6, 2026 | **Progreso:** 68% ✅ EN DESARROLLO
 
 ## 📊 RESUMEN EJECUTIVO
 
 | Categoría           | %       | Estado             | Notas                               |
 | ------------------- | ------- | ------------------ | ----------------------------------- |
 | Requisitos Negocio  | 65%     | ✅                 | Open to Work implementado           |
-| Requisitos Técnicos | 75%     | ✅                 | Fetch, localStorage, json-server OK |
-| Documentación       | 60%     | ⚠️                 | 7/11 docs consolidados              |
-| **GENERAL**         | **62%** | **⚠️ REVISAR** | AUDITORÍA 5-Feb: 3 gaps críticos encontrados |
+| Requisitos Técnicos | 80%     | ✅                 | Fetch, localStorage, json-server, CSS global OK |
+| Documentación       | 65%     | ✅                 | 11 docs actualizados + informe CSS  |
+| **GENERAL**         | **68%** | **✅ PROGRESO** | CSS estandarizado, rutas corregidas |
 
-> ⚠️ **NOTA CRÍTICA:** 62% es CONDICIONAL a resolver 3 gaps antes de iniciar sprints (ver abajo)
+> ✅ **ACTUALIZACIÓN 6-FEB:** Sistema CSS global implementado. Todas las páginas ahora usan diseño unificado.  
+> ⚠️ **PENDIENTE:** Resolver 3 gaps críticos antes de Sprint 1 (ver abajo)
 
 ## ⚡ ESTADO POR FEATURE
 
 | Feature | Progreso | Status | Acción |
 |---------|----------|--------|--------|
 | **Open to Work** | 100% | ✅ COMPLETADO | Toggle UI, PATCH sync, localStorage |
+| **CSS Global** | 100% | ✅ COMPLETADO | Sistema unificado, sin CDN, 1 archivo |
+| **Rutas Navegación** | 100% | ✅ COMPLETADO | Rutas absolutas, redirecciones corregidas |
 | **Crear Matches** | 0% | ❌ BLOQUEADO | ⚠️ ESPERA: db.json.matches + hardcoded companyId fix |
 | **Match States** | 40% | ⚠️ PARCIAL | pending, interview, discarded FALTAN |
 | **Reservas** | 30% | ⚠️ PARCIAL | Validación y bloqueo |
 | **Contact Privacy** | 0% | ❌ NO HECHO | Visible siempre (DEBE ser solo si "contacted") |
-| **json-server** | 90% | ⚠️ INCOMPLETO | ❌ AUDITORÍA 5-Feb: FALTA matches array en db.json |
-| **Fetch API** | 75% | ⚠️ PARCIAL | ❌ AUDITORÍA 5-Feb: hardcoded companyId=1 en jobs.js + interviews.js |
+| **json-server** | 90% | ⚠️ INCOMPLETO | ❌ FALTA matches array en db.json |
+| **Fetch API** | 75% | ⚠️ PARCIAL | ❌ hardcoded companyId=1 en jobs.js + interviews.js |
 | **Caching** | 50% | ⚠️ PARCIAL | Solo user data, faltan candidatos/jobs |
 
 ## 🔴 PROBLEMAS CRÍTICOS (TIER 1) - UPDATE 5-FEB
@@ -52,6 +55,15 @@
 - 8 archivos CSS preservados
 - Documentación consolidada (11→7 docs)
 
+**Sesión 3: CSS Global + Rutas (6-Feb-2026)**
+- ✅ Sistema CSS global unificado (/src/styles/global.css)
+- ✅ 10 archivos CSS obsoletos eliminados
+- ✅ Todas las páginas con estructura HTML estandarizada
+- ✅ Rutas absolutas corregidas (auth.js, guards.js)
+- ✅ Eliminadas dependencias CDN (Bootstrap, Tailwind)
+- ✅ Informe completo generado (403 líneas)
+- **Impacto:** -500KB CDN, -92% archivos CSS, +6% cumplimiento
+
 ## 📝 CHECKLIST MVP
 
 ### Tier 1: Implementar Esta Semana
@@ -71,7 +83,7 @@
 
 ---
 
-# 🎯 ROADMAP: 62% → 100% CUMPLIMIENTO
+# 🎯 ROADMAP: 68% → 100% CUMPLIMIENTO
 
 **Nota:** Para detalles completos, consulta **[SPRINTS_EXECUTION.md](SPRINTS_EXECUTION.md)**
 
@@ -81,11 +93,11 @@
 
 | Sprint | Feature | Dev | Duration | Cumplimiento |
 |--------|---------|-----|----------|--------------|
-| **1** | Create Matches | Dev 1 | 3-4h | 0% → 13% |
-| **2** | Match States | Dev 2 | 2-3h | 40% → 70% |
-| **3** | Reservations | Dev 3 | 4-5h | 30% → 100% |
-| **4** | Contact Privacy | Dev 4 | 2-3h | 0% → 10% |
-| **5** | Polish & QA | Dev 5 | 2-3h | 90% → 100% |
+| **1** | Create Matches | Dev 1 | 3-4h | 68% → 75% |
+| **2** | Match States | Dev 2 | 2-3h | 75% → 85% |
+| **3** | Reservations | Dev 3 | 4-5h | 85% → 95% |
+| **4** | Contact Privacy | Dev 4 | 2-3h | 95% → 98% |
+| **5** | Polish & QA | Dev 5 | 2-3h | 98% → 100% |
 
 ## 🚀 IR A SPRINTS_EXECUTION.md
 
@@ -104,10 +116,11 @@ Para detalles COMPLETOS de cada sprint (code examples, checklists, testing):
 
 - 📖 [SPRINTS_EXECUTION.md](SPRINTS_EXECUTION.md) - FUENTE DE VERDAD
 - 📖 [IMPLEMENTACION_OPEN_TO_WORK.md](IMPLEMENTACION_OPEN_TO_WORK.md) - Feature completado
+- � [INFORME_ESTANDARIZACION_CSS.md](INFORME_ESTANDARIZACION_CSS.md) - Sistema CSS global
 - 🔧 [ANÁLISIS_ENDPOINTS.md](ANÁLISIS_ENDPOINTS.md) - Problemas técnicos
-- 🎨 [PLAN_MIGRACION_CSS.md](PLAN_MIGRACION_CSS.md) - CSS roadmap
+- 🎨 [PLAN_MIGRACION_CSS.md](PLAN_MIGRACION_CSS.md) - ⚠️ OBSOLETO (ver informe CSS)
 
 ---
 
-**Última Actualización:** Febrero 5, 2026  
-**Status:** 62% ✅ | Roadmap a 100% documentado y listo para ejecutar
+**Última Actualización:** Febrero 6, 2026  
+**Status:** 68% ✅ | CSS Global ✅ | Roadmap a 100% documentado y listo para ejecutar
