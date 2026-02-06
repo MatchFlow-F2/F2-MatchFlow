@@ -19,14 +19,20 @@
 
 ---
 
-### 🟡 CRÍTICA: Team Execution (¡Leer primero!)
+### 🟡 CRITICAL: Sprint Execution (¡Leer primero!)
 
-#### **TEAM_ASSIGNMENT_GUIDE.md** 👥 [NEW]
-- **Propósito:** Asignaciones específicas de tareas para 3-4 developers
-- **Contenido:** Quién hace qué, dependencias, timeline detallada
-- **Timeline:** 2.5-3 días para 100% cumplimiento
-- **Ideal para:** Cuando recién empieza el equipo a trabajar
-- **Dev Roles:** Backend (Dev 1), Frontend (Dev 2), QA (Dev 3), Tech Lead (Dev 4)
+#### **SPRINTS_EXECUTION.md** 🚀 [PRIMARY]
+- **Propósito:** Documento MASTER con detalles COMPLETOS para implementación
+- **Contenido:** Code examples, checklists, testing procedures, db.json updates
+- **5 Sprints:** Cada uno con tareas específicas, code samples, validación
+- **Responsable:** Todos los devs (DEV 1-5)
+- **Usar cuando:** Comenzando a implementar cualquier feature
+
+#### **TEAM_ASSIGNMENT_GUIDE.md** 👥 [REFERENCE]
+- **Propósito:** Asignaciones específicas, timeline, dependencias
+- **Contenido:** Dev 1-5 roles, sprints, schedule,no blocking model
+- **Responsable:** Tech Lead + Team
+- **Usar cuando:** Definir quién hace qué y cuándo
 
 #### **DEVELOPMENT_WORKFLOW.md** 🔄 [NEW]
 - **Propósito:** Cómo trabajar con Git/GitHub correctamente
